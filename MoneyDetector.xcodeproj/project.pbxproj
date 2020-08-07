@@ -10,6 +10,14 @@
 		6635F17F24DD36330030C0CE /* MoneyDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6635F17524DD36330030C0CE /* MoneyDetector.framework */; };
 		6635F18424DD36340030C0CE /* MoneyDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F18324DD36340030C0CE /* MoneyDetectorTests.swift */; };
 		6635F18624DD36340030C0CE /* MoneyDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 6635F17824DD36330030C0CE /* MoneyDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6635F19A24DD3A100030C0CE /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F19124DD3A100030C0CE /* Networking.swift */; };
+		6635F19B24DD3A100030C0CE /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F19224DD3A100030C0CE /* EndpointType.swift */; };
+		6635F19C24DD3A100030C0CE /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F19324DD3A100030C0CE /* NetworkError.swift */; };
+		6635F19D24DD3A100030C0CE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F19524DD3A100030C0CE /* Extensions.swift */; };
+		6635F19E24DD3A100030C0CE /* ImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F19724DD3A100030C0CE /* ImageResponse.swift */; };
+		6635F19F24DD3A100030C0CE /* MessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F19824DD3A100030C0CE /* MessageResponse.swift */; };
+		6635F1A124DD3A510030C0CE /* MoneyDetectorAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F1A024DD3A510030C0CE /* MoneyDetectorAPI.swift */; };
+		6635F1A324DD3CB90030C0CE /* MoneyDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F1A224DD3CB90030C0CE /* MoneyDetector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +37,14 @@
 		6635F17E24DD36330030C0CE /* MoneyDetectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyDetectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6635F18324DD36340030C0CE /* MoneyDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDetectorTests.swift; sourceTree = "<group>"; };
 		6635F18524DD36340030C0CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6635F19124DD3A100030C0CE /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		6635F19224DD3A100030C0CE /* EndpointType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
+		6635F19324DD3A100030C0CE /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		6635F19524DD3A100030C0CE /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		6635F19724DD3A100030C0CE /* ImageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageResponse.swift; sourceTree = "<group>"; };
+		6635F19824DD3A100030C0CE /* MessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageResponse.swift; sourceTree = "<group>"; };
+		6635F1A024DD3A510030C0CE /* MoneyDetectorAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyDetectorAPI.swift; sourceTree = "<group>"; };
+		6635F1A224DD3CB90030C0CE /* MoneyDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDetector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +87,12 @@
 		6635F17724DD36330030C0CE /* MoneyDetector */ = {
 			isa = PBXGroup;
 			children = (
+				6635F19424DD3A100030C0CE /* Extenesions */,
+				6635F19624DD3A100030C0CE /* Models */,
+				6635F18F24DD3A100030C0CE /* Networking */,
 				6635F17824DD36330030C0CE /* MoneyDetector.h */,
 				6635F17924DD36330030C0CE /* Info.plist */,
+				6635F1A224DD3CB90030C0CE /* MoneyDetector.swift */,
 			);
 			path = MoneyDetector;
 			sourceTree = "<group>";
@@ -84,6 +104,34 @@
 				6635F18524DD36340030C0CE /* Info.plist */,
 			);
 			path = MoneyDetectorTests;
+			sourceTree = "<group>";
+		};
+		6635F18F24DD3A100030C0CE /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				6635F1A024DD3A510030C0CE /* MoneyDetectorAPI.swift */,
+				6635F19124DD3A100030C0CE /* Networking.swift */,
+				6635F19224DD3A100030C0CE /* EndpointType.swift */,
+				6635F19324DD3A100030C0CE /* NetworkError.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		6635F19424DD3A100030C0CE /* Extenesions */ = {
+			isa = PBXGroup;
+			children = (
+				6635F19524DD3A100030C0CE /* Extensions.swift */,
+			);
+			path = Extenesions;
+			sourceTree = "<group>";
+		};
+		6635F19624DD3A100030C0CE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6635F19724DD3A100030C0CE /* ImageResponse.swift */,
+				6635F19824DD3A100030C0CE /* MessageResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,6 +243,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6635F1A324DD3CB90030C0CE /* MoneyDetector.swift in Sources */,
+				6635F19D24DD3A100030C0CE /* Extensions.swift in Sources */,
+				6635F19E24DD3A100030C0CE /* ImageResponse.swift in Sources */,
+				6635F19C24DD3A100030C0CE /* NetworkError.swift in Sources */,
+				6635F19A24DD3A100030C0CE /* Networking.swift in Sources */,
+				6635F19F24DD3A100030C0CE /* MessageResponse.swift in Sources */,
+				6635F19B24DD3A100030C0CE /* EndpointType.swift in Sources */,
+				6635F1A124DD3A510030C0CE /* MoneyDetectorAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +446,7 @@
 		6635F18D24DD36340030C0CE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B25SCAYUXH;
 				INFOPLIST_FILE = MoneyDetectorTests/Info.plist;
@@ -408,6 +465,7 @@
 		6635F18E24DD36340030C0CE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B25SCAYUXH;
 				INFOPLIST_FILE = MoneyDetectorTests/Info.plist;
