@@ -1,5 +1,5 @@
 //
-//  Networking.swift
+//  MDNetworking.swift
 //  MoneyDetector
 //
 //  Created by Sevak Soghoyan on 8/3/20.
@@ -11,38 +11,38 @@ public enum HTTPMethods: String {
     case POST,PUT,DELETE,GET
 }
 
-public struct Networking {
+public struct MDNetworking {
     //MARK:- Public methods
     public static func checkImageFromUrl(imageUrlLink: String,
-                                         completion: @escaping (Result<ImageResponse,NetworkError>) -> Void) {
+                                         completion: @escaping (Result<MDImageResponse,MDNetworkError>) -> Void) {
         let parameters = ["url": imageUrlLink]
-        performTask(endpointAPI: MoneyDetectorAPI.image, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: ImageResponse.self, completion: completion)
+        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDImageResponse.self, completion: completion)
     }
     
     public static func checkImage(imageData: Data,
-                                  completion: @escaping (Result<ImageResponse,NetworkError>) -> Void) {
+                                  completion: @escaping (Result<MDImageResponse,MDNetworkError>) -> Void) {
         let boundary = UUID().uuidString
         let httpBody = NSMutableData()
         httpBody.append(convertFileData(fileData: imageData,
                                         using: boundary))
         httpBody.appendString("--\(boundary)--")
-        performTask(endpointAPI: MoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: ImageResponse.self, completion: completion)
+        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: MDImageResponse.self, completion: completion)
     }
     
     public static func sendFeedback(imageId: String,
                                     isCorrect: Bool,
-                                    completion: @escaping (Result<MessageResponse,NetworkError>) -> Void) {
-        let feedbackAPI = MoneyDetectorAPI.feedback(imageId: imageId)
+                                    completion: @escaping (Result<MDMessageResponse,MDNetworkError>) -> Void) {
+        let feedbackAPI = MDMoneyDetectorAPI.feedback(imageId: imageId)
         let parameters = ["is_correct": isCorrect ? "1": "0"]
-        performTask(endpointAPI: feedbackAPI, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MessageResponse.self, completion: completion)
+        performTask(endpointAPI: feedbackAPI, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDMessageResponse.self, completion: completion)
     }
     
-    public static func performTask<T: Decodable>(endpointAPI: EndpointType,
+    public static func performTask<T: Decodable>(endpointAPI: MDEndpointType,
                                    httpMethod: HTTPMethods,
                                    contentType: String,
                                    httpBody: Data,
                                    type: T.Type,
-                                   completion: @escaping (Result<T,NetworkError>) -> Void) {
+                                   completion: @escaping (Result<T,MDNetworkError>) -> Void) {
         let urlString = (endpointAPI.baseURL + endpointAPI.path).removingPercentEncoding!
         guard let url = URL(string: urlString) else {
             completion(.failure(.domainError))
@@ -57,7 +57,7 @@ public struct Networking {
     //MARK:- Private methods
     private static func performNetworkTask<T: Decodable>(type: T.Type,
                                                          urlRequest: URLRequest,
-                                                         completion: @escaping (Result<T,NetworkError>) -> Void) {
+                                                         completion: @escaping (Result<T,MDNetworkError>) -> Void) {
         let urlSession = URLSession.shared.dataTask(with: urlRequest) { (data, urlResponse, error) in
             guard let data = data,
                 let response = urlResponse as? HTTPURLResponse,
@@ -66,7 +66,7 @@ public struct Networking {
                     return
             }
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
-                if let response = decodeData(type: MessageResponse.self, data: data),let errorText = response.error {
+                if let response = decodeData(type: MDMessageResponse.self, data: data),let errorText = response.error {
                     completion(.failure(.apiError(errorMessage: errorText)))
                 } else {
                     completion(.failure(.statusCodeError))

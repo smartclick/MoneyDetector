@@ -1,5 +1,5 @@
 //
-//  ImageResponse.swift
+//  MDImageResponse.swift
 //  MoneyDetector
 //
 //  Created by Sevak Soghoyan on 8/3/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ImageResponse: Decodable {
+public struct MDImageResponse: Decodable {
     public var id: String
     public var imagePath: String
     var isCorrect: Bool?

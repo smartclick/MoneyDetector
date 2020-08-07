@@ -1,0 +1,16 @@
+PODS:
+  - MoneyDetector (0.0.1)
+
+DEPENDENCIES:
+  - MoneyDetector (from `.`)
+
+EXTERNAL SOURCES:
+  MoneyDetector:
+    :path: "."
+
+SPEC CHECKSUMS:
+  MoneyDetector: ebde2e7d5115edca019007aecc3037e704c6dc2a
+
+PODFILE CHECKSUM: 3521d146d0f868d4004c676836e7463d42423935
+
+COCOAPODS: 1.9.3

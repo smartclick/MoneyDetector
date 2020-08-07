@@ -1,5 +1,5 @@
 //
-//  EndpointType.swift
+//  MDEndpointType.swift
 //  MoneyDetector
 //
 //  Created by Sevak Soghoyan on 8/3/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol EndpointType {
+public protocol MDEndpointType {
 
     var baseURL: String { get }
 

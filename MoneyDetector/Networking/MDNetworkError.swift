@@ -1,5 +1,5 @@
 //
-//  NetworkError.swift
+//  MDNetworkError.swift
 //  MoneyDetector
 //
 //  Created by Sevak Soghoyan on 8/4/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum NetworkError: Error {
+public enum MDNetworkError: Error {
     case domainError
     case statusCodeError
     case decodingError

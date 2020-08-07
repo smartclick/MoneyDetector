@@ -1,5 +1,5 @@
 //
-//  MessageResponse.swift
+//  MDMessageResponse.swift
 //  MoneyDetector
 //
 //  Created by Sevak Soghoyan on 8/4/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MessageResponse: Decodable {
+public struct MDMessageResponse: Decodable {
     public var message: String?
     public var error: String?
 }

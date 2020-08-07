@@ -1,0 +1,27 @@
+{
+  "name": "MoneyDetector",
+  "version": "0.0.1",
+  "summary": "Detect if there is money in the image or not",
+  "description": "This CocoaPods Library helps you to detect if there is money in the image or not.If yes than returns the description.",
+  "homepage": "https://iararat.am/",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Sevak Soghoyan": "sevak.soghoyan@smartclick.ai"
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "swift_versions": "5.0",
+  "source": {
+    "git": "https://github.com/smartclick/money_detector_ios.git",
+    "tag": "0.0.1"
+  },
+  "source_files": [
+    "MoneyDetector",
+    "MoneyDetector/**/*.{h,m,swift}"
+  ],
+  "swift_version": "5.0"
+}

@@ -1,0 +1,681 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07916B6A19D6176A3BA58BE47DE82FCC /* MoneyDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 812DC9C795FF9D3B1F80B578B8A35A03 /* MoneyDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		20F8F787D9EF931EDE525A6BA253B2F2 /* MoneyDetector-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E22715B612019703AE6A28E610C92B /* MoneyDetector-dummy.m */; };
+		2144312E6BE626465296C3AF836D55D8 /* ImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C86B411842514B41D38095F69E7172D /* ImageResponse.swift */; };
+		48E85A6C31C217C12C27F0A706486994 /* MessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BC1DA9EF9B656E3F0BD796988F40C3 /* MessageResponse.swift */; };
+		4ED32ECF90A62F0873E3ED1A7E95A41C /* MoneyDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA0C1144CC9E60CD1A6EC002137F85 /* MoneyDetector.swift */; };
+		5D4ECD86AE943F7CB8C10DD669278339 /* MoneyDetectorAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC03876BB13C22A5AFA748C6A8A8A11B /* MoneyDetectorAPI.swift */; };
+		7F1E8966D192C60C0F82DF7B8C2989F9 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308A5C86D79C098DCE983813FC08BE93 /* NetworkError.swift */; };
+		919E1007CA679AE0FF5523F6A60D8108 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8665255EA5C82B96FF99429F05116365 /* EndpointType.swift */; };
+		95466754142E414AFE76B7DFB2DF985E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		A457C4AF37F26A4F1CA2FD024ECB37A1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9C012E0FF577E3598894502143A545 /* Extensions.swift */; };
+		AACE1EA0C55BCDD13EFA4889D526C437 /* Pods-MoneyDetectionApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 23E9507314DFA36D53CDC80641738381 /* Pods-MoneyDetectionApp-dummy.m */; };
+		D5F83E3B26F0773F8A8507204A31A6BB /* Pods-MoneyDetectionApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 75E5BBEB498F0CEC35298D2E128586D7 /* Pods-MoneyDetectionApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E360CE59A3ABC4A6B3FE63BE36D658E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		F8115F91EE00DDAF2266BEB5C2A99A13 /* MoneyDetector-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E57B374D4CF57BF2BDD36DB500B52013 /* MoneyDetector-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F97ABA35855AA365D49D774B27A9ADBE /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C44308434E02E46CFA116C1CE0B5157 /* Networking.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8835D8D88AC14E4B0AF8989549F8C8A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAAE6E5C7B00C4BBD49C11F15A9D4F12;
+			remoteInfo = MoneyDetector;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		08F7C38858B5C43F829B6B8352B5B53A /* MoneyDetector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MoneyDetector.debug.xcconfig; sourceTree = "<group>"; };
+		160E12C27A31616FF6980D7FF7078C9E /* Pods-MoneyDetectionApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MoneyDetectionApp.release.xcconfig"; sourceTree = "<group>"; };
+		1E10AE5C64E86111B143B4479C06BA4C /* Pods-MoneyDetectionApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MoneyDetectionApp-acknowledgements.plist"; sourceTree = "<group>"; };
+		23E9507314DFA36D53CDC80641738381 /* Pods-MoneyDetectionApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MoneyDetectionApp-dummy.m"; sourceTree = "<group>"; };
+		2C14BB68E06F834FD47F39FDF174AAB1 /* Pods-MoneyDetectionApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MoneyDetectionApp.debug.xcconfig"; sourceTree = "<group>"; };
+		2C86B411842514B41D38095F69E7172D /* ImageResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ImageResponse.swift; sourceTree = "<group>"; };
+		308A5C86D79C098DCE983813FC08BE93 /* NetworkError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		376BA636260B8E295E254577CFCAFBF1 /* MoneyDetector.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MoneyDetector.modulemap; sourceTree = "<group>"; };
+		46E22715B612019703AE6A28E610C92B /* MoneyDetector-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MoneyDetector-dummy.m"; sourceTree = "<group>"; };
+		512757947073B99AD59A5711B09C9B2D /* MoneyDetector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MoneyDetector.release.xcconfig; sourceTree = "<group>"; };
+		6C44308434E02E46CFA116C1CE0B5157 /* Networking.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		7099A329AA6BBA715B6010CD8E45CE79 /* Pods-MoneyDetectionApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MoneyDetectionApp-acknowledgements.markdown"; sourceTree = "<group>"; };
+		724609D94673D33ECD851C502DF252D0 /* Pods-MoneyDetectionApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MoneyDetectionApp-Info.plist"; sourceTree = "<group>"; };
+		75E5BBEB498F0CEC35298D2E128586D7 /* Pods-MoneyDetectionApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MoneyDetectionApp-umbrella.h"; sourceTree = "<group>"; };
+		77FA0C1144CC9E60CD1A6EC002137F85 /* MoneyDetector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MoneyDetector.swift; path = MoneyDetector/MoneyDetector.swift; sourceTree = "<group>"; };
+		7DFAC00457D0E3B60F650F19AF748F5C /* MoneyDetector-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MoneyDetector-prefix.pch"; sourceTree = "<group>"; };
+		812DC9C795FF9D3B1F80B578B8A35A03 /* MoneyDetector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MoneyDetector.h; path = MoneyDetector/MoneyDetector.h; sourceTree = "<group>"; };
+		8665255EA5C82B96FF99429F05116365 /* EndpointType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
+		89BC1DA9EF9B656E3F0BD796988F40C3 /* MessageResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MessageResponse.swift; sourceTree = "<group>"; };
+		8E27B9CBFD0B3B5B7AB9705B9A84B479 /* MoneyDetector-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "MoneyDetector-Info.plist"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A1780D8CF01AC568AD5EB48DE5FDC179 /* MoneyDetector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MoneyDetector.framework; path = MoneyDetector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC03876BB13C22A5AFA748C6A8A8A11B /* MoneyDetectorAPI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MoneyDetectorAPI.swift; sourceTree = "<group>"; };
+		AC32033E1140E7F25368BD55647FBCAB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		AF9C012E0FF577E3598894502143A545 /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BEBD08ACE72D1519BFB1078131066E1A /* Pods_MoneyDetectionApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_MoneyDetectionApp.framework; path = "Pods-MoneyDetectionApp.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C11E4765CA1FC238F31CAD5F0408245C /* MoneyDetector.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = MoneyDetector.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C62E17A70C8576F249B60656F25013EE /* Pods-MoneyDetectionApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MoneyDetectionApp-frameworks.sh"; sourceTree = "<group>"; };
+		E52C1C71F1AE6D065A93FA08BCE98E5A /* Pods-MoneyDetectionApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-MoneyDetectionApp.modulemap"; sourceTree = "<group>"; };
+		E57B374D4CF57BF2BDD36DB500B52013 /* MoneyDetector-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MoneyDetector-umbrella.h"; sourceTree = "<group>"; };
+		E98121DEB8CD9088B05AB34B3E346ED6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		33B368A4E10AA2CFFC3C1001F7FE2674 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95466754142E414AFE76B7DFB2DF985E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA754C2DF4A9DEFA2782383DD027B654 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E360CE59A3ABC4A6B3FE63BE36D658E6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1EDE6787C80FC7957FC57870A6514FB7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1780D8CF01AC568AD5EB48DE5FDC179 /* MoneyDetector.framework */,
+				BEBD08ACE72D1519BFB1078131066E1A /* Pods_MoneyDetectionApp.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2171A2D5E477A79C81D825AF9F23C496 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				E98121DEB8CD9088B05AB34B3E346ED6 /* LICENSE */,
+				C11E4765CA1FC238F31CAD5F0408245C /* MoneyDetector.podspec */,
+				AC32033E1140E7F25368BD55647FBCAB /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		267E3B1E367B02F5C6EE9FBF0A7550AC /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7D96CB3353D054160BE0EB24C7ACE25B /* Pods-MoneyDetectionApp */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		36399B69C9BEC8369AAE6CA844AFAA7F /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				56E16B02EE77721D47CB34A6AA005096 /* MoneyDetector */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		55568659E14E07782F819F54C5F89E5F /* Extenesions */ = {
+			isa = PBXGroup;
+			children = (
+				AF9C012E0FF577E3598894502143A545 /* Extensions.swift */,
+			);
+			name = Extenesions;
+			path = MoneyDetector/Extenesions;
+			sourceTree = "<group>";
+		};
+		56E16B02EE77721D47CB34A6AA005096 /* MoneyDetector */ = {
+			isa = PBXGroup;
+			children = (
+				812DC9C795FF9D3B1F80B578B8A35A03 /* MoneyDetector.h */,
+				77FA0C1144CC9E60CD1A6EC002137F85 /* MoneyDetector.swift */,
+				55568659E14E07782F819F54C5F89E5F /* Extenesions */,
+				C25567055B3A1DBBD206BEFD45E8F21F /* Models */,
+				FE364DCC97C152009F998936C92170B6 /* Networking */,
+				2171A2D5E477A79C81D825AF9F23C496 /* Pod */,
+				6F75F1CE5F06A987365CE20EF8C8C80D /* Support Files */,
+			);
+			name = MoneyDetector;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		6F75F1CE5F06A987365CE20EF8C8C80D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				376BA636260B8E295E254577CFCAFBF1 /* MoneyDetector.modulemap */,
+				46E22715B612019703AE6A28E610C92B /* MoneyDetector-dummy.m */,
+				8E27B9CBFD0B3B5B7AB9705B9A84B479 /* MoneyDetector-Info.plist */,
+				7DFAC00457D0E3B60F650F19AF748F5C /* MoneyDetector-prefix.pch */,
+				E57B374D4CF57BF2BDD36DB500B52013 /* MoneyDetector-umbrella.h */,
+				08F7C38858B5C43F829B6B8352B5B53A /* MoneyDetector.debug.xcconfig */,
+				512757947073B99AD59A5711B09C9B2D /* MoneyDetector.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "Pods/Target Support Files/MoneyDetector";
+			sourceTree = "<group>";
+		};
+		7D96CB3353D054160BE0EB24C7ACE25B /* Pods-MoneyDetectionApp */ = {
+			isa = PBXGroup;
+			children = (
+				E52C1C71F1AE6D065A93FA08BCE98E5A /* Pods-MoneyDetectionApp.modulemap */,
+				7099A329AA6BBA715B6010CD8E45CE79 /* Pods-MoneyDetectionApp-acknowledgements.markdown */,
+				1E10AE5C64E86111B143B4479C06BA4C /* Pods-MoneyDetectionApp-acknowledgements.plist */,
+				23E9507314DFA36D53CDC80641738381 /* Pods-MoneyDetectionApp-dummy.m */,
+				C62E17A70C8576F249B60656F25013EE /* Pods-MoneyDetectionApp-frameworks.sh */,
+				724609D94673D33ECD851C502DF252D0 /* Pods-MoneyDetectionApp-Info.plist */,
+				75E5BBEB498F0CEC35298D2E128586D7 /* Pods-MoneyDetectionApp-umbrella.h */,
+				2C14BB68E06F834FD47F39FDF174AAB1 /* Pods-MoneyDetectionApp.debug.xcconfig */,
+				160E12C27A31616FF6980D7FF7078C9E /* Pods-MoneyDetectionApp.release.xcconfig */,
+			);
+			name = "Pods-MoneyDetectionApp";
+			path = "Target Support Files/Pods-MoneyDetectionApp";
+			sourceTree = "<group>";
+		};
+		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		C25567055B3A1DBBD206BEFD45E8F21F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C86B411842514B41D38095F69E7172D /* ImageResponse.swift */,
+				89BC1DA9EF9B656E3F0BD796988F40C3 /* MessageResponse.swift */,
+			);
+			name = Models;
+			path = MoneyDetector/Models;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				36399B69C9BEC8369AAE6CA844AFAA7F /* Development Pods */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				1EDE6787C80FC7957FC57870A6514FB7 /* Products */,
+				267E3B1E367B02F5C6EE9FBF0A7550AC /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FE364DCC97C152009F998936C92170B6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				8665255EA5C82B96FF99429F05116365 /* EndpointType.swift */,
+				AC03876BB13C22A5AFA748C6A8A8A11B /* MoneyDetectorAPI.swift */,
+				308A5C86D79C098DCE983813FC08BE93 /* NetworkError.swift */,
+				6C44308434E02E46CFA116C1CE0B5157 /* Networking.swift */,
+			);
+			name = Networking;
+			path = MoneyDetector/Networking;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		59232123F120A394A48525E3DB89A294 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5F83E3B26F0773F8A8507204A31A6BB /* Pods-MoneyDetectionApp-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5C758F20442D5F78BCF3E2DFEE10E72 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8115F91EE00DDAF2266BEB5C2A99A13 /* MoneyDetector-umbrella.h in Headers */,
+				07916B6A19D6176A3BA58BE47DE82FCC /* MoneyDetector.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2F93BFC755EEF87A5CB796D50D90A84B /* Pods-MoneyDetectionApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0719D377ABF529AF54F11A563107A2A /* Build configuration list for PBXNativeTarget "Pods-MoneyDetectionApp" */;
+			buildPhases = (
+				59232123F120A394A48525E3DB89A294 /* Headers */,
+				9C200C1B31FC48E7F5DAF5C7994FEC83 /* Sources */,
+				FA754C2DF4A9DEFA2782383DD027B654 /* Frameworks */,
+				4DFEC56B22E12AD91E1E448047EF992D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				143C21075ED850A56079B52AF7F06545 /* PBXTargetDependency */,
+			);
+			name = "Pods-MoneyDetectionApp";
+			productName = "Pods-MoneyDetectionApp";
+			productReference = BEBD08ACE72D1519BFB1078131066E1A /* Pods_MoneyDetectionApp.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EAAE6E5C7B00C4BBD49C11F15A9D4F12 /* MoneyDetector */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DACCA9D6F93342DA3B120A9DAFAC733B /* Build configuration list for PBXNativeTarget "MoneyDetector" */;
+			buildPhases = (
+				E5C758F20442D5F78BCF3E2DFEE10E72 /* Headers */,
+				217D02FCEE0A2E4913608FC3397F580E /* Sources */,
+				33B368A4E10AA2CFFC3C1001F7FE2674 /* Frameworks */,
+				5A78CB0ADD7AC34D7A4E04A6CD58235C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MoneyDetector;
+			productName = MoneyDetector;
+			productReference = A1780D8CF01AC568AD5EB48DE5FDC179 /* MoneyDetector.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 1EDE6787C80FC7957FC57870A6514FB7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EAAE6E5C7B00C4BBD49C11F15A9D4F12 /* MoneyDetector */,
+				2F93BFC755EEF87A5CB796D50D90A84B /* Pods-MoneyDetectionApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4DFEC56B22E12AD91E1E448047EF992D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A78CB0ADD7AC34D7A4E04A6CD58235C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		217D02FCEE0A2E4913608FC3397F580E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				919E1007CA679AE0FF5523F6A60D8108 /* EndpointType.swift in Sources */,
+				A457C4AF37F26A4F1CA2FD024ECB37A1 /* Extensions.swift in Sources */,
+				2144312E6BE626465296C3AF836D55D8 /* ImageResponse.swift in Sources */,
+				48E85A6C31C217C12C27F0A706486994 /* MessageResponse.swift in Sources */,
+				20F8F787D9EF931EDE525A6BA253B2F2 /* MoneyDetector-dummy.m in Sources */,
+				4ED32ECF90A62F0873E3ED1A7E95A41C /* MoneyDetector.swift in Sources */,
+				5D4ECD86AE943F7CB8C10DD669278339 /* MoneyDetectorAPI.swift in Sources */,
+				7F1E8966D192C60C0F82DF7B8C2989F9 /* NetworkError.swift in Sources */,
+				F97ABA35855AA365D49D774B27A9ADBE /* Networking.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C200C1B31FC48E7F5DAF5C7994FEC83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AACE1EA0C55BCDD13EFA4889D526C437 /* Pods-MoneyDetectionApp-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		143C21075ED850A56079B52AF7F06545 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MoneyDetector;
+			target = EAAE6E5C7B00C4BBD49C11F15A9D4F12 /* MoneyDetector */;
+			targetProxy = 8835D8D88AC14E4B0AF8989549F8C8A6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		17659EE7BAAD1C33F3FF31A71164F120 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 512757947073B99AD59A5711B09C9B2D /* MoneyDetector.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MoneyDetector/MoneyDetector-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MoneyDetector/MoneyDetector-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/MoneyDetector/MoneyDetector.modulemap";
+				PRODUCT_MODULE_NAME = MoneyDetector;
+				PRODUCT_NAME = MoneyDetector;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		257497152829C177993B5EC99C1D227A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		5C9542BD34D8988C3790009C4D7200EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C14BB68E06F834FD47F39FDF174AAB1 /* Pods-MoneyDetectionApp.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MoneyDetectionApp/Pods-MoneyDetectionApp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MoneyDetectionApp/Pods-MoneyDetectionApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7712DBBFA253A1DCA089FF9B95A28E47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08F7C38858B5C43F829B6B8352B5B53A /* MoneyDetector.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/MoneyDetector/MoneyDetector-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MoneyDetector/MoneyDetector-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/MoneyDetector/MoneyDetector.modulemap";
+				PRODUCT_MODULE_NAME = MoneyDetector;
+				PRODUCT_NAME = MoneyDetector;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C52F211B06A207B780A407DB3A8EEECC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 160E12C27A31616FF6980D7FF7078C9E /* Pods-MoneyDetectionApp.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-MoneyDetectionApp/Pods-MoneyDetectionApp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MoneyDetectionApp/Pods-MoneyDetectionApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DD8F832993327D1DD8046C3CBCBD97CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD8F832993327D1DD8046C3CBCBD97CD /* Debug */,
+				257497152829C177993B5EC99C1D227A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DACCA9D6F93342DA3B120A9DAFAC733B /* Build configuration list for PBXNativeTarget "MoneyDetector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7712DBBFA253A1DCA089FF9B95A28E47 /* Debug */,
+				17659EE7BAAD1C33F3FF31A71164F120 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0719D377ABF529AF54F11A563107A2A /* Build configuration list for PBXNativeTarget "Pods-MoneyDetectionApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C9542BD34D8988C3790009C4D7200EB /* Debug */,
+				C52F211B06A207B780A407DB3A8EEECC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

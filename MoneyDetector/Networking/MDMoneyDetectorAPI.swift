@@ -1,5 +1,5 @@
 //
-//  MoneyDetectorAPI.swift
+//  MDMoneyDetectorAPI.swift
 //  MoneyDetector
 //
 //  Created by Sevak Soghoyan on 8/3/20.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-public enum MoneyDetectorAPI {
+public enum MDMoneyDetectorAPI {
     case feedback(imageId: String)
     case image
 }
 
-extension MoneyDetectorAPI: EndpointType {
+extension MDMoneyDetectorAPI: MDEndpointType {
     public var baseURL: String {
         return "https://api.iararat.am"
     }

@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  MDExtensions.swift
 //  MoneyDetector
 //
 //  Created by Sevak Soghoyan on 8/4/20.
