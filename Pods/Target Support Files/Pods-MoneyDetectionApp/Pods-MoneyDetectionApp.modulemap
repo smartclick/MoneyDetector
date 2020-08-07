@@ -1,6 +1,0 @@
-framework module Pods_MoneyDetectionApp {
-  umbrella header "Pods-MoneyDetectionApp-umbrella.h"
-
-  export *
-  module * { export * }
-}
