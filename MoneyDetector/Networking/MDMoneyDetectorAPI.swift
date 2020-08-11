@@ -15,15 +15,15 @@ public enum MDMoneyDetectorAPI {
 
 extension MDMoneyDetectorAPI: MDEndpointType {
     public var baseURL: String {
-        return "https://api.iararat.am"
+        return "http://192.168.88.232:8008/9726255eec083aa56dc0449a21b33190"
     }
 
     public var path: String {
         switch self {
         case .image:
-            return ""
+            return "/"
         case .feedback(let imageId):
-            return "/image/\(imageId)"
+            return "/\(imageId)"
         }
     }
 }

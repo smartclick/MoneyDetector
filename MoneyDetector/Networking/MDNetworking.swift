@@ -11,29 +11,37 @@ public enum HTTPMethods: String {
     case POST,PUT,DELETE,GET
 }
 
+//MARK:- Public methods
 public struct MDNetworking {
-    //MARK:- Public methods
     public static func checkImageFromUrl(imageUrlLink: String,
-                                         completion: @escaping (Result<MDImageResponse,MDNetworkError>) -> Void) {
+                                         completion: @escaping (Result<MDDetectMoneyResponse,MDNetworkError>) -> Void) {
         let parameters = ["url": imageUrlLink]
-        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDImageResponse.self, completion: completion)
+        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDDetectMoneyResponse.self, completion: completion)
     }
     
     public static func checkImage(imageData: Data,
-                                  completion: @escaping (Result<MDImageResponse,MDNetworkError>) -> Void) {
+                                  completion: @escaping (Result<MDDetectMoneyResponse,MDNetworkError>) -> Void) {
         let boundary = UUID().uuidString
         let httpBody = NSMutableData()
         httpBody.append(convertFileData(fileData: imageData,
                                         using: boundary))
         httpBody.appendString("--\(boundary)--")
-        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: MDImageResponse.self, completion: completion)
+        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: MDDetectMoneyResponse.self, completion: completion)
     }
     
     public static func sendFeedback(imageId: String,
                                     isCorrect: Bool,
                                     completion: @escaping (Result<MDMessageResponse,MDNetworkError>) -> Void) {
         let feedbackAPI = MDMoneyDetectorAPI.feedback(imageId: imageId)
-        let parameters = ["is_correct": isCorrect ? "1": "0"]
+        let parameters = ["is_correct": isCorrect]
+        performTask(endpointAPI: feedbackAPI, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDMessageResponse.self, completion: completion)
+    }
+    
+    public static func sendFeedback(imageId: String,
+                                    message: String,
+                                    completion: @escaping (Result<MDMessageResponse,MDNetworkError>) -> Void) {
+        let feedbackAPI = MDMoneyDetectorAPI.feedback(imageId: imageId)
+        let parameters = ["message": message]
         performTask(endpointAPI: feedbackAPI, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDMessageResponse.self, completion: completion)
     }
     
@@ -53,8 +61,10 @@ public struct MDNetworking {
         urlRequest.httpBody = httpBody
         performNetworkTask(type: T.self, urlRequest: urlRequest, completion: completion)
     }
-    
-    //MARK:- Private methods
+}
+
+//MARK:- Private methods
+extension MDNetworking {
     private static func performNetworkTask<T: Decodable>(type: T.Type,
                                                          urlRequest: URLRequest,
                                                          completion: @escaping (Result<T,MDNetworkError>) -> Void) {
@@ -77,11 +87,13 @@ public struct MDNetworking {
             if let response = decodeData(type: T.self, data: data) {
                 completion(.success(response))
             } else {
+                let string = String(decoding: data, as: UTF8.self)
+                print(string)
                 completion(.failure(.decodingError))
             }
         }
         urlSession.resume()
-    }    
+    }
     
     private static func decodeData<T: Decodable>(type: T.Type, data: Data) -> T? {
         let jsonDecoder = JSONDecoder()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MoneyDetector
 
 struct UIUtilityMethods {
     static func initializeWindow(withRootViewController rootViewController: UIViewController) -> UIWindow {
@@ -14,5 +15,23 @@ struct UIUtilityMethods {
         window.rootViewController = rootViewController
         window.makeKeyAndVisible()
         return window
+    }
+    
+    static func resizeImage(image: UIImage, newSize: CGFloat) -> UIImage? {
+        var newWidth = newSize
+        var newHeight = newSize
+        if image.size.width > image.size.height {
+            let scale = newWidth / image.size.width
+            newHeight = image.size.height * scale
+        } else {
+            let scale = newHeight / image.size.height
+            newWidth = image.size.width * scale
+        }
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
 }
