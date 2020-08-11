@@ -28,19 +28,14 @@ class DetectResultsViewController: BaseViewController {
             }
         }
     }
-    
-    @IBAction func tryAnotherButtonAction(_ sender: Any) {
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
-    convenience init(withImage image: UIImage) {
-        self.init()
-        self.selectedImage = image        
-    }
 }
 
 //MARK:- View Lifecycle
 extension DetectResultsViewController {
+    convenience init(withImage image: UIImage) {
+        self.init()
+        self.selectedImage = image
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +44,13 @@ extension DetectResultsViewController {
         detectMoneyInImage()
     }
     
+}
+
+//MARK:- IBActions
+extension DetectResultsViewController {
+    @IBAction func tryAnotherButtonAction(_ sender: Any) {
+        navigationController?.popToRootViewController(animated: true)
+    }
 }
 
 //MARK:- Private methods
@@ -104,8 +106,7 @@ extension DetectResultsViewController {
     private func configurePointsViews() {
         resetValues()
         let withDiff = imageView.frame.size.width / selectedImage.size.width
-        let heightDiff = imageView.frame.size.height / selectedImage.size.height
-        let colors: [UIColor] = [.yellow, .red, .blue, .purple, .green, .white, .black]
+        let heightDiff = imageView.frame.size.height / selectedImage.size.height        
         var colorIndex = 0
         for detectMoney in results {
             var polygonViews: [PolygonView] = []
@@ -113,13 +114,13 @@ extension DetectResultsViewController {
                 let points = polygon.compactMap({
                     CGPoint(x:(CGFloat($0.x) * withDiff), y: (CGFloat($0.y) * heightDiff))
                 })
-                polygonViews.append(addPolygonView(points: points, color: colors[colorIndex]))
+                polygonViews.append(addPolygonView(points: points, color: Constants.colors[colorIndex]))
             }
             if polygonViews.count > 0 {
-                let resultView = configureResultView(detectMoney: detectMoney, withColor: colors[colorIndex])
+                let resultView = configureResultView(detectMoney: detectMoney, withColor: Constants.colors[colorIndex])
                 polygonResultViewsDict[detectMoney.id] = (resultView, polygonViews)
             }
-            colorIndex += 1
+            colorIndex = colorIndex == Constants.colors.count - 1 ? 0 : colorIndex + 1            
         }
         
     }    

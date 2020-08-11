@@ -44,7 +44,6 @@ extension CameraViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureObservers()
-        setupCaptureSession()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +53,7 @@ extension CameraViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        startSession()
+        setupCaptureSession()
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,13 +69,7 @@ extension CameraViewController {
 //MARK:- IBActions
 extension CameraViewController {
     @IBAction func cameraButtonAction(_ sender: Any) {
-        let settings = AVCapturePhotoSettings()
-        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
-        let previewFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
-                             kCVPixelBufferWidthKey as String: 550,
-                             kCVPixelBufferHeightKey as String: 550]
-        settings.previewPhotoFormat = previewFormat
-        photoOutput.capturePhoto(with: settings, delegate: self)
+        photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     
     @IBAction func cancelButtonAction(_ sender: Any) {
@@ -121,6 +114,7 @@ extension CameraViewController {
             //commit configuration
             self.captureSession.commitConfiguration()
             //start running it
+            self.captureSession.startRunning()
         }
     }
     
@@ -167,8 +161,19 @@ extension CameraViewController {
     }
     
     private func stopSession() {
+        if previewLayer != nil {
+            previewLayer.removeFromSuperlayer()
+            previewLayer = nil
+        }
         sessionQueue.async {
             self.captureSession.stopRunning()
+            for input in self.captureSession.inputs {
+                self.captureSession.removeInput(input)
+            }
+            for output in self.captureSession.outputs {
+                self.captureSession.removeOutput(output)
+            }
+            self.captureSession = nil
         }
     }
     
@@ -187,7 +192,11 @@ extension CameraViewController {
         cancelButton.isHidden = isCancel
         proceedButton.isHidden = isCancel
         cameraButton.isHidden = !isCancel
-        isCancel ? startSession() : stopSession()
+        sessionQueue.async {
+            if nil != self.captureSession {
+                isCancel ? self.captureSession.startRunning() : self.captureSession.stopRunning()
+            }
+        }
     }
     
     private func configureObservers() {
