@@ -6,7 +6,7 @@ Pod::Spec.new do |spec|
 This CocoaPods Library helps you to detect if there is money in the image or not.If yes than returns the description.
                    DESC
 
-  spec.homepage     = "https://iararat.am/"
+  spec.homepage     = "https://smartclick.ai//"
   spec.license      = { :type => "MIT", :file => "LICENSE" }
   spec.author             = { "Sevak Soghoyan" => "sevak.soghoyan@smartclick.ai" }
   spec.ios.deployment_target = "11.0"

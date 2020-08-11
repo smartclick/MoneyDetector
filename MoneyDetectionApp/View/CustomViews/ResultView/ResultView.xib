@@ -53,7 +53,7 @@
                     <rect key="frame" x="10" y="38" width="150" height="37"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="150" id="Tyf-JC-7U4"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="Tyf-JC-7U4"/>
                         <constraint firstAttribute="height" constant="37" id="ovd-tj-nmS"/>
                     </constraints>
                     <color key="tintColor" red="0.16078431372549018" green="0.5725490196078431" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -76,7 +76,7 @@
                     <rect key="frame" x="215" y="38" width="150" height="37"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="150" id="FgG-QL-Byu"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="FgG-QL-Byu"/>
                         <constraint firstAttribute="height" constant="37" id="Lx2-Fu-E2E"/>
                     </constraints>
                     <color key="tintColor" red="0.84804755958868427" green="0.0" blue="0.13532334321496806" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -100,7 +100,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="37" id="EHr-Eq-vMw"/>
-                        <constraint firstAttribute="width" constant="200" id="OTv-ae-5sF"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="OTv-ae-5sF"/>
                     </constraints>
                     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Leave Feedback" image="message" catalog="system">
@@ -124,8 +124,10 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XAE-Ny-chI" secondAttribute="trailing" constant="10" id="2eN-ef-OWe"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Hj3-4j-Y2v" secondAttribute="bottom" constant="10" id="6nX-Td-CTv"/>
                 <constraint firstItem="FoN-6i-XhP" firstAttribute="centerY" secondItem="ewH-zw-7Yh" secondAttribute="centerY" id="9RY-34-yxy"/>
+                <constraint firstItem="Hj3-4j-Y2v" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.533333" priority="999" id="Adu-pm-PdL"/>
                 <constraint firstItem="ewH-zw-7Yh" firstAttribute="leading" secondItem="FoN-6i-XhP" secondAttribute="trailing" constant="5" id="FtG-A4-Pw9"/>
                 <constraint firstItem="OLD-K6-NBS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ewH-zw-7Yh" secondAttribute="trailing" constant="5" id="IER-Wl-LzZ"/>
+                <constraint firstItem="sbw-Rz-aRI" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.4" priority="999" id="KjQ-kR-4NB"/>
                 <constraint firstItem="OLD-K6-NBS" firstAttribute="centerY" secondItem="ewH-zw-7Yh" secondAttribute="centerY" id="SnW-CJ-UO8"/>
                 <constraint firstItem="ewH-zw-7Yh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="UVK-8x-Xh6"/>
                 <constraint firstItem="sbw-Rz-aRI" firstAttribute="top" secondItem="ewH-zw-7Yh" secondAttribute="bottom" constant="10" id="c6j-1d-mdw"/>
@@ -134,6 +136,7 @@
                 <constraint firstItem="sbw-Rz-aRI" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="iIZ-93-jyh"/>
                 <constraint firstItem="FoN-6i-XhP" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="kf1-Y5-v7E"/>
                 <constraint firstItem="XAE-Ny-chI" firstAttribute="centerY" secondItem="sbw-Rz-aRI" secondAttribute="centerY" id="ta6-I1-Ue8"/>
+                <constraint firstItem="XAE-Ny-chI" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.4" priority="999" id="vKP-Uj-Psc"/>
                 <constraint firstItem="Hj3-4j-Y2v" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="wU1-AI-YpI"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>

@@ -15,8 +15,7 @@ class MainViewController: UIViewController {
 }
 
 //MARK:- View lifecycle
-extension MainViewController {
-    
+extension MainViewController {    
     override func viewDidLoad() {
         super.viewDidLoad()        
     }
@@ -69,7 +68,6 @@ extension MainViewController {
 
 // MARK:- UIImagePickerControllerDelegate methods
 extension MainViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var selectedImage: UIImage?
         if let editedImage = info[.editedImage] as? UIImage {
