@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
 //MARK:- View lifecycle
 extension MainViewController {    
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {

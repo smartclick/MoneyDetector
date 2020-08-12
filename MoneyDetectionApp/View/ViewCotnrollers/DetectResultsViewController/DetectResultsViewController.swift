@@ -16,7 +16,9 @@ class DetectResultsViewController: BaseViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var resultsStackView: UIStackView!
     @IBOutlet weak var polygonViewsContainerView: UIView!
+    @IBOutlet weak var tryAgainButton: UIButton!
     @IBOutlet weak var tryAnotherPictureButton: UIButton!
+    @IBOutlet weak var noResultLabel: UILabel!
     
     private typealias ResultAndPolygonViews = (ResultView, [PolygonView])
     private var polygonResultViewsDict: [String: ResultAndPolygonViews] = [:]
@@ -27,7 +29,7 @@ class DetectResultsViewController: BaseViewController {
                 self.configurePointsViews()
             }
         }
-    }
+    }    
 }
 
 //MARK:- View Lifecycle
@@ -48,7 +50,11 @@ extension DetectResultsViewController {
 
 //MARK:- IBActions
 extension DetectResultsViewController {
-    @IBAction func tryAnotherButtonAction(_ sender: Any) {
+    @IBAction func tryAgainButtonAction(_ sender: Any) {
+        detectMoneyInImage()
+    }
+    
+    @IBAction func tryAnotherPictureButtonAction(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
     }
 }
@@ -59,17 +65,16 @@ extension DetectResultsViewController {
         guard let imageData = selectedImage.pngData() else {
             return
         }
-        activityIndicatorView.startAnimating()
+        activityIndicatorView.startAnimating(inView: navigationController!.view)
+        updateTryButtons()
         MoneyDetector.detectMoney(withImageData: imageData) { [weak self] (result)  in
             guard let self = self else {
                 return
             }
-            DispatchQueue.main.async {
-                self.activityIndicatorView.stopAnimating()
-                self.tryAnotherPictureButton.isHidden = false
-            }
+            var isSuccess = false
             switch result{
             case .success(let response):
+                isSuccess = true
                 if let result = response.results {
                     self.results = result
                 }
@@ -77,13 +82,24 @@ extension DetectResultsViewController {
                 print(errorResponse.localizedDescription)
                 self.showAlert(withMessage: UtilityMethods.getMessage(error: errorResponse))
             }
+            DispatchQueue.main.async {
+                self.activityIndicatorView.stopAnimating()
+                self.updateTryButtons(isSuccess: isSuccess)
+            }
         }
     }
     
     private func updateUI() {
         imageView.image = selectedImage
         configureAspectRatioConstraint()        
+    }        
+    
+    private func updateTryButtons(isSuccess: Bool? = nil) {
+        tryAgainButton.isHidden = isSuccess ?? true
+        tryAnotherPictureButton.isHidden = !(isSuccess ?? false)
+        noResultLabel.isHidden = tryAnotherPictureButton.isHidden || results.count != 0
     }
+    
     
     func configureRightBarButtonItem() {
         let button =  UIButton(type: .custom)
@@ -128,7 +144,7 @@ extension DetectResultsViewController {
         configureRightBarButtonItem()
         let withDiff = imageView.frame.size.width / selectedImage.size.width
         let heightDiff = imageView.frame.size.height / selectedImage.size.height        
-        var colorIndex = 0
+        var colorIndex = 0        
         for detectMoney in results {
             var polygonViews: [PolygonView] = []
             for polygon in detectMoney.polygon {
@@ -164,7 +180,7 @@ extension DetectResultsViewController {
     }
     
     private func sendFeedback(detectedMoney: MDDetectedMoney, isCorrect: Bool, completion:(()->())?) {        
-        activityIndicatorView.startAnimating()
+        activityIndicatorView.startAnimating(inView: navigationController!.view)
         MoneyDetector.sendFeedback(withImageID: detectedMoney.id, isCorrect: isCorrect) {[weak self] (result) in
             guard let self = self else {
                 return

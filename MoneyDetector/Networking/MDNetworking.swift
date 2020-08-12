@@ -15,17 +15,17 @@ public enum HTTPMethods: String {
 public struct MDNetworking {
     public static func checkImageFromUrl(imageUrlLink: String,
                                          completion: @escaping (Result<MDDetectMoneyResponse,MDNetworkError>) -> Void) {
-        let parameters = ["url": imageUrlLink]
-        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data", httpBody: parameters.percentEncoded()!, type: MDDetectMoneyResponse.self, completion: completion)
+        let boundary = UUID().uuidString
+        let httpBody = NSMutableData()
+        httpBody.append(convertURL(url: imageUrlLink, using: boundary))
+        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: MDDetectMoneyResponse.self, completion: completion)
     }
     
     public static func checkImage(imageData: Data,
                                   completion: @escaping (Result<MDDetectMoneyResponse,MDNetworkError>) -> Void) {
         let boundary = UUID().uuidString
         let httpBody = NSMutableData()
-        httpBody.append(convertFileData(fileData: imageData,
-                                        using: boundary))
-        httpBody.appendString("--\(boundary)--")
+        httpBody.append(convertFileData(fileData: imageData,using: boundary))
         performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: MDDetectMoneyResponse.self, completion: completion)
     }
     
@@ -115,7 +115,17 @@ extension MDNetworking {
         data.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(timestamp).png\"\r\n".data(using: .utf8)!)
         data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
         data.append(fileData)
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
+        return data as Data
+    }
+    
+    private static func convertURL(url: String, using boundary: String) -> Data {
+        let data = NSMutableData()
+        
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"url\"\r\n\r\n".data(using: .utf8)!)
+        data.appendString(url)
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
         return data as Data
