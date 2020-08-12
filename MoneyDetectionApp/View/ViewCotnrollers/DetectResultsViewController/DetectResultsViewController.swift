@@ -65,7 +65,7 @@ extension DetectResultsViewController {
         guard let imageData = selectedImage.pngData() else {
             return
         }
-        activityIndicatorView.startAnimating(inView: navigationController!.view)
+        activityIndicatorView.startAnimating()
         updateTryButtons()
         MoneyDetector.detectMoney(withImageData: imageData) { [weak self] (result)  in
             guard let self = self else {
@@ -180,7 +180,7 @@ extension DetectResultsViewController {
     }
     
     private func sendFeedback(detectedMoney: MDDetectedMoney, isCorrect: Bool, completion:(()->())?) {        
-        activityIndicatorView.startAnimating(inView: navigationController!.view)
+        activityIndicatorView.startAnimating()
         MoneyDetector.sendFeedback(withImageID: detectedMoney.id, isCorrect: isCorrect) {[weak self] (result) in
             guard let self = self else {
                 return

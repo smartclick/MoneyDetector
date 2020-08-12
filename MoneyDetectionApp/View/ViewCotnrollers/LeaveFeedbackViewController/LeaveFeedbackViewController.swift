@@ -84,7 +84,7 @@ extension LeaveFeedbackViewController {
             showAlert(withMessage: Messages.feedbackEmptyText)
             return
         }
-        activityIndicatorView.startAnimating(inView: navigationController!.view)
+        activityIndicatorView.startAnimating()
         MoneyDetector.sendFeedback(withImageID: imageId, message: feedbackTextView.text) { [weak self] (result) in
             guard let self = self else {
                 return
