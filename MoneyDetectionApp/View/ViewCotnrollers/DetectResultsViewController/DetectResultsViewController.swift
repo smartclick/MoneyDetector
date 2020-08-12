@@ -75,7 +75,7 @@ extension DetectResultsViewController {
                 }
             case .failure(let errorResponse):
                 print(errorResponse.localizedDescription)
-                self.showErrorAlertt(error: errorResponse)
+                self.showAlert(withMessage: UtilityMethods.getMessage(error: errorResponse))
             }
         }
     }
@@ -180,7 +180,7 @@ extension DetectResultsViewController {
                 }
             case .failure(let errorResponse):
                 print(errorResponse.localizedDescription)
-                self.showErrorAlertt(error: errorResponse)
+                self.showAlert(withMessage: UtilityMethods.getMessage(error: errorResponse))
             }
         }
     }

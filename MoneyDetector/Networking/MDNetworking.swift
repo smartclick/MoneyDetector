@@ -59,6 +59,7 @@ public struct MDNetworking {
         urlRequest.httpMethod = httpMethod.rawValue
         urlRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
         urlRequest.httpBody = httpBody
+        urlRequest.timeoutInterval = 10.0
         performNetworkTask(type: T.self, urlRequest: urlRequest, completion: completion)
     }
 }

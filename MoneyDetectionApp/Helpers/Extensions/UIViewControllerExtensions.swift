@@ -93,19 +93,7 @@ extension UIViewController {
         let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
-    }
-    
-    func showErrorAlertt(error: MDNetworkError) {
-        var message = error.localizedDescription
-        switch error {
-        case .apiError(let errorMessage):
-            message = errorMessage
-        default:
-            break
-        }
-        showAlert(withMessage: message)
-        
-    }
+    }        
 }
 
 extension UIAlertController {

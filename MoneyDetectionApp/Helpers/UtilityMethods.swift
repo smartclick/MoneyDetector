@@ -35,3 +35,18 @@ struct UIUtilityMethods {
         return newImage
     }
 }
+ 
+struct UtilityMethods {
+    static func getMessage(error: MDNetworkError) -> String {
+        var message = Messages.somethingWrong
+        switch error {
+        case .apiError(let errorMessage):
+            message = errorMessage
+        case .domainError:
+            message = Messages.checkInternetConnection            
+        default:
+            break
+        }
+        return message
+    }
+}

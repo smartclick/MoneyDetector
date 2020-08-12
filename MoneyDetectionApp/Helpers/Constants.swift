@@ -24,4 +24,5 @@ struct Messages {
     static var feedbackPlaceholder = "Enter feedback text..."
     static var feedbackEmptyText = "Feedback text is empty"
     static var somethingWrong = "Something went wrong"
+    static var checkInternetConnection = "Please check your internet connection."
 }
