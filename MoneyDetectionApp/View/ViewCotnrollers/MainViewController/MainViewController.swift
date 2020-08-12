@@ -11,7 +11,14 @@ import UIKit
 //MARK:- Properties
 class MainViewController: UIViewController {    
     @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var galleryButton: UIButton!        
+    @IBOutlet weak var galleryButton: UIButton!
+    
+    var imagePicker: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = false
+        imagePicker.modalPresentationStyle = .fullScreen
+        return imagePicker
+    }()
 }
 
 //MARK:- View lifecycle
@@ -36,11 +43,8 @@ extension MainViewController {
 extension MainViewController {
     private func presentImagePicker(sourceType: UIImagePickerController.SourceType) {
         if UIImagePickerController.isSourceTypeAvailable(sourceType){
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.allowsEditing = false
             imagePicker.sourceType = sourceType
-            imagePicker.modalPresentationStyle = .fullScreen
+            imagePicker.delegate = self
             present(imagePicker, animated: true, completion: nil)
         } else {
             showAlert(withMessage: Messages.galleryNotAvailable)

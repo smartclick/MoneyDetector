@@ -9,12 +9,12 @@
 import UIKit
 
 class PolygonView: UIView {
-    func addRectangleFromPoints(points: [CGPoint], fillColor: UIColor = .clear, strokeColor: UIColor = .clear, lineWidth: CGFloat = 3.0, smoothness: CGFloat = 0.0) {
+    func addRectangleFromPoints(points: [CGPoint], fillColor: UIColor = .clear, strokeColor: UIColor = .clear, lineWidth: CGFloat = 2.4, smoothness: CGFloat = 0.0) {
         let path = createCurve(from: points, withSmoothness: smoothness)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = fillColor.withAlphaComponent(0.0).cgColor
-        shapeLayer.strokeColor = strokeColor.withAlphaComponent(0.9).cgColor
+        shapeLayer.strokeColor = strokeColor.withAlphaComponent(0.7).cgColor
         shapeLayer.lineWidth = lineWidth
         
         layer.addSublayer(shapeLayer)
