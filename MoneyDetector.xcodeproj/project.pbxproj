@@ -29,7 +29,7 @@
 		66975EC024DD6A770024C3FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66975EB024DD6A770024C3FF /* SceneDelegate.swift */; };
 		66975EC124DD6A770024C3FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66975EB224DD6A770024C3FF /* Assets.xcassets */; };
 		66975EC224DD6A770024C3FF /* UtilityMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66975EB424DD6A770024C3FF /* UtilityMethods.swift */; };
-		66975EC324DD6A770024C3FF /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66975EB624DD6A770024C3FF /* UIApplicationExtensions.swift */; };
+		66975EC324DD6A770024C3FF /* URLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66975EB624DD6A770024C3FF /* URLSessionExtensions.swift */; };
 		66975EC424DD6A770024C3FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66975EB924DD6A770024C3FF /* LaunchScreen.storyboard */; };
 		66975EC524DD6A770024C3FF /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66975EBC24DD6A770024C3FF /* MainViewController.xib */; };
 		66975EC624DD6A770024C3FF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66975EBD24DD6A770024C3FF /* MainViewController.swift */; };
@@ -99,7 +99,7 @@
 		66975EB024DD6A770024C3FF /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		66975EB224DD6A770024C3FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66975EB424DD6A770024C3FF /* UtilityMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityMethods.swift; sourceTree = "<group>"; };
-		66975EB624DD6A770024C3FF /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
+		66975EB624DD6A770024C3FF /* URLSessionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionExtensions.swift; sourceTree = "<group>"; };
 		66975EBA24DD6A770024C3FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		66975EBC24DD6A770024C3FF /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		66975EBD24DD6A770024C3FF /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -197,9 +197,9 @@
 		6635F18F24DD3A100030C0CE /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				6635F19224DD3A100030C0CE /* MDEndpointType.swift */,
 				6635F1A024DD3A510030C0CE /* MDMoneyDetectorAPI.swift */,
 				6635F19124DD3A100030C0CE /* MDNetworking.swift */,
-				6635F19224DD3A100030C0CE /* MDEndpointType.swift */,
 				6635F19324DD3A100030C0CE /* MDNetworkError.swift */,
 			);
 			path = Networking;
@@ -272,8 +272,8 @@
 		66975EB324DD6A770024C3FF /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				66975EB424DD6A770024C3FF /* UtilityMethods.swift */,
 				66975EB524DD6A770024C3FF /* Extensions */,
+				66975EB424DD6A770024C3FF /* UtilityMethods.swift */,
 				6688D00A24E1203D00391CF4 /* Constants.swift */,
 			);
 			path = Helpers;
@@ -282,7 +282,7 @@
 		66975EB524DD6A770024C3FF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				66975EB624DD6A770024C3FF /* UIApplicationExtensions.swift */,
+				66975EB624DD6A770024C3FF /* URLSessionExtensions.swift */,
 				663314DA24E11D180043E824 /* UIViewControllerExtensions.swift */,
 				66F8010324E185B800D25672 /* UIViewExtensions.swift */,
 			);
@@ -553,7 +553,7 @@
 				66975EBE24DD6A770024C3FF /* AppDelegate.swift in Sources */,
 				66975EC024DD6A770024C3FF /* SceneDelegate.swift in Sources */,
 				66F800F424E138A200D25672 /* DetectResultsViewController.swift in Sources */,
-				66975EC324DD6A770024C3FF /* UIApplicationExtensions.swift in Sources */,
+				66975EC324DD6A770024C3FF /* URLSessionExtensions.swift in Sources */,
 				66975EC224DD6A770024C3FF /* UtilityMethods.swift in Sources */,
 				6688D00B24E1203D00391CF4 /* Constants.swift in Sources */,
 				663314DB24E11D180043E824 /* UIViewControllerExtensions.swift in Sources */,

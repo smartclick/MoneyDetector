@@ -16,7 +16,7 @@ public struct MDNetworking {
     public static func checkImageFromUrl(imageUrlLink: String,
                                          completion: @escaping (Result<MDDetectMoneyResponse,MDNetworkError>) -> Void) {
         let parameters = ["url": imageUrlLink]
-        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDDetectMoneyResponse.self, completion: completion)
+        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data", httpBody: parameters.percentEncoded()!, type: MDDetectMoneyResponse.self, completion: completion)
     }
     
     public static func checkImage(imageData: Data,

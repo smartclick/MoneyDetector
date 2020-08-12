@@ -71,17 +71,19 @@ extension LeaveFeedbackViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Feedback text..."
+            textView.text = Messages.feedbackPlaceholder
             textView.textColor = UIColor.lightGray
         }
     }
-    
-    
 }
 
 //MARK:- LeaveFeedbackViewController Delegate methods
 extension LeaveFeedbackViewController {
     func leaveFeddbackButtonTapped() {
+        guard feedbackTextView.text != Messages.feedbackPlaceholder, !feedbackTextView.text.isEmpty else {
+            showAlert(withMessage: Messages.feedbackEmptyText)
+            return
+        }
         activityIndicatorView.startAnimating()
         MoneyDetector.sendFeedback(withImageID: imageId, message: feedbackTextView.text) { [weak self] (result) in
             guard let self = self else {
@@ -100,6 +102,7 @@ extension LeaveFeedbackViewController {
                 }
             case .failure(let errorResponse):
                 print(errorResponse.localizedDescription)
+                self.showErrorAlertt(error: errorResponse)
             }
         }
     }

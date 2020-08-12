@@ -21,7 +21,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLw-Za-kax">
                     <rect key="frame" x="30" y="74" width="354" height="441"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Feedback text..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0fW-B8-HwO">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter feedback text..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0fW-B8-HwO">
                             <rect key="frame" x="10" y="10" width="334" height="327"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

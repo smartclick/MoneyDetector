@@ -73,8 +73,9 @@ extension DetectResultsViewController {
                 if let result = response.results {
                     self.results = result
                 }
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(let errorResponse):
+                print(errorResponse.localizedDescription)
+                self.showErrorAlertt(error: errorResponse)
             }
         }
     }
@@ -82,6 +83,22 @@ extension DetectResultsViewController {
     private func updateUI() {
         imageView.image = selectedImage
         configureAspectRatioConstraint()        
+    }
+    
+    func configureRightBarButtonItem() {
+        let button =  UIButton(type: .custom)
+        button.setBackgroundImage(UIImage(named: "share_icon"), for:.normal)
+        button.addTarget(self, action: #selector(self.shareButtonAction), for: .touchUpInside)
+        button.frame = CGRect(x:0, y:0, width:25, height:25)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.rightBarButtonItem = barButton
+    }
+    
+    @objc func shareButtonAction() {
+        guard let image = UIImage.imageWithView(polygonViewsContainerView) else {
+            return
+        }
+        shareImageAndText(image: image, text: "Money detected from ai")
     }
     
     private func configureAspectRatioConstraint() {
@@ -97,7 +114,7 @@ extension DetectResultsViewController {
     }
     
     private func configureResultView(detectMoney: MDDetectedMoney,withColor color: UIColor) -> ResultView {
-        let resultView = ResultView(frame: CGRect(x: 0, y: 0, width: resultsStackView.frame.width, height: 132), detectedMoney: detectMoney, polygonColor: color)
+        let resultView = ResultView(frame: CGRect.zero, detectedMoney: detectMoney, polygonColor: color)
         resultsStackView.addArrangedSubview(resultView)
         resultView.delegate = self
         return resultView
@@ -105,6 +122,10 @@ extension DetectResultsViewController {
     
     private func configurePointsViews() {
         resetValues()
+        guard results.count > 0 else {
+            return
+        }
+        configureRightBarButtonItem()
         let withDiff = imageView.frame.size.width / selectedImage.size.width
         let heightDiff = imageView.frame.size.height / selectedImage.size.height        
         var colorIndex = 0
@@ -122,7 +143,6 @@ extension DetectResultsViewController {
             }
             colorIndex = colorIndex == Constants.colors.count - 1 ? 0 : colorIndex + 1            
         }
-        
     }    
     
     private func addPolygonView(points: [CGPoint], color: UIColor) -> PolygonView {
@@ -143,7 +163,7 @@ extension DetectResultsViewController {
         }
     }
     
-    private func sendFeedback(detectedMoney: MDDetectedMoney, isCorrect: Bool, completion:(()->())?) {
+    private func sendFeedback(detectedMoney: MDDetectedMoney, isCorrect: Bool, completion:(()->())?) {        
         activityIndicatorView.startAnimating()
         MoneyDetector.sendFeedback(withImageID: detectedMoney.id, isCorrect: isCorrect) {[weak self] (result) in
             guard let self = self else {
@@ -160,10 +180,10 @@ extension DetectResultsViewController {
                 }
             case .failure(let errorResponse):
                 print(errorResponse.localizedDescription)
+                self.showErrorAlertt(error: errorResponse)
             }
         }
     }
-    
 }
 
 //MARK:- ResultView Delegate methods
@@ -202,6 +222,4 @@ extension DetectResultsViewController: LeaveFeedbackViewControllerDelegate {
             }
         }
     }
-    
-    
 }

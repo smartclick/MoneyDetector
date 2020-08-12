@@ -15,3 +15,13 @@ struct Constants {
     
     static var serverExpectedSize = 550.0
 }
+
+struct Messages {
+    static var alertButtonTitle = "Ok"
+    static var cameraNotAvailable = "Camera not available for this device"
+    static var galleryNotAvailable = "Gallery not available for this device"
+    static var permission = "access is absolutely necessary to use this app"
+    static var feedbackPlaceholder = "Enter feedback text..."
+    static var feedbackEmptyText = "Feedback text is empty"
+    static var somethingWrong = "Something went wrong"
+}

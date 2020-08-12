@@ -9,6 +9,7 @@
 import UIKit
 import AVKit
 import Photos
+import MoneyDetector
 
 extension UIViewController {
     func checkCameraPermission(completion: @escaping ((Bool) -> ())) {
@@ -68,14 +69,42 @@ extension UIViewController {
     }        
     
     func showAlertToEnablePermission(title: String) {
-        // Create Alert
-        let alert = UIAlertController(title: title, message: "\(title) access is absolutely necessary to use this app", preferredStyle: .alert)
+        showAlert(withMessage: "\(title) \(Messages.permission)") {
+            if UIApplication.shared.canOpenURL(URL(string: UIApplication.openSettingsURLString)!) {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }
+        }        
+    }
+    
+    func showAlert(withMessage message: String, okAction:(() -> Void)? = nil) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle:UIAlertController.Style.alert)
         
-        // Add "OK" Button to alert, pressing it will bring you to the settings app
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-        }))        
-        self.present(alert, animated: true)
+        alertController.addAction(UIAlertAction(title: Messages.alertButtonTitle, style: UIAlertAction.Style.default)
+        { action -> Void in
+            okAction?()
+        })
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true)
+        }
+    }
+    
+    func shareImageAndText(image: UIImage, text: String) {
+        let shareAll: [Any] = [text , image]
+        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    func showErrorAlertt(error: MDNetworkError) {
+        var message = error.localizedDescription
+        switch error {
+        case .apiError(let errorMessage):
+            message = errorMessage
+        default:
+            break
+        }
+        showAlert(withMessage: message)
+        
     }
 }
 

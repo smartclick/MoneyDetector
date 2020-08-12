@@ -42,6 +42,13 @@ extension UIImage {
         draw(in: CGRect(origin: .zero, size: newSize))
         return UIGraphicsGetImageFromCurrentImageContext()
     }
+    
+    class func imageWithView(_ view: UIView) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0)
+        defer { UIGraphicsEndImageContext() }
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
 }
 
 extension UIButton {

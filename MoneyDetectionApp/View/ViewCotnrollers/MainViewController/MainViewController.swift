@@ -42,12 +42,18 @@ extension MainViewController {
             imagePicker.sourceType = sourceType
             imagePicker.modalPresentationStyle = .fullScreen
             present(imagePicker, animated: true, completion: nil)
+        } else {
+            showAlert(withMessage: Messages.galleryNotAvailable)
         }
     }
     
     private func pushCameraViewController() {
-        let cameraVC = CameraViewController()
-        navigationController?.pushViewController(cameraVC, animated: true)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraVC = CameraViewController()
+            navigationController?.pushViewController(cameraVC, animated: true)
+        } else {
+            showAlert(withMessage: Messages.cameraNotAvailable)
+        }
     }        
 }
 
