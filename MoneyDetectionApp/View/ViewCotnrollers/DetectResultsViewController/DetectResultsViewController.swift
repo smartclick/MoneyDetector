@@ -180,7 +180,7 @@ extension DetectResultsViewController {
     }
     
     private func sendFeedback(detectedMoney: MDDetectedMoney, isCorrect: Bool, completion:(()->())?) {        
-        activityIndicatorView.startAnimating()
+        activityIndicatorView.startAnimating()        
         MoneyDetector.sendFeedback(withImageID: detectedMoney.id, isCorrect: isCorrect) {[weak self] (result) in
             guard let self = self else {
                 return

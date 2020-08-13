@@ -69,7 +69,9 @@ extension CameraViewController {
 //MARK:- IBActions
 extension CameraViewController {
     @IBAction func cameraButtonAction(_ sender: Any) {
-        photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        if captureSession != nil,previewLayer != nil {
+            photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        }
     }
     
     @IBAction func cancelButtonAction(_ sender: Any) {
@@ -163,17 +165,20 @@ extension CameraViewController {
     private func stopSession() {
         if previewLayer != nil {
             previewLayer.removeFromSuperlayer()
+            previewLayer.session = nil
             previewLayer = nil
         }
         sessionQueue.async {
-            self.captureSession.stopRunning()
-            for input in self.captureSession.inputs {
-                self.captureSession.removeInput(input)
+            if self.captureSession != nil  && self.captureSession.isRunning {
+                self.captureSession.stopRunning()
+                for input in self.captureSession.inputs {
+                    self.captureSession.removeInput(input)
+                }
+                for output in self.captureSession.outputs {
+                    self.captureSession.removeOutput(output)
+                }
+                self.captureSession = nil
             }
-            for output in self.captureSession.outputs {
-                self.captureSession.removeOutput(output)
-            }
-            self.captureSession = nil
         }
     }
     

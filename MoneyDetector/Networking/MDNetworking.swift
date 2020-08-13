@@ -12,8 +12,8 @@ public enum HTTPMethods: String {
 }
 
 //MARK:- Public methods
-public struct MDNetworking {
-    public static func checkImageFromUrl(imageUrlLink: String,
+internal struct MDNetworking {
+    internal static func checkImageFromUrl(imageUrlLink: String,
                                          completion: @escaping (Result<MDDetectMoneyResponse,MDNetworkError>) -> Void) {
         let boundary = UUID().uuidString
         let httpBody = NSMutableData()
@@ -21,7 +21,7 @@ public struct MDNetworking {
         performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: MDDetectMoneyResponse.self, completion: completion)
     }
     
-    public static func checkImage(imageData: Data,
+    internal static func checkImage(imageData: Data,
                                   completion: @escaping (Result<MDDetectMoneyResponse,MDNetworkError>) -> Void) {
         let boundary = UUID().uuidString
         let httpBody = NSMutableData()
@@ -29,7 +29,7 @@ public struct MDNetworking {
         performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: MDDetectMoneyResponse.self, completion: completion)
     }
     
-    public static func sendFeedback(imageId: String,
+    internal static func sendFeedback(imageId: String,
                                     isCorrect: Bool,
                                     completion: @escaping (Result<MDMessageResponse,MDNetworkError>) -> Void) {
         let feedbackAPI = MDMoneyDetectorAPI.feedback(imageId: imageId)
@@ -37,7 +37,7 @@ public struct MDNetworking {
         performTask(endpointAPI: feedbackAPI, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDMessageResponse.self, completion: completion)
     }
     
-    public static func sendFeedback(imageId: String,
+    internal static func sendFeedback(imageId: String,
                                     message: String,
                                     completion: @escaping (Result<MDMessageResponse,MDNetworkError>) -> Void) {
         let feedbackAPI = MDMoneyDetectorAPI.feedback(imageId: imageId)
@@ -45,7 +45,7 @@ public struct MDNetworking {
         performTask(endpointAPI: feedbackAPI, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDMessageResponse.self, completion: completion)
     }
     
-    public static func performTask<T: Decodable>(endpointAPI: MDEndpointType,
+    internal static func performTask<T: Decodable>(endpointAPI: MDEndpointType,
                                    httpMethod: HTTPMethods,
                                    contentType: String,
                                    httpBody: Data,
