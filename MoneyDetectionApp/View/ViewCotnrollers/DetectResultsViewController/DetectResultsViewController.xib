@@ -54,7 +54,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ds5-OU-ZST">
                                     <rect key="frame" x="10" y="544.5" width="394" height="1"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCT-ID-JSM">
+                                        <view tag="999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCT-ID-JSM">
                                             <rect key="frame" x="0.0" y="0.0" width="394" height="1"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>

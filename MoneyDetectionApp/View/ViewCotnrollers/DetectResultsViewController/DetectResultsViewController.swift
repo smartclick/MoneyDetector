@@ -174,8 +174,8 @@ extension DetectResultsViewController {
         for view in resultsStackView.arrangedSubviews {
             if let resultView = view as? ResultView {
                 resultView.delegate = nil
+                resultsStackView.removeArrangedSubview(view)
             }
-            resultsStackView.removeArrangedSubview(view)
         }
     }
     
@@ -200,6 +200,21 @@ extension DetectResultsViewController {
             }
         }
     }
+    
+    private func changeResultStackviewOrder(resultView: ResultView) {
+        guard resultsStackView.arrangedSubviews.count > 1, resultView != resultsStackView.arrangedSubviews.last else {
+            return
+        }
+        UIView.animate(withDuration: 0.3, animations: {
+            resultView.isHidden = true
+        }, completion: { (_) in
+            resultView.removeFromSuperview()
+            self.resultsStackView.addArrangedSubview(resultView)
+            UIView.animate(withDuration: 0.3) {
+                resultView.isHidden = false
+            }
+        })
+    }
 }
 
 //MARK:- ResultView Delegate methods
@@ -208,6 +223,7 @@ extension DetectResultsViewController: ResultViewDelegate {
         sendFeedback(detectedMoney: detectedMoney, isCorrect: true) {
             resultView.correctButton.disableButton()
             resultView.incorrectButton.isHidden = true
+            self.changeResultStackviewOrder(resultView: resultView)
         }
     }
     
@@ -215,6 +231,7 @@ extension DetectResultsViewController: ResultViewDelegate {
         sendFeedback(detectedMoney: detectedMoney, isCorrect: false) {
             resultView.incorrectButton.disableButton()
             resultView.correctButton.isHidden = true
+            self.changeResultStackviewOrder(resultView: resultView)
         }
     }
     
