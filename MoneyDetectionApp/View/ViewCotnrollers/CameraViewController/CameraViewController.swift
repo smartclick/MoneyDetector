@@ -18,16 +18,15 @@ protocol CameraViewControllerDelegate {
 //MARK:- Properties
 class CameraViewController: UIViewController {
     
-    var captureSession : AVCaptureSession!
+    var captureSession = AVCaptureSession()
     var photoOutput : AVCapturePhotoOutput!
-    var previewLayer : AVCaptureVideoPreviewLayer!
     var takePicture = false
     
     var delegate: CameraViewControllerDelegate?
     
     private lazy var sessionQueue = DispatchQueue(label: Constants.sessionQueueName)
     
-    @IBOutlet weak var cameraContainerView: UIView!
+    @IBOutlet weak var cameraContainerView: PreviewView!
     @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
@@ -44,34 +43,33 @@ extension CameraViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureObservers()
+        cameraContainerView.session = captureSession
+        setupCaptureSession()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUIOnCapture(isCancel: true)
+        sessionQueue.async {
+            self.captureSession.startRunning()
+        }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setupCaptureSession()
-    }
+        
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
         stopSession()
+        super.viewWillDisappear(animated)
     }
 }
 
 //MARK:- IBActions
 extension CameraViewController {
     @IBAction func cameraButtonAction(_ sender: Any) {
-        if captureSession != nil,previewLayer != nil {
-            photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
-        }
+        photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     
     @IBAction func cancelButtonAction(_ sender: Any) {
@@ -91,8 +89,6 @@ extension CameraViewController {
 extension CameraViewController {
     private func setupCaptureSession(){
         sessionQueue.async {
-            //init session
-            self.captureSession = AVCaptureSession()
             //start configuration
             self.captureSession.beginConfiguration()
             
@@ -116,7 +112,6 @@ extension CameraViewController {
             //commit configuration
             self.captureSession.commitConfiguration()
             //start running it
-            self.captureSession.startRunning()
         }
     }
     
@@ -163,13 +158,8 @@ extension CameraViewController {
     }
     
     private func stopSession() {
-        if previewLayer != nil {
-            previewLayer.removeFromSuperlayer()
-            previewLayer.session = nil
-            previewLayer = nil
-        }
         sessionQueue.async {
-            if self.captureSession != nil  && self.captureSession.isRunning {
+            if self.captureSession.isRunning {
                 self.captureSession.stopRunning()
                 for input in self.captureSession.inputs {
                     self.captureSession.removeInput(input)
@@ -177,16 +167,13 @@ extension CameraViewController {
                 for output in self.captureSession.outputs {
                     self.captureSession.removeOutput(output)
                 }
-                self.captureSession = nil
             }
         }
     }
     
     private func setupPreviewLayer(){
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        cameraContainerView.layer.addSublayer(previewLayer)
-        previewLayer.frame = cameraContainerView.layer.bounds
-        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+//        cameraContainerView.videoPreviewLayer.frame = cameraContainerView.layer.bounds
+        cameraContainerView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
     }
     
     private func updateUIOnCapture(isCancel: Bool) {
@@ -198,9 +185,7 @@ extension CameraViewController {
         proceedButton.isHidden = isCancel
         cameraButton.isHidden = !isCancel
         sessionQueue.async {
-            if nil != self.captureSession {
-                isCancel ? self.captureSession.startRunning() : self.captureSession.stopRunning()
-            }
+            isCancel ? self.captureSession.startRunning() : self.captureSession.stopRunning()
         }
     }
     
