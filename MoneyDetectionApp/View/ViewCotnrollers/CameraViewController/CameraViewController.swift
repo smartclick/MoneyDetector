@@ -31,10 +31,6 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var proceedButton: UIButton!
-    
-    deinit {
-        removeObservers()
-    }
 }
 
 //MARK:- View Lifecycle
@@ -42,7 +38,6 @@ extension CameraViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureObservers()
         cameraContainerView.session = captureSession
         setupCaptureSession()
     }
@@ -51,6 +46,7 @@ extension CameraViewController {
         super.viewWillAppear(animated)
         updateUIOnCapture(isCancel: true)
         sessionQueue.async {
+            self.configureObservers()
             self.captureSession.startRunning()
         }
     }
@@ -111,7 +107,6 @@ extension CameraViewController {
             
             //commit configuration
             self.captureSession.commitConfiguration()
-            //start running it
         }
     }
     
@@ -161,12 +156,7 @@ extension CameraViewController {
         sessionQueue.async {
             if self.captureSession.isRunning {
                 self.captureSession.stopRunning()
-                for input in self.captureSession.inputs {
-                    self.captureSession.removeInput(input)
-                }
-                for output in self.captureSession.outputs {
-                    self.captureSession.removeOutput(output)
-                }
+                self.removeObservers()
             }
         }
     }
