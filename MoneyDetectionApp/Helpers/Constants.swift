@@ -9,7 +9,12 @@
 import UIKit
 
 struct Constants {
-    static let colors: [UIColor] = [.yellow, .red, .blue, .purple, .green, .white, .black]
+    static let colors: [UIColor] = [UIColor(hex: "2821B6"),
+                                    UIColor(hex: "B6219E"),
+                                    UIColor(hex: "A1B621"),
+                                    UIColor(hex: "ED1B1B"),
+                                    UIColor(hex: "219EB6"),
+                                    UIColor(hex: "B64421")]
 
     static let sessionQueueName = "ai.smartclick.MoneyDetectionApp.captureSession"
 
@@ -19,6 +24,8 @@ struct Constants {
 struct Messages {
     static let alertButtonTitle = "Ok"
     static let cancelButtonTitle = "Cancel"
+    static let cameraAlertTitle = "Camera"
+    static let galleryAlertTitle = "Gallery"
     static let settingsAlertButtonTitle = "Settings"
     static let cameraNotAvailable = "Camera not available for this device"
     static let galleryNotAvailable = "Gallery not available for this device"
@@ -28,6 +35,7 @@ struct Messages {
     static let somethingWrong = "Something went wrong"
     static let invalidUrl = "Invalid url"
     static let checkInternetConnection = "Please check your internet connection."
+    static let shareText = "Money detected from ai"
 }
 
 struct UIConstants {
@@ -62,4 +70,9 @@ struct UIConstants {
 
     static let coinIconName = "icon_coin"
     static let cashIconName = "icon_cash"
+    static let shareIconName = "share_icon"
+
+    static let correctnessRedColor = UIColor(hex: "F44336")
+    static let correctnessOrangeColor = UIColor(hex: "D48A00")
+    static let correctnessGreenColor = UIColor(hex: "73B452")
 }

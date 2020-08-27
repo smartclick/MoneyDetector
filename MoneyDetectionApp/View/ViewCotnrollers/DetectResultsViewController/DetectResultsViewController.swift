@@ -59,7 +59,7 @@ extension DetectResultsViewController {
         guard let image = UIImage.imageWithView(polygonViewsContainerView) else {
             return
         }
-        shareImageAndText(image: image, text: "Money detected from ai")
+        shareImageAndText(image: image, text: Messages.shareText)
     }
 
     @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
@@ -111,12 +111,12 @@ extension DetectResultsViewController {
 
     private func configureRightBarButtonItem() {
         let button =  UIButton(type: .custom)
-        button.setBackgroundImage(UIImage(named: "share_icon"), for: .normal)
+        button.setBackgroundImage(UIImage(named: UIConstants.shareIconName), for: .normal)
         button.addTarget(self, action: #selector(self.shareButtonAction), for: .touchUpInside)
-        button.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 21.0).isActive = true
         let barButton = UIBarButtonItem(customView: button)
-        self.navigationItem.rightBarButtonItem = barButton
+        navigationItem.rightBarButtonItem = barButton
     }
 
     private func configureAspectRatioConstraint() {
@@ -186,7 +186,7 @@ extension DetectResultsViewController {
             var polygonViews: [PolygonView] = []
             for polygon in detectMoney.detectedMoney.polygon {
                 let points = polygon.compactMap({
-                    CGPoint(x: (CGFloat($0.xPoint) * withDiff), y: (CGFloat($0.yPoint) * heightDiff))
+                    CGPoint(x: (CGFloat($0.x) * withDiff), y: (CGFloat($0.y) * heightDiff))
                 })
                 polygonViews.append(addPolygonView(points: points, color: Constants.colors[colorIndex]))
             }

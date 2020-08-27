@@ -51,7 +51,7 @@ class CameraNotAuthorizedViewController: BaseImagePickerViewController {
             if isSuccess {
                 Assembler.configureRoot()
             } else {
-                self.showAlertToEnablePermission(title: "Camera")
+                self.showAlertToEnablePermission(title: Messages.cameraAlertTitle)
             }
         }
     }
@@ -62,7 +62,7 @@ class CameraNotAuthorizedViewController: BaseImagePickerViewController {
                 self.updateUI()
                 self.presentImagePicker()
             } else {
-                self.showAlertToEnablePermission(title: "Gallery")
+                self.showAlertToEnablePermission(title: Messages.galleryAlertTitle)
             }
         }
     }

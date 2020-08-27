@@ -18,7 +18,7 @@ class MainNavigationController: UINavigationController {
             NSAttributedString.Key.foregroundColor: UIColor.black
         ]
 
-        navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.shadowImage = UIImage()
         navigationBar.isTranslucent = true
         view.backgroundColor = .clear

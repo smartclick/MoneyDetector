@@ -51,7 +51,6 @@ class CameraViewController: UIViewController {
 
 // MARK: - View Lifecycle
 extension CameraViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         cameraContainerView.session = captureSession
@@ -62,6 +61,7 @@ extension CameraViewController {
         cameraButtonsContainerView.addBlurEffect()
         configureGalleryButton()
         updateUI(showCamera: isCameraView)
+        galleryButton.imageView?.contentMode = .scaleAspectFill
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -114,7 +114,7 @@ extension CameraViewController {
             imagePicker.delegate = self
             present(imagePicker, animated: true, completion: nil)
         } else {
-            showAlertToEnablePermission(title: "Gallery")
+            showAlertToEnablePermission(title: Messages.galleryAlertTitle)
         }
     }
 

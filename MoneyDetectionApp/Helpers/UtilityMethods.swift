@@ -62,11 +62,11 @@ struct UtilityMethods {
     static func getColor(confidence: Double) -> UIColor {
         switch confidence {
         case 0..<33:
-            return UIColor(hex: "F44336")
-        case 0.33..<0.79:
-            return UIColor(hex: "D48A00")
+            return UIConstants.correctnessRedColor
+        case 33..<79:
+            return UIConstants.correctnessOrangeColor
         default:
-            return UIColor(hex: "73B452")
+            return UIConstants.correctnessGreenColor
         }
     }
 

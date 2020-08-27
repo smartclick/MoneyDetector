@@ -58,8 +58,6 @@
 		66F800F824E13DF700D25672 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F800F724E13DF700D25672 /* MainNavigationController.swift */; };
 		66F800FC24E14DEA00D25672 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F800FA24E14DEA00D25672 /* CameraViewController.swift */; };
 		66F800FD24E14DEA00D25672 /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F800FB24E14DEA00D25672 /* CameraViewController.xib */; };
-		66F8010024E17BB800D25672 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F800FF24E17BB800D25672 /* ResultView.swift */; };
-		66F8010224E17BD600D25672 /* ResultView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F8010124E17BD600D25672 /* ResultView.xib */; };
 		66F8010424E185B800D25672 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F8010324E185B800D25672 /* UIViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -142,8 +140,6 @@
 		66F800F724E13DF700D25672 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		66F800FA24E14DEA00D25672 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		66F800FB24E14DEA00D25672 /* CameraViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
-		66F800FF24E17BB800D25672 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
-		66F8010124E17BD600D25672 /* ResultView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultView.xib; sourceTree = "<group>"; };
 		66F8010324E185B800D25672 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -178,7 +174,6 @@
 			isa = PBXGroup;
 			children = (
 				667A2BF224F5305700608F24 /* DetectResultTableViewCell */,
-				66F800FE24E17B8900D25672 /* ResultView */,
 				66290B9E24E288BF000CC308 /* PolygonView.swift */,
 				6630639924F3BDFB00A86168 /* PreviewView.swift */,
 			);
@@ -452,15 +447,6 @@
 			path = CameraViewController;
 			sourceTree = "<group>";
 		};
-		66F800FE24E17B8900D25672 /* ResultView */ = {
-			isa = PBXGroup;
-			children = (
-				66F800FF24E17BB800D25672 /* ResultView.swift */,
-				66F8010124E17BD600D25672 /* ResultView.xib */,
-			);
-			path = ResultView;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -483,7 +469,6 @@
 				6635F17124DD36330030C0CE /* Sources */,
 				6635F17224DD36330030C0CE /* Frameworks */,
 				6635F17324DD36330030C0CE /* Resources */,
-				663A4A6C24F786C5002221E6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -520,6 +505,7 @@
 				66975E9424DD6A3D0024C3FF /* Frameworks */,
 				66975E9524DD6A3D0024C3FF /* Resources */,
 				66E4907224E13073004258FD /* Embed Frameworks */,
+				663A4A6F24F7DFD0002221E6 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -597,7 +583,6 @@
 				66601F7F24F513210006A063 /* LinkViewController.xib in Resources */,
 				667A2BF624F530EA00608F24 /* DetectResultTableViewCell.xib in Resources */,
 				66F800F524E138A200D25672 /* DetectResultsViewController.xib in Resources */,
-				66F8010224E17BD600D25672 /* ResultView.xib in Resources */,
 				667A2BFB24F5455000608F24 /* ErrorResultViewController.xib in Resources */,
 				66F800FD24E14DEA00D25672 /* CameraViewController.xib in Resources */,
 				663063A924F3FBB300A86168 /* CameraNotAuthorizedViewController.xib in Resources */,
@@ -607,7 +592,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		663A4A6C24F786C5002221E6 /* ShellScript */ = {
+		663A4A6F24F7DFD0002221E6 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -616,6 +601,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -666,7 +652,6 @@
 				66BE42FA24E2BE9200E43E8D /* LeaveFeedbackViewController.swift in Sources */,
 				663063A324F3F69600A86168 /* Assembler.swift in Sources */,
 				662BF36F24F6770000EE2BE0 /* DetectResult.swift in Sources */,
-				66F8010024E17BB800D25672 /* ResultView.swift in Sources */,
 				66601F8224F51BBD0006A063 /* UIImageViewExtensions.swift in Sources */,
 				66598F0624E2C7F200F28691 /* BaseImagePickerViewController.swift in Sources */,
 				6630639F24F3F2DF00A86168 /* GrantAccessViewController.swift in Sources */,
