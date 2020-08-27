@@ -1,0 +1,3 @@
+disabled_rules: # rule identifiers turned on by default to exclude from running
+- function_parameter_count
+- notification_center_detachment
