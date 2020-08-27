@@ -12,6 +12,7 @@ protocol DetectResultTableViewCellDelegate: AnyObject {
     func didTapCorrectButton(cell: DetectResultTableViewCell, detectResult: DetectResult)
     func didTapIncorrectButton(cell: DetectResultTableViewCell, detectResult: DetectResult)
     func didTapLeaveFeedbackButton(cell: DetectResultTableViewCell, detectResult: DetectResult)
+    func didTapCancelFeedbackButton(cell: DetectResultTableViewCell, detectResult: DetectResult)
 }
 
 class DetectResultTableViewCell: UITableViewCell {
@@ -79,11 +80,12 @@ class DetectResultTableViewCell: UITableViewCell {
         }
     }
 
-    func updateView(detectResult: DetectResult) {
+    func updateView(detectResult: DetectResult, completion: (() -> Void)? = nil) {
         mainView.isHidden = true
         resultView.update(isCorrect: detectResult.isCorrect!)
         resultView.animateView {
             self.update(withDetectResult: detectResult)
+            completion?()
         }
     }
 
@@ -102,5 +104,6 @@ class DetectResultTableViewCell: UITableViewCell {
     @IBAction func cancelFeedbackAction(_ sender: Any) {
         detectResult.isFeedbackProvided = true
         update(withDetectResult: detectResult)
+        delegate?.didTapCancelFeedbackButton(cell: self, detectResult: detectResult)
     }
 }

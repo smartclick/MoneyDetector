@@ -15,11 +15,10 @@ public struct MDDetectedMoney: Decodable {
     public var currency: String
     public var value: String
     public var confidence: Double
-    public var itemId: String
+    public var id: String
 
     private enum CodingKeys: String, CodingKey {
         case boundingBox = "bbox"
-        case itemId = "id"
-        case polygon, type, currency, value, confidence
+        case polygon, type, currency, value, confidence, id
     }
 }

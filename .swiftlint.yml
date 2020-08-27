@@ -3,4 +3,8 @@ disabled_rules: # rule identifiers turned on by default to exclude from running
 - notification_center_detachment
 
 identifier_name:
-  min_length: 1 # only error
+  min_length: 3 # only error
+  excluded: # excluded via string array
+    - id
+    - x
+    - y

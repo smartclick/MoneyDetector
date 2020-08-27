@@ -25,9 +25,6 @@ class DetectResultsViewController: UIViewController {
     private var hidePan: UIPanGestureRecognizer!
     private var isTableViewShown = false
 
-    private typealias ResultAndPolygonViews = (ResultView, [PolygonView])
-    private var polygonResultViewsDict: [String: ResultAndPolygonViews] = [:]
-
     var results: [DetectResult] = []
 }
 
@@ -173,6 +170,20 @@ extension DetectResultsViewController {
         return height
     }
 
+    private func sendCellToEnd(detectResult: DetectResult) {
+        guard let index = results.firstIndex(where: {
+            $0.detectedMoney.id == detectResult.detectedMoney.id
+        }), index != results.count - 1 else {
+            return
+        }
+        results.remove(at: index)
+        results.append(detectResult)
+        resultsTableView.beginUpdates()
+        resultsTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .top)
+        resultsTableView.insertRows(at: [IndexPath(row: results.count - 1, section: 0)], with: .top)
+        resultsTableView.endUpdates()
+    }
+
     //Methods Related to polygons
     private func configurePointsViews() {
         guard results.count > 0 else {
@@ -245,7 +256,7 @@ extension DetectResultsViewController {
     private func sendFeedback(detectedMoney: MDDetectedMoney,
                               isCorrect: Bool, completion:(() -> Void)?) {
         UIApplication.showLoader()
-        MoneyDetector.sendFeedback(withImageID: detectedMoney.itemId, isCorrect: isCorrect) {[weak self] (result) in
+        MoneyDetector.sendFeedback(withImageID: detectedMoney.id, isCorrect: isCorrect) {[weak self] (result) in
             guard let self = self else {
                 return
             }
@@ -267,10 +278,14 @@ extension DetectResultsViewController {
 
 // MARK: - LeaveFeedbackViewController Delegate methods
 extension DetectResultsViewController: LeaveFeedbackViewControllerDelegate {
+    func feedbackDidCancel(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult) {
+        sendCellToEnd(detectResult: detectResult)
+    }
+
     func feedbackLeftSuccesfully(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult) {
         detectResult.isFeedbackProvided = true
         guard let index = results.firstIndex(where: {
-            $0.detectedMoney.itemId == detectResult.detectedMoney.itemId
+            $0.detectedMoney.id == detectResult.detectedMoney.id
         }) else {
             return
         }
@@ -280,6 +295,7 @@ extension DetectResultsViewController: LeaveFeedbackViewControllerDelegate {
         }
         if resultsTableView.visibleCells.contains(cell) {
             cell.update(withDetectResult: detectResult)
+            self.sendCellToEnd(detectResult: detectResult)
         }
     }
 }
@@ -305,11 +321,17 @@ extension DetectResultsViewController: UITableViewDataSource {
 
 // MARK: - DetectResultTableViewCell Delegate methods
 extension DetectResultsViewController: DetectResultTableViewCellDelegate {
+    func didTapCancelFeedbackButton(cell: DetectResultTableViewCell, detectResult: DetectResult) {
+        sendCellToEnd(detectResult: detectResult)
+    }
+
     func didTapCorrectButton(cell: DetectResultTableViewCell, detectResult: DetectResult) {
         sendFeedback(detectedMoney: detectResult.detectedMoney, isCorrect: true) {
             detectResult.isCorrect = true
             if self.resultsTableView.visibleCells.contains(cell) {
-                cell.updateView(detectResult: detectResult)
+                cell.updateView(detectResult: detectResult) {
+                    self.sendCellToEnd(detectResult: detectResult)
+                }
             }
         }
     }
@@ -334,7 +356,6 @@ extension DetectResultsViewController: DetectResultTableViewCellDelegate {
 }
 
 class IntrinsicTableView: UITableView {
-
     override var contentSize: CGSize {
         didSet {
             self.invalidateIntrinsicContentSize()

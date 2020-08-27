@@ -12,6 +12,7 @@ import MoneyDetector
 // MARK: - LeaveFeedbackViewController protocol defination
 protocol LeaveFeedbackViewControllerDelegate: AnyObject {
     func feedbackLeftSuccesfully(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult)
+    func feedbackDidCancel(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult)
 }
 
 // MARK: - Properties
@@ -62,6 +63,8 @@ extension LeaveFeedbackViewController {
     }
 
     @IBAction func cancelButtonAction(_ sender: Any) {
+        self.delegate?.feedbackLeftSuccesfully(leaveFeedbackViewController: self,
+                                               detectResult: self.detectResult)
         dismiss(animated: true)
     }
 }
@@ -100,7 +103,7 @@ extension LeaveFeedbackViewController {
             return
         }
         UIApplication.showLoader()
-        MoneyDetector.sendFeedback(withImageID: detectResult.detectedMoney.itemId,
+        MoneyDetector.sendFeedback(withImageID: detectResult.detectedMoney.id,
                                    message: feedbackTextView.text) { [weak self] (result) in
             guard let self = self else {
                 return
