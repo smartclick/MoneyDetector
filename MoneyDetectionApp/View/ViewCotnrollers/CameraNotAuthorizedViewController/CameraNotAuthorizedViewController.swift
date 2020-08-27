@@ -59,6 +59,7 @@ class CameraNotAuthorizedViewController: BaseImagePickerViewController {
     @IBAction func chooseFromGalleryButtonAction(_ sender: Any) {
         checkGalleryPermission { (isSuccess) in
             if isSuccess {
+                self.updateUI()
                 self.presentImagePicker()
             } else {
                 self.showAlertToEnablePermission(title: "Gallery")
