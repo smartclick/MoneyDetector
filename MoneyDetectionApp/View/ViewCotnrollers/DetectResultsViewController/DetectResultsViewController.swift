@@ -179,8 +179,8 @@ extension DetectResultsViewController {
         results.remove(at: index)
         results.append(detectResult)
         resultsTableView.beginUpdates()
-        resultsTableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .top)
-        resultsTableView.insertRows(at: [IndexPath(row: results.count - 1, section: 0)], with: .top)
+        resultsTableView.moveRow(at: IndexPath(row: index, section: 0),
+                                 to: IndexPath(row: results.count - 1, section: 0))
         resultsTableView.endUpdates()
     }
 
