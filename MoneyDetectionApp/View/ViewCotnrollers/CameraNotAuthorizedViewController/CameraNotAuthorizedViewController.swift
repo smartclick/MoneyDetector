@@ -41,10 +41,8 @@ class CameraNotAuthorizedViewController: BaseImagePickerViewController {
     @objc
     func appResignActive(notification: NSNotification) {
         updateUI()
-        checkCameraPermission { (isSuccess) in
-            if isSuccess {
-                Assembler.configureRoot()
-            }
+        if isCameryAccessAccepted() {
+            Assembler.configureRoot()
         }
     }
 
@@ -59,10 +57,12 @@ class CameraNotAuthorizedViewController: BaseImagePickerViewController {
     }
 
     @IBAction func chooseFromGalleryButtonAction(_ sender: Any) {
-        if !isGalleryAccessAccepted() {
-            showAlertToEnablePermission(title: "Gallery")
-        } else {
-            presentImagePicker()
+        checkGalleryPermission { (isSuccess) in
+            if isSuccess {
+                self.presentImagePicker()
+            } else {
+                self.showAlertToEnablePermission(title: "Gallery")
+            }
         }
     }
 

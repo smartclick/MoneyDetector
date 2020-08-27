@@ -35,6 +35,7 @@ extension BaseImagePickerViewController {
 
 }
 
+// MARK: - UIImagePickerController Delegate methods
 extension BaseImagePickerViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {

@@ -87,6 +87,11 @@ extension UIViewController {
         return galleryAuth == .authorized
     }
 
+    func isCameryAccessAccepted() -> Bool {
+        let cameraAuthStatus =  AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        return cameraAuthStatus == .authorized
+    }
+
     func showAlertToEnablePermission(title: String) {
         let alertController = UIAlertController(title: nil,
                                                 message: "\(title) \(Messages.permission)",
