@@ -10,26 +10,25 @@ import UIKit
 import MoneyDetector
 
 //MARK:- Properties
-class DetectResultsViewController: BaseViewController {
+class DetectResultsViewController: UIViewController {
     @IBOutlet weak var aspectRatioConstraint: NSLayoutConstraint!
     private var selectedImage: UIImage!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var resultsStackView: UIStackView!
-    @IBOutlet weak var polygonViewsContainerView: UIView!
-    @IBOutlet weak var tryAgainButton: UIButton!
-    @IBOutlet weak var tryAnotherPictureButton: UIButton!
-    @IBOutlet weak var noResultLabel: UILabel!
+    @IBOutlet weak var resultsTableView: IntrinsicTableView!
+    @IBOutlet weak var polygonViewsContainerView: UIView!    
+    @IBOutlet weak var tableViewContainerView: UIView!
+    @IBOutlet weak var tableViewHeigtConstant: NSLayoutConstraint!
+    @IBOutlet weak var tableContainerHeightConstant: NSLayoutConstraint!
+    @IBOutlet weak var swipeView: UIView!
+    @IBOutlet weak var blurView: UIView!
+    
+    private var hidePan: UIPanGestureRecognizer!
+    private var isTableViewShown = false
     
     private typealias ResultAndPolygonViews = (ResultView, [PolygonView])
     private var polygonResultViewsDict: [String: ResultAndPolygonViews] = [:]
     
-    var results: [MDDetectedMoney] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.configurePointsViews()
-            }
-        }
-    }    
+    var results: [DetectResult] = []
 }
 
 //MARK:- View Lifecycle
@@ -41,80 +40,80 @@ extension DetectResultsViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
+        resultsTableView.register(UINib(nibName: String(describing: DetectResultTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: DetectResultTableViewCell.self))
         navigationController?.navigationBar.isHidden = false
+        updateUI()
         detectMoneyInImage()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        tableViewHeigtConstant.constant = getTableContainerMaxHeight()
+    }
 }
 
 //MARK:- IBActions
 extension DetectResultsViewController {
-    @IBAction func tryAgainButtonAction(_ sender: Any) {
-        detectMoneyInImage()
+    @objc func shareButtonAction() {
+        guard let image = UIImage.imageWithView(polygonViewsContainerView) else {
+            return
+        }
+        shareImageAndText(image: image, text: "Money detected from ai")
     }
     
-    @IBAction func tryAnotherPictureButtonAction(_ sender: Any) {
-        navigationController?.popToRootViewController(animated: true)
+    @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
+        if gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed {
+            let translation = gestureRecognizer.translation(in: self.view)
+            let newHeight = tableContainerHeightConstant.constant - translation.y
+            if newHeight <= getTableContainerMaxHeight() + UIConstants.defaultSwipeViewHeight &&
+                newHeight >= UIConstants.defaultSwipeViewHeight {
+                tableContainerHeightConstant.constant = tableContainerHeightConstant.constant - translation.y
+                view.layoutIfNeeded()
+            }
+            gestureRecognizer.setTranslation(CGPoint(x: 0, y: 0), in: self.view)
+        }
+        if gestureRecognizer.state == UIGestureRecognizer.State.ended {
+            animateTableContainerView()
+        }
     }
 }
 
-//MARK:- Private methods
+//MARK:- Private methods realted to UI
 extension DetectResultsViewController {
-    private func detectMoneyInImage() {
-        guard let imageData = selectedImage.pngData() else {
-            return
-        }
-        activityIndicatorView.startAnimating()
-        updateTryButtons()
-        MoneyDetector.detectMoney(withImageData: imageData) { [weak self] (result)  in
-            guard let self = self else {
-                return
-            }
-            var isSuccess = false
-            switch result{
-            case .success(let response):
-                isSuccess = true
-                if let result = response.results {
-                    self.results = result
-                }
-            case .failure(let errorResponse):
-                print(errorResponse.localizedDescription)
-                self.showAlert(withMessage: UtilityMethods.getMessage(error: errorResponse))
-            }
-            DispatchQueue.main.async {
-                self.activityIndicatorView.stopAnimating()
-                self.updateTryButtons(isSuccess: isSuccess)
-            }
-        }
-    }
-    
     private func updateUI() {
         imageView.image = selectedImage
-        configureAspectRatioConstraint()        
-    }        
-    
-    private func updateTryButtons(isSuccess: Bool? = nil) {
-        tryAgainButton.isHidden = isSuccess ?? true
-        tryAnotherPictureButton.isHidden = !(isSuccess ?? false)
-        noResultLabel.isHidden = tryAnotherPictureButton.isHidden || results.count != 0
+        configureAspectRatioConstraint()
+        hidePan = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
+        swipeView.addGestureRecognizer(hidePan)
+        blurView.addBlurEffect()
     }
     
+    private func updateUIOnNewResults() {
+        resultsTableView.reloadData()
+        tableViewContainerView.isHidden = results.count == 0
+        swipeView.isHidden = results.count < 2
+        if results.count > 0 {
+            configurePointsViews()
+            view.layoutIfNeeded()
+            animateTableView(newHeight:getTableContainerMaxHeight() + UIConstants.defaultSwipeViewHeight)
+        } else {
+            let vc = ErrorResultViewController()
+            vc.modalPresentationStyle = .overFullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            vc.onAction = {
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+            navigationController?.present(vc, animated: true)
+        }
+    }
     
-    func configureRightBarButtonItem() {
+    private func configureRightBarButtonItem() {
         let button =  UIButton(type: .custom)
         button.setBackgroundImage(UIImage(named: "share_icon"), for:.normal)
         button.addTarget(self, action: #selector(self.shareButtonAction), for: .touchUpInside)
         button.frame = CGRect(x:0, y:0, width:25, height:25)
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
-    }
-    
-    @objc func shareButtonAction() {
-        guard let image = UIImage.imageWithView(polygonViewsContainerView) else {
-            return
-        }
-        shareImageAndText(image: image, text: "Money detected from ai")
     }
     
     private func configureAspectRatioConstraint() {
@@ -126,18 +125,50 @@ extension DetectResultsViewController {
                                                    attribute: NSLayoutConstraint.Attribute.width,
                                                    multiplier: selectedImage.size.height / selectedImage.size.width,
                                                    constant: 0))
-        view.layoutIfNeeded()
     }
     
-    private func configureResultView(detectMoney: MDDetectedMoney,withColor color: UIColor) -> ResultView {
-        let resultView = ResultView(frame: CGRect.zero, detectedMoney: detectMoney, polygonColor: color)
-        resultsStackView.addArrangedSubview(resultView)
-        resultView.delegate = self
-        return resultView
+    private func animateTableContainerView() {
+        var newConstant: CGFloat = 0
+        let minHeight = getTableContainerMinHeight()
+        if isTableViewShown {
+            if tableContainerHeightConstant.constant < getTableContainerMaxHeight() - UIConstants.defaultSwipeViewHeight {
+                newConstant = minHeight
+            } else {
+                newConstant = getTableContainerMaxHeight() + UIConstants.defaultSwipeViewHeight
+            }
+        } else {
+            if tableContainerHeightConstant.constant < minHeight + 20.0  {
+                newConstant = minHeight
+            } else {
+                newConstant = getTableContainerMaxHeight() + UIConstants.defaultSwipeViewHeight
+            }
+        }
+        animateTableView(newHeight: newConstant)
     }
     
+    private func animateTableView(newHeight: CGFloat) {
+        guard newHeight != tableContainerHeightConstant.constant else {
+            return
+        }
+        isTableViewShown = newHeight != getTableContainerMinHeight()
+        tableContainerHeightConstant.constant = newHeight
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func getTableContainerMaxHeight() -> CGFloat {
+        let height = resultsTableView.intrinsicContentSize.height > UIConstants.defaultOpenedTableViewHeight ? UIConstants.defaultOpenedTableViewHeight : resultsTableView.intrinsicContentSize.height
+        return height
+    }
+    
+    private func getTableContainerMinHeight() -> CGFloat {
+        let height = UIConstants.defaultSwipeViewHeight + resultsTableView.rectForRow(at: IndexPath(row: 0, section: 0)).height
+        return height
+    }
+    
+    //Methods Related to polygons
     private func configurePointsViews() {
-        resetValues()
         guard results.count > 0 else {
             return
         }
@@ -147,15 +178,11 @@ extension DetectResultsViewController {
         var colorIndex = 0        
         for detectMoney in results {
             var polygonViews: [PolygonView] = []
-            for polygon in detectMoney.polygon {
+            for polygon in detectMoney.detectedMoney.polygon {
                 let points = polygon.compactMap({
                     CGPoint(x:(CGFloat($0.x) * withDiff), y: (CGFloat($0.y) * heightDiff))
                 })
                 polygonViews.append(addPolygonView(points: points, color: Constants.colors[colorIndex]))
-            }
-            if polygonViews.count > 0 {
-                let resultView = configureResultView(detectMoney: detectMoney, withColor: Constants.colors[colorIndex])
-                polygonResultViewsDict[detectMoney.id] = (resultView, polygonViews)
             }
             colorIndex = colorIndex == Constants.colors.count - 1 ? 0 : colorIndex + 1            
         }
@@ -165,29 +192,51 @@ extension DetectResultsViewController {
         let polygonView = PolygonView(frame: polygonViewsContainerView.bounds)
         polygonViewsContainerView.addSubview(polygonView)
         polygonView.autopinToSuperviewEdges()
-        polygonView.addRectangleFromPoints(points: points, strokeColor: color)
+        polygonView.addRectangleFromPoints(points: points, fillColor: color ,strokeColor: color)
         return polygonView
     }
-    
-    private func resetValues() {
-        polygonResultViewsDict.removeAll()
-        for view in resultsStackView.arrangedSubviews {
-            if let resultView = view as? ResultView {
-                resultView.delegate = nil
-                resultsStackView.removeArrangedSubview(view)
+}
+
+//MARK:- Private methods realted to Models
+extension DetectResultsViewController {
+    private func detectMoneyInImage() {
+        guard let imageData = selectedImage.pngData() else {
+            return
+        }
+        UIApplication.showLoader()
+        MoneyDetector.detectMoney(withImageData: imageData) { [weak self] (result)  in
+            guard let self = self else {
+                return
+            }
+            UIApplication.hideLoader()
+            switch result{
+            case .success(let response):
+                if let result = response.results {
+                    self.configureDetectResults(results: result)
+                }
+            case .failure(let errorResponse):
+                print(errorResponse.localizedDescription)
+                self.showErrorController(withTitle: Messages.somethingWrong, message: UtilityMethods.getMessage(error: errorResponse))
             }
         }
     }
     
-    private func sendFeedback(detectedMoney: MDDetectedMoney, isCorrect: Bool, completion:(()->())?) {        
-        activityIndicatorView.startAnimating()        
+    private func configureDetectResults(results: [MDDetectedMoney]) {
+        self.results = results.compactMap {
+            return DetectResult(detectedMoney: $0)
+        }
+        DispatchQueue.main.async {
+            self.updateUIOnNewResults()
+        }
+    }
+    
+    private func sendFeedback(detectedMoney: MDDetectedMoney, isCorrect: Bool, completion:(()->())?) {
+        UIApplication.showLoader()
         MoneyDetector.sendFeedback(withImageID: detectedMoney.id, isCorrect: isCorrect) {[weak self] (result) in
             guard let self = self else {
                 return
             }
-            DispatchQueue.main.async {
-                self.activityIndicatorView.stopAnimating()
-            }
+            UIApplication.hideLoader()
             switch result {
             case .success(let response):
                 print(response.message ?? "")
@@ -196,63 +245,85 @@ extension DetectResultsViewController {
                 }
             case .failure(let errorResponse):
                 print(errorResponse.localizedDescription)
-                self.showAlert(withMessage: UtilityMethods.getMessage(error: errorResponse))
+                self.showErrorController(withTitle: Messages.somethingWrong, message: UtilityMethods.getMessage(error: errorResponse))
             }
         }
-    }
-    
-    private func changeResultStackviewOrder(resultView: ResultView) {
-        guard resultsStackView.arrangedSubviews.count > 1, resultView != resultsStackView.arrangedSubviews.last else {
-            return
-        }
-        UIView.animate(withDuration: 0.3, animations: {
-            resultView.isHidden = true
-        }, completion: { (_) in
-            resultView.removeFromSuperview()
-            self.resultsStackView.addArrangedSubview(resultView)
-            UIView.animate(withDuration: 0.3) {
-                resultView.isHidden = false
-            }
-        })
-    }
-}
-
-//MARK:- ResultView Delegate methods
-extension DetectResultsViewController: ResultViewDelegate {
-    func didTapCorrectButton(resultView: ResultView, detectedMoney: MDDetectedMoney) {
-        sendFeedback(detectedMoney: detectedMoney, isCorrect: true) {
-            resultView.correctButton.disableButton()
-            resultView.incorrectButton.isHidden = true
-            self.changeResultStackviewOrder(resultView: resultView)
-        }
-    }
-    
-    func didTapIncorrectButton(resultView: ResultView, detectedMoney: MDDetectedMoney) {
-        sendFeedback(detectedMoney: detectedMoney, isCorrect: false) {
-            resultView.incorrectButton.disableButton()
-            resultView.correctButton.isHidden = true
-            self.changeResultStackviewOrder(resultView: resultView)
-        }
-    }
-    
-    func didTapLeaveFeedbackButton(resultView: ResultView, detectedMoney: MDDetectedMoney) {
-        let leaveFeedbackVC = LeaveFeedbackViewController(withImageId: detectedMoney.id)
-        leaveFeedbackVC.modalPresentationStyle = .overCurrentContext
-        leaveFeedbackVC.modalTransitionStyle = .crossDissolve
-        leaveFeedbackVC.delegate = self
-        navigationController?.present(leaveFeedbackVC, animated: true)
     }
 }
 
 //MARK:- LeaveFeedbackViewController Delegate methods
 extension DetectResultsViewController: LeaveFeedbackViewControllerDelegate {
-    func feedbackLeftSuccesfully(leaveFeedbackViewController: LeaveFeedbackViewController, imageId: String) {
-        if let resultView = polygonResultViewsDict[imageId]?.0 {
-            resultView.leaveFeedbackButtonHeightConstant.constant = 0
-            UIView.animate(withDuration: 0.5) {                
-                resultView.leaveFeedbackButton.alpha = 0.0
-                self.view.layoutIfNeeded()
+    func feedbackLeftSuccesfully(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult) {
+        detectResult.isFeedbackProvided = true
+        guard let index = results.firstIndex(where: {
+            $0.detectedMoney.id == detectResult.detectedMoney.id
+        }) else {
+            return
+        }
+        let cell = resultsTableView.cellForRow(at: IndexPath(row: index, section: 0)) as! DetectResultTableViewCell
+        if resultsTableView.visibleCells.contains(cell) {
+            cell.update(withDetectResult: detectResult)
+        }
+    }
+}
+
+//MARK:- UITableView DataSource methods
+extension DetectResultsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return results.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DetectResultTableViewCell.self), for: indexPath) as! DetectResultTableViewCell
+        let detectResult = results[indexPath.row]
+        cell.update(withDetectResult: detectResult)
+        cell.delegate = self
+        return cell
+    }
+}
+
+//MARK:- DetectResultTableViewCell Delegate methods
+extension DetectResultsViewController: DetectResultTableViewCellDelegate {
+    func didTapCorrectButton(cell: DetectResultTableViewCell, detectResult: DetectResult) {
+        sendFeedback(detectedMoney: detectResult.detectedMoney, isCorrect: true) {
+            detectResult.isCorrect = true
+            if self.resultsTableView.visibleCells.contains(cell) {
+                cell.updateView(detectResult:detectResult)
             }
         }
     }
+    
+    func didTapIncorrectButton(cell: DetectResultTableViewCell, detectResult: DetectResult) {
+        sendFeedback(detectedMoney: detectResult.detectedMoney, isCorrect: false) {
+            detectResult.isCorrect = false
+            if self.resultsTableView.visibleCells.contains(cell) {
+                cell.updateView(detectResult:detectResult)
+            }
+        }
+    }
+    
+    func didTapLeaveFeedbackButton(cell: DetectResultTableViewCell, detectResult: DetectResult) {
+        let leaveFeedbackVC = LeaveFeedbackViewController(withDetectResult: detectResult)
+        leaveFeedbackVC.modalPresentationStyle = .overCurrentContext
+        leaveFeedbackVC.modalTransitionStyle = .crossDissolve
+        leaveFeedbackVC.delegate = self
+        navigationController?.present(leaveFeedbackVC, animated: true)
+    }
+    
+    
+}
+
+class IntrinsicTableView: UITableView {
+
+    override var contentSize:CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
+
+    override var intrinsicContentSize: CGSize {
+        self.layoutIfNeeded()
+        return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
+    }
+
 }

@@ -11,28 +11,34 @@ import MoneyDetector
 
 //MARK:- LeaveFeedbackViewController protocol defination
 protocol LeaveFeedbackViewControllerDelegate {
-    func feedbackLeftSuccesfully(leaveFeedbackViewController: LeaveFeedbackViewController, imageId: String)
+    func feedbackLeftSuccesfully(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult)
 }
 
 //MARK:- Properties
-class LeaveFeedbackViewController: BaseViewController {
+class LeaveFeedbackViewController: UIViewController {
     @IBOutlet weak var feedbackTextView: UITextView!
+    @IBOutlet weak var feedbackButton: UIButton!
+    @IBOutlet weak var succesView: UIView!
+    @IBOutlet weak var borderView: UIView!
     
     var delegate: LeaveFeedbackViewControllerDelegate?
-    private var imageId: String = ""
+    private var detectResult: DetectResult!
     
 }
 
 //MARK:- View Lifecycle
 extension LeaveFeedbackViewController {
-    convenience init(withImageId imageId: String) {
+    convenience init(withDetectResult detectResult: DetectResult) {
         self.init()
-        self.imageId = imageId
+        self.detectResult = detectResult
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addTapGesture()
+        borderView.layer.cornerRadius = 10.0
+        borderView.layer.borderWidth = 1.0
+        borderView.layer.borderColor = UIColor.black.cgColor
     }
 }
 
@@ -75,34 +81,38 @@ extension LeaveFeedbackViewController: UITextViewDelegate {
             textView.textColor = UIColor.lightGray
         }
     }
+    
+    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
+        let isEnabled = textView.text != "" && textView.text != Messages.feedbackPlaceholder
+        feedbackButton.isEnabled = isEnabled
+        feedbackButton.backgroundColor = isEnabled ? UIConstants.enabledFeedbackButtonColor : UIConstants.disabledFeedbackButtonColor
+    }
 }
 
 //MARK:- LeaveFeedbackViewController Delegate methods
 extension LeaveFeedbackViewController {
     func leaveFeddbackButtonTapped() {
+        dismissKeyboard()
         guard feedbackTextView.text != Messages.feedbackPlaceholder, !feedbackTextView.text.isEmpty else {
             showAlert(withMessage: Messages.feedbackEmptyText)
             return
         }
-        activityIndicatorView.startAnimating()
-        MoneyDetector.sendFeedback(withImageID: imageId, message: feedbackTextView.text) { [weak self] (result) in
+        UIApplication.showLoader()
+        MoneyDetector.sendFeedback(withImageID: detectResult.detectedMoney.id, message: feedbackTextView.text) { [weak self] (result) in
             guard let self = self else {
                 return
             }
-            DispatchQueue.main.async {
-                self.activityIndicatorView.stopAnimating()
-            }
+            UIApplication.hideLoader()
             switch result {
             case .success(let response):
                 print(response.message ?? "")
                 DispatchQueue.main.async {
-                    self.dismiss(animated: true,completion: {
-                        self.delegate?.feedbackLeftSuccesfully(leaveFeedbackViewController: self, imageId: self.imageId)
-                    })
+                    self.succesView.alpha = 1.0
+                    self.delegate?.feedbackLeftSuccesfully(leaveFeedbackViewController: self, detectResult: self.detectResult)
                 }
             case .failure(let errorResponse):
                 print(errorResponse.localizedDescription)
-                self.showAlert(withMessage: UtilityMethods.getMessage(error: errorResponse))
+                self.showErrorController(withTitle: Messages.somethingWrong, message: UtilityMethods.getMessage(error: errorResponse))
             }
         }
     }

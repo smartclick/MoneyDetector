@@ -23,6 +23,27 @@ extension UIView {
         NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: superview, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: superview, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0).isActive = true
     }
+    
+    func addBlurEffect() {
+        removeBlurEffect()
+        clipsToBounds = true
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        blurEffectView.alpha = 0.4
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(blurEffectView)
+        sendSubviewToBack(blurEffectView)
+    }
+    
+    func removeBlurEffect() {
+        let blurredEffectViews = self.subviews.filter{$0 is UIVisualEffectView}
+        blurredEffectViews.forEach{ blurView in
+            blurView.removeFromSuperview()
+        }
+    }
+    
+        
 }
 
 extension UIImage {

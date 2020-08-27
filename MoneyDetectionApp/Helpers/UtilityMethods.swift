@@ -49,4 +49,24 @@ struct UtilityMethods {
         }
         return message
     }
+    
+    static func verifyUrl(urlString: String?) -> Bool {
+        if let urlString = urlString {
+            if let url = NSURL(string: urlString) {
+                return UIApplication.shared.canOpenURL(url as URL)
+            }
+        }
+        return false
+    }
+    
+    static func getKeyWindow() -> UIWindow? {
+        if #available(iOS 13.0, *) {
+            return Array(UIApplication.shared.connectedScenes)
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first(where: { $0.isKeyWindow })
+        } else {
+            return UIApplication.shared.keyWindow
+        }
+    }
 }

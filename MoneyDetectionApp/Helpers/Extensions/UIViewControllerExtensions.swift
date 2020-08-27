@@ -23,8 +23,7 @@ extension UIViewController {
             proceedWithCameraAccess(completion: completion)
         default:
             DispatchQueue.main.async {
-                completion(false)
-                self.showAlertToEnablePermission(title: "Camera")
+                completion(false)                
             }
         }
     }
@@ -45,15 +44,31 @@ extension UIViewController {
                 // Show the alert with animation
                 DispatchQueue.main.async {
                     // Create Alert
-                    completion(false)
-                    self.showAlertToEnablePermission(title: "Camera")
+                    completion(false)                    
                 }
             }
         }
     }
     
     func checkGalleryPermission(completion: @escaping ((Bool) -> ())) {
-        PHPhotoLibrary.requestAuthorization({(status:PHAuthorizationStatus) in
+        let galleryAuth = PHPhotoLibrary.authorizationStatus()
+        switch galleryAuth {
+        case .authorized:
+            DispatchQueue.main.async {
+                completion(true)
+            }
+        case .notDetermined:
+            proceedWithGalleryAccess(completion: completion)
+        default:
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+        
+    }
+    
+    func proceedWithGalleryAccess(completion: @escaping ((Bool) -> ())) {
+      PHPhotoLibrary.requestAuthorization({(status:PHAuthorizationStatus) in
             switch status {
             case .authorized:
                 DispatchQueue.main.async {
@@ -62,18 +77,28 @@ extension UIViewController {
             default:
                 DispatchQueue.main.async {
                     completion(false)
-                    self.showAlertToEnablePermission(title: "Gallery")
                 }
             }
         })
-    }        
+    }
+    
+    func isGalleryAccessAccepted() -> Bool {
+        let galleryAuth = PHPhotoLibrary.authorizationStatus()
+        return galleryAuth == .authorized
+    }
     
     func showAlertToEnablePermission(title: String) {
-        showAlert(withMessage: "\(title) \(Messages.permission)") {
+        let alertController = UIAlertController(title: nil, message: "\(title) \(Messages.permission)", preferredStyle:UIAlertController.Style.alert)
+        alertController.addAction(UIAlertAction(title: Messages.cancelButtonTitle, style: UIAlertAction.Style.default))
+        alertController.addAction(UIAlertAction(title: Messages.settingsAlertButtonTitle, style: UIAlertAction.Style.default)
+        { action -> Void in
             if UIApplication.shared.canOpenURL(URL(string: UIApplication.openSettingsURLString)!) {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }
-        }        
+        })
+        DispatchQueue.main.async {
+            self.present(alertController, animated: true)
+        }
     }
     
     func showAlert(withMessage message: String, okAction:(() -> Void)? = nil) {
@@ -93,7 +118,17 @@ extension UIViewController {
         let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
-    }        
+    }
+    
+    func showErrorController(withTitle title: String, message: String, onAction:(() -> ())? = nil) {
+        DispatchQueue.main.async {
+            let errorVC = ErrorResultViewController(withType: .error(title, message))
+            errorVC.modalPresentationStyle = .overFullScreen
+            errorVC.modalTransitionStyle = .crossDissolve
+            errorVC.onAction = onAction
+            (self.navigationController ?? self).present(errorVC, animated: true)
+        }
+    }
 }
 
 extension UIAlertController {

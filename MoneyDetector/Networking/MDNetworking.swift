@@ -83,8 +83,7 @@ extension MDNetworking {
                     completion(.failure(.statusCodeError))
                 }
                 return
-            }
-            
+            }            
             if let response = decodeData(type: T.self, data: data) {
                 completion(.success(response))
             } else {

@@ -13,7 +13,7 @@ class PolygonView: UIView {
         let path = createCurve(from: points, withSmoothness: smoothness)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
-        shapeLayer.fillColor = fillColor.withAlphaComponent(0.0).cgColor
+        shapeLayer.fillColor = fillColor.withAlphaComponent(0.7).cgColor
         shapeLayer.strokeColor = strokeColor.withAlphaComponent(0.7).cgColor
         shapeLayer.lineWidth = lineWidth
         

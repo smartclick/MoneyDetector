@@ -18,11 +18,14 @@ class MainNavigationController: UINavigationController {
             NSAttributedString.Key.foregroundColor: UIColor.black
         ]
         
-        navigationBar.barTintColor = .white
-        navigationBar.tintColor = .black
-        navigationBar.isTranslucent = false
+        navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        navigationBar.shadowImage = UIImage()
+        navigationBar.isTranslucent = true
+        view.backgroundColor = .clear
         
-        view.backgroundColor = .white
+        navigationBar.barTintColor = .clear
+        navigationBar.tintColor = .white
+        
     }
 
 }
