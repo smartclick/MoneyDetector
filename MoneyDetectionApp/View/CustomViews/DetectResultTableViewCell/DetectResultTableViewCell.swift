@@ -34,10 +34,32 @@ class DetectResultTableViewCell: UITableViewCell {
 
     func update(withDetectResult detectResult: DetectResult) {
         self.detectResult = detectResult
-        let imageName = detectResult.detectedMoney.type == .coin ? "icon_coin" : "icon_cash"
+        let imageName = detectResult.detectedMoney.type == .coin ? UIConstants.coinIconName : UIConstants.cashIconName
         coinCashImageView.image = UIImage(named: imageName)
-        titleLabel.text = "\(detectResult.detectedMoney.currency) (\(detectResult.detectedMoney.type.rawValue))"
-        valueAccuracyLabel.text = "\(detectResult.detectedMoney.value) \(detectResult.detectedMoney.confidence)%"
+        titleLabel.text = "\(detectResult.detectedMoney.type.rawValue.capitalizingFirstLetter())"
+        configreValueAccuracyLabel()
+        configureViews()
+    }
+
+    func configreValueAccuracyLabel() {
+        let mutableString = NSMutableAttributedString()
+        let value = "\(detectResult.detectedMoney.value)\(detectResult.detectedMoney.currency) "
+        let valueAtributes: [NSAttributedString.Key: Any] =
+            [NSAttributedString.Key.font: UIConstants.helveticaFont,
+             NSAttributedString.Key.foregroundColor: UIConstants.valueLabelColor]
+        let valueMutableStr = NSMutableAttributedString(string: value, attributes: valueAtributes)
+        mutableString.append(valueMutableStr)
+        let color = UtilityMethods.getColor(confidence: detectResult.detectedMoney.confidence)
+        let confidenceAtributes: [NSAttributedString.Key: Any] =
+            [NSAttributedString.Key.font: UIConstants.helveticaFont,
+             NSAttributedString.Key.foregroundColor: color]
+        let confidence = "\(detectResult.detectedMoney.confidence)%"
+        let confidenceMutableStr = NSMutableAttributedString(string: confidence, attributes: confidenceAtributes)
+        mutableString.append(confidenceMutableStr)
+        valueAccuracyLabel.attributedText = mutableString
+    }
+
+    func configureViews() {
         feedbackView.isHidden = true
         mainView.isHidden = false
         if let isCorrect = detectResult.isCorrect {
@@ -55,7 +77,6 @@ class DetectResultTableViewCell: UITableViewCell {
             correctButton.isEnabled = true
             incorrectButton.isEnabled = true
         }
-
     }
 
     func updateView(detectResult: DetectResult) {

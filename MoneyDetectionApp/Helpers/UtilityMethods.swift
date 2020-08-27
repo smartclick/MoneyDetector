@@ -59,6 +59,17 @@ struct UtilityMethods {
         return false
     }
 
+    static func getColor(confidence: Double) -> UIColor {
+        switch confidence {
+        case 0..<33:
+            return UIColor(hex: "F44336")
+        case 0.33..<0.79:
+            return UIColor(hex: "D48A00")
+        default:
+            return UIColor(hex: "73B452")
+        }
+    }
+
     static func getKeyWindow() -> UIWindow? {
         if #available(iOS 13.0, *) {
             return Array(UIApplication.shared.connectedScenes)

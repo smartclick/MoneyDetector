@@ -32,6 +32,7 @@
 		6635F19F24DD3A100030C0CE /* MDMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F19824DD3A100030C0CE /* MDMessageResponse.swift */; };
 		6635F1A124DD3A510030C0CE /* MDMoneyDetectorAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F1A024DD3A510030C0CE /* MDMoneyDetectorAPI.swift */; };
 		6635F1A324DD3CB90030C0CE /* MoneyDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635F1A224DD3CB90030C0CE /* MoneyDetector.swift */; };
+		663A4A6E24F7C71D002221E6 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663A4A6D24F7C71D002221E6 /* StringExtensions.swift */; };
 		66598F0624E2C7F200F28691 /* BaseImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66598F0524E2C7F200F28691 /* BaseImagePickerViewController.swift */; };
 		66601F7E24F513210006A063 /* LinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66601F7C24F513210006A063 /* LinkViewController.swift */; };
 		66601F7F24F513210006A063 /* LinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66601F7D24F513210006A063 /* LinkViewController.xib */; };
@@ -115,6 +116,7 @@
 		6635F19824DD3A100030C0CE /* MDMessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDMessageResponse.swift; sourceTree = "<group>"; };
 		6635F1A024DD3A510030C0CE /* MDMoneyDetectorAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDMoneyDetectorAPI.swift; sourceTree = "<group>"; };
 		6635F1A224DD3CB90030C0CE /* MoneyDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDetector.swift; sourceTree = "<group>"; };
+		663A4A6D24F7C71D002221E6 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		66598F0524E2C7F200F28691 /* BaseImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseImagePickerViewController.swift; sourceTree = "<group>"; };
 		66601F7C24F513210006A063 /* LinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkViewController.swift; sourceTree = "<group>"; };
 		66601F7D24F513210006A063 /* LinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LinkViewController.xib; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				66975EB624DD6A770024C3FF /* URLSessionExtensions.swift */,
 				663314DA24E11D180043E824 /* UIViewControllerExtensions.swift */,
 				66F8010324E185B800D25672 /* UIViewExtensions.swift */,
+				663A4A6D24F7C71D002221E6 /* StringExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				667A2BF524F530EA00608F24 /* DetectResultTableViewCell.swift in Sources */,
 				66601F7E24F513210006A063 /* LinkViewController.swift in Sources */,
 				6630639A24F3BDFB00A86168 /* PreviewView.swift in Sources */,
+				663A4A6E24F7C71D002221E6 /* StringExtensions.swift in Sources */,
 				66975EC324DD6A770024C3FF /* URLSessionExtensions.swift in Sources */,
 				66975EC224DD6A770024C3FF /* UtilityMethods.swift in Sources */,
 				6688D00B24E1203D00391CF4 /* Constants.swift in Sources */,

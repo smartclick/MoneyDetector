@@ -6,15 +6,17 @@
 //  Copyright © 2020 Sevak Soghoyan. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import MoneyDetector
 
 class DetectResult {
     let detectedMoney: MDDetectedMoney
     var isFeedbackProvided = false
     var isCorrect: Bool?
+    var color: UIColor
 
-    init(detectedMoney: MDDetectedMoney) {
+    init(detectedMoney: MDDetectedMoney, color: UIColor) {
         self.detectedMoney = detectedMoney
+        self.color = color
     }
 }

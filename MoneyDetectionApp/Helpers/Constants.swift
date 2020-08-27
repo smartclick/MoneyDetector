@@ -57,4 +57,9 @@ struct UIConstants {
     static let errorButtonColor = UIColor.init(hex: "F44336")
 
     static let errorButtonTitle = "Got it"
+    static let helveticaFont = UIFont(name: "Helvetica", size: 14)!
+    static let valueLabelColor =  UIColor(hex: "282828", alpha: 0.3)
+
+    static let coinIconName = "icon_coin"
+    static let cashIconName = "icon_cash"
 }

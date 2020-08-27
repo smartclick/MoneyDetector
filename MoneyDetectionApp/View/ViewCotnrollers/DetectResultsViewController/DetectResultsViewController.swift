@@ -113,7 +113,8 @@ extension DetectResultsViewController {
         let button =  UIButton(type: .custom)
         button.setBackgroundImage(UIImage(named: "share_icon"), for: .normal)
         button.addTarget(self, action: #selector(self.shareButtonAction), for: .touchUpInside)
-        button.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        button.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 30.0).isActive = true
         let barButton = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = barButton
     }
@@ -228,8 +229,13 @@ extension DetectResultsViewController {
     }
 
     private func configureDetectResults(results: [MDDetectedMoney]) {
+        var colorIndex = -1
         self.results = results.compactMap {
-            return DetectResult(detectedMoney: $0)
+            colorIndex += 1
+            if colorIndex == Constants.colors.count {
+                colorIndex = 0
+            }
+            return DetectResult(detectedMoney: $0, color: Constants.colors[colorIndex])
         }
         DispatchQueue.main.async {
             self.updateUIOnNewResults()
