@@ -10,10 +10,10 @@ import UIKit
 import AVKit
 
 class Assembler {
-    static func configureRoot() {        
-        changeRootWithAnimation(window: getMainWindow(), vc: getRootController())
+    static func configureRoot() {
+        changeRootWithAnimation(window: getMainWindow(), viewController: getRootController())
     }
-    
+
     static func getRootController() -> MainNavigationController {
         var mainNavigationController: MainNavigationController!
         let cameraAuthStatus =  AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
@@ -27,12 +27,12 @@ class Assembler {
         }
         return mainNavigationController
     }
-    
-    static func changeRootWithAnimation(window: UIWindow?, vc: UIViewController) {
+
+    static func changeRootWithAnimation(window: UIWindow?, viewController: UIViewController) {
         guard let window = window else { return }
         // Set the new rootViewController of the window.
         // Calling "UIView.transition" below will animate the swap.
-        window.rootViewController = vc
+        window.rootViewController = viewController
 
         // A mask of options indicating how you want to perform the animations.
         let options: UIView.AnimationOptions = .transitionCrossDissolve
@@ -42,18 +42,19 @@ class Assembler {
 
         // Creates a transition animation.
         // Though `animations` is optional, the documentation tells us that it must not be nil. ¯\_(ツ)_/¯
-        UIView.transition(with: window, duration: duration, options: options, animations: {}, completion:
-        { completed in
+        UIView.transition(with: window, duration: duration, options: options, animations: {}, completion: {_ in
             // maybe do something on completion here
         })
     }
-    
+
     static func configureOnAccessDenied() {
         DispatchQueue.main.async {
-            changeRootWithAnimation(window: getMainWindow(), vc: MainNavigationController(rootViewController: CameraNotAuthorizedViewController()))
+            let root = CameraNotAuthorizedViewController()
+            changeRootWithAnimation(window: getMainWindow(),
+                                    viewController: MainNavigationController(rootViewController: root))
         }
     }
-    
+
     static func getMainWindow() -> UIWindow? {
         var window: UIWindow?
         if #available(iOS 13.0, *) {

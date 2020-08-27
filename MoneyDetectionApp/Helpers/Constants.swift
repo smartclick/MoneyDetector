@@ -10,9 +10,9 @@ import UIKit
 
 struct Constants {
     static let colors: [UIColor] = [.yellow, .red, .blue, .purple, .green, .white, .black]
-    
+
     static let sessionQueueName = "ai.smartclick.MoneyDetectionApp.captureSession"
-    
+
     static let serverExpectedSize = 550.0
 }
 
@@ -33,28 +33,28 @@ struct Messages {
 struct UIConstants {
     static let authorizedGalleryButtonTitle = "Choose from Gallery"
     static let unauthorizedGalleryButtonTitle = "Allow Acces to Gallery"
-    
+
     static let safeAreaHeight = (UtilityMethods.getKeyWindow()?.safeAreaLayoutGuide.layoutFrame.height) ?? 0
-    
+
     static let defaultSwipeViewHeight: CGFloat = 23.0
     static let defaultOpenedTableViewContainerHeight: CGFloat = UIConstants.safeAreaHeight * 0.74
     static let defaultOpenedTableViewHeight: CGFloat = defaultOpenedTableViewContainerHeight - defaultSwipeViewHeight
-    
+
     static let resultCorrectColor = UIColor.init(hex: "73B452", alpha: 0.7)
     static let resultIncorrectColor = UIColor.init(hex: "F44336", alpha: 0.7)
-    
+
     static let enabledFeedbackButtonColor = UIColor.init(hex: "3963D5", alpha: 1.0)
     static let disabledFeedbackButtonColor = UIColor.init(hex: "3963D5", alpha: 0.2)
-    
+
     static let resultCorrectText = "Thanks!"
     static let resultIncorrectText = "Oh no!"
-    
+
     static let resultCorrectImage = "icon_check_white"
     static let resultIncorrectImage = "icon_cancel_white"
-    
+
     static let errorImage = "error_icon"
     static let noResultImage = "no_photo_icon"
     static let errorButtonColor = UIColor.init(hex: "F44336")
-    
+
     static let errorButtonTitle = "Got it"
 }

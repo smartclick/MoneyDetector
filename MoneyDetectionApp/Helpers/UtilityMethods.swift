@@ -16,7 +16,7 @@ struct UIUtilityMethods {
         window.makeKeyAndVisible()
         return window
     }
-    
+
     static func resizeImage(image: UIImage, newSize: CGFloat) -> UIImage? {
         var newWidth = newSize
         var newHeight = newSize
@@ -31,11 +31,11 @@ struct UIUtilityMethods {
         image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
         return newImage
     }
 }
- 
+
 struct UtilityMethods {
     static func getMessage(error: MDNetworkError) -> String {
         var message = Messages.somethingWrong
@@ -43,13 +43,13 @@ struct UtilityMethods {
         case .apiError(let errorMessage):
             message = errorMessage
         case .domainError:
-            message = Messages.checkInternetConnection            
+            message = Messages.checkInternetConnection
         default:
             break
         }
         return message
     }
-    
+
     static func verifyUrl(urlString: String?) -> Bool {
         if let urlString = urlString {
             if let url = NSURL(string: urlString) {
@@ -58,7 +58,7 @@ struct UtilityMethods {
         }
         return false
     }
-    
+
     static func getKeyWindow() -> UIWindow? {
         if #available(iOS 13.0, *) {
             return Array(UIApplication.shared.connectedScenes)

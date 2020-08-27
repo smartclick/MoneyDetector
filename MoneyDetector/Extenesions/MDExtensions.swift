@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK:- Dictionary extensions
+// MARK: - Dictionary extensions
 public extension Dictionary {
     func percentEncoded() -> Data? {
         return map { key, value in
@@ -21,19 +21,19 @@ public extension Dictionary {
     }
 }
 
-//MARK:- CharacterSet extensions
+// MARK: - CharacterSet extensions
 fileprivate extension CharacterSet {
     static let urlQueryValueAllowed: CharacterSet = {
         let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
         let subDelimitersToEncode = "!$&'()*+,;="
-        
+
         var allowed = CharacterSet.urlQueryAllowed
         allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
         return allowed
     }()
 }
 
-//MARK:- NSMutableData extensions
+// MARK: - NSMutableData extensions
 public extension NSMutableData {
   func appendString(_ string: String) {
     if let data = string.data(using: .utf8) {

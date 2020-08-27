@@ -12,7 +12,7 @@ import Photos
 import MoneyDetector
 
 extension UIViewController {
-    func checkCameraPermission(completion: @escaping ((Bool) -> ())) {
+    func checkCameraPermission(completion: @escaping ((Bool) -> Void)) {
         let cameraAuthStatus =  AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         switch cameraAuthStatus {
         case .authorized:
@@ -23,17 +23,17 @@ extension UIViewController {
             proceedWithCameraAccess(completion: completion)
         default:
             DispatchQueue.main.async {
-                completion(false)                
+                completion(false)
             }
         }
     }
-    
+
     func pushDetectResultsViewController(withImage image: UIImage) {
         let resultVC = DetectResultsViewController(withImage: image)
         navigationController?.pushViewController(resultVC, animated: true)
     }
-    
-    func proceedWithCameraAccess(completion: @escaping ((Bool) -> ())) {
+
+    func proceedWithCameraAccess(completion: @escaping ((Bool) -> Void)) {
         // handler in .requestAccess is needed to process user's answer to our request
         AVCaptureDevice.requestAccess(for: .video) { success in
             if success { // if request is granted (success is true)
@@ -44,13 +44,13 @@ extension UIViewController {
                 // Show the alert with animation
                 DispatchQueue.main.async {
                     // Create Alert
-                    completion(false)                    
+                    completion(false)
                 }
             }
         }
     }
-    
-    func checkGalleryPermission(completion: @escaping ((Bool) -> ())) {
+
+    func checkGalleryPermission(completion: @escaping ((Bool) -> Void)) {
         let galleryAuth = PHPhotoLibrary.authorizationStatus()
         switch galleryAuth {
         case .authorized:
@@ -64,11 +64,11 @@ extension UIViewController {
                 completion(false)
             }
         }
-        
+
     }
-    
-    func proceedWithGalleryAccess(completion: @escaping ((Bool) -> ())) {
-      PHPhotoLibrary.requestAuthorization({(status:PHAuthorizationStatus) in
+
+    func proceedWithGalleryAccess(completion: @escaping ((Bool) -> Void)) {
+      PHPhotoLibrary.requestAuthorization({(status: PHAuthorizationStatus) in
             switch status {
             case .authorized:
                 DispatchQueue.main.async {
@@ -81,17 +81,19 @@ extension UIViewController {
             }
         })
     }
-    
+
     func isGalleryAccessAccepted() -> Bool {
         let galleryAuth = PHPhotoLibrary.authorizationStatus()
         return galleryAuth == .authorized
     }
-    
+
     func showAlertToEnablePermission(title: String) {
-        let alertController = UIAlertController(title: nil, message: "\(title) \(Messages.permission)", preferredStyle:UIAlertController.Style.alert)
+        let alertController = UIAlertController(title: nil,
+                                                message: "\(title) \(Messages.permission)",
+                                                preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(UIAlertAction(title: Messages.cancelButtonTitle, style: UIAlertAction.Style.default))
-        alertController.addAction(UIAlertAction(title: Messages.settingsAlertButtonTitle, style: UIAlertAction.Style.default)
-        { action -> Void in
+        alertController.addAction(UIAlertAction(title: Messages.settingsAlertButtonTitle,
+                                                style: UIAlertAction.Style.default) { _ -> Void in
             if UIApplication.shared.canOpenURL(URL(string: UIApplication.openSettingsURLString)!) {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }
@@ -100,27 +102,30 @@ extension UIViewController {
             self.present(alertController, animated: true)
         }
     }
-    
+
     func showAlert(withMessage message: String, okAction:(() -> Void)? = nil) {
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle:UIAlertController.Style.alert)
-        
-        alertController.addAction(UIAlertAction(title: Messages.alertButtonTitle, style: UIAlertAction.Style.default)
-        { action -> Void in
+        let alertController = UIAlertController(title: nil, message: message,
+                                                preferredStyle: UIAlertController.Style.alert)
+
+        alertController.addAction(UIAlertAction(title: Messages.alertButtonTitle,
+                                                style: UIAlertAction.Style.default) { _ -> Void in
             okAction?()
         })
         DispatchQueue.main.async {
             self.present(alertController, animated: true)
         }
     }
-    
+
     func shareImageAndText(image: UIImage, text: String) {
-        let shareAll: [Any] = [text , image]
+        let shareAll: [Any] = [text, image]
         let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
     }
-    
-    func showErrorController(withTitle title: String, message: String, onAction:(() -> ())? = nil) {
+
+    func showErrorController(withTitle title: String,
+                             message: String,
+                             onAction:(() -> Void)? = nil) {
         DispatchQueue.main.async {
             let errorVC = ErrorResultViewController(withType: .error(title, message))
             errorVC.modalPresentationStyle = .overFullScreen

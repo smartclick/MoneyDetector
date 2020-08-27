@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- Properties
+// MARK: - Properties
 class BaseImagePickerViewController: UIViewController {
     var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
@@ -16,16 +16,15 @@ class BaseImagePickerViewController: UIViewController {
         imagePicker.modalPresentationStyle = .fullScreen
         return imagePicker
     }()
-    
+
     public func imageSelected(image: UIImage) {
-        
     }
 }
 
-//MARK:- Public methods
-extension BaseImagePickerViewController{
+// MARK: - Public methods
+extension BaseImagePickerViewController {
     public func presentImagePicker(sourceType: UIImagePickerController.SourceType = .photoLibrary) {
-        if UIImagePickerController.isSourceTypeAvailable(sourceType){
+        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
             imagePicker.sourceType = sourceType
             imagePicker.delegate = self
             present(imagePicker, animated: true, completion: nil)
@@ -36,8 +35,9 @@ extension BaseImagePickerViewController{
 
 }
 
-extension BaseImagePickerViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+extension BaseImagePickerViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         var selectedImage: UIImage?
         if let editedImage = info[.editedImage] as? UIImage {
             selectedImage = editedImage
@@ -48,7 +48,7 @@ extension BaseImagePickerViewController: UIImagePickerControllerDelegate,UINavig
             guard selectedImage != nil else {
                 return
             }
-            self.imageSelected(image: selectedImage!)            
+            self.imageSelected(image: selectedImage!)
         })
     }
 }

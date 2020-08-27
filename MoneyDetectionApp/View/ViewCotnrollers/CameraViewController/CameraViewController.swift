@@ -10,48 +10,48 @@ import UIKit
 import AVFoundation
 import Photos
 
-//MARK:- CameraViewControllerDelegate Definitation
-protocol CameraViewControllerDelegate {
-    func didSelectImage(cameraViewController: CameraViewController, image :UIImage)
+// MARK: - CameraViewControllerDelegate Definitation
+protocol CameraViewControllerDelegate: AnyObject {
+    func didSelectImage(cameraViewController: CameraViewController, image: UIImage)
     func didCancel(cameraViewController: CameraViewController)
 }
 
-//MARK:- Properties
+// MARK: - Properties
 class CameraViewController: UIViewController {
-    
+
     var captureSession = AVCaptureSession()
-    var photoOutput : AVCapturePhotoOutput!
+    var photoOutput: AVCapturePhotoOutput!
     var takePicture = false
-    
-    var delegate: CameraViewControllerDelegate?
-    
+
+    weak var delegate: CameraViewControllerDelegate?
+
     private lazy var sessionQueue = DispatchQueue(label: Constants.sessionQueueName)
-    
+
     var selectedImage: UIImage?
-    
+
     var isCameraView: Bool {
         return selectedImage == nil
     }
-    
+
     var imagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = false
         imagePicker.modalPresentationStyle = .fullScreen
         return imagePicker
     }()
-    
+
     @IBOutlet weak var imageButtonsContainerView: UIView!
     @IBOutlet weak var cameraButtonsContainerView: UIView!
     @IBOutlet weak var cameraContainerView: PreviewView!
-    @IBOutlet weak var previewImageView: UIImageView!    
+    @IBOutlet weak var previewImageView: UIImageView!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var galleryButton: UIButton!
     @IBOutlet weak var tapToFocusLabel: UILabel!
 }
 
-//MARK:- View Lifecycle
+// MARK: - View Lifecycle
 extension CameraViewController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         cameraContainerView.session = captureSession
@@ -63,7 +63,7 @@ extension CameraViewController {
         configureGalleryButton()
         updateUI(showCamera: isCameraView)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -71,11 +71,11 @@ extension CameraViewController {
             startSession()
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         if isCameraView {
             stopSession()
@@ -83,7 +83,7 @@ extension CameraViewController {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = false
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if isCameraView {
@@ -92,12 +92,12 @@ extension CameraViewController {
     }
 }
 
-//MARK:- IBActions
+// MARK: - IBActions
 extension CameraViewController {
     @IBAction func cameraButtonAction(_ sender: Any) {
         photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
-    
+
     @IBAction func cancelButtonAction(_ sender: Any) {
         if isCameraView {
             setDefaultFocusAndExposure()
@@ -107,9 +107,9 @@ extension CameraViewController {
             navigationController?.popViewController(animated: true)
         }
     }
-    
+
     @IBAction func galleryButtonAction(_ sender: Any) {
-        if isGalleryAccessAccepted(),UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+        if isGalleryAccessAccepted(), UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
             present(imagePicker, animated: true, completion: nil)
@@ -117,21 +117,23 @@ extension CameraViewController {
             showAlertToEnablePermission(title: "Gallery")
         }
     }
-    
+
     @IBAction func detectButtonAction(_ sender: Any) {
-        guard let image = previewImageView.image,let resizedImage = UIUtilityMethods.resizeImage(image: image, newSize: CGFloat(Constants.serverExpectedSize)) else {
+        guard let image = previewImageView.image,
+            let resizedImage = UIUtilityMethods.resizeImage(image: image,
+                                                            newSize: CGFloat(Constants.serverExpectedSize)) else {
             return
         }
         pushDetectResultsViewController(withImage: resizedImage)
     }
-    
+
     @IBAction func linkButtonAction(_ sender: Any) {
         presentLinkViewController()
     }
-        
+
 }
 
-//MARK:- Camera Related Private Methods
+// MARK: - Camera Related Private Methods
 extension CameraViewController {
     private func updateUI(showCamera: Bool) {
         cameraButtonsContainerView.isHidden = !showCamera
@@ -142,7 +144,7 @@ extension CameraViewController {
             previewImageView.image = selectedImage
         }
     }
-    
+
     private func presentLinkViewController() {
         let linkVC = LinkViewController()
         linkVC.modalPresentationStyle = .overFullScreen
@@ -150,70 +152,71 @@ extension CameraViewController {
         linkVC.delegate = self
         navigationController?.present(linkVC, animated: true)
     }
-    
-    private func setupCaptureSession(){
+
+    private func setupCaptureSession() {
         sessionQueue.async {
             //start configuration
             self.captureSession.beginConfiguration()
-            
+
             //session specific configuration
             if self.captureSession.canSetSessionPreset(.photo) {
                 self.captureSession.sessionPreset = .photo
             }
             self.captureSession.automaticallyConfiguresCaptureDeviceForWideColor = true
-            
+
             //setup inputs
             self.setupInputs()
-            
+
             DispatchQueue.main.async {
                 //setup preview layer
                 self.setupPreviewLayer()
             }
-            
+
             //setup output
             self.setupOutput()
-            
             //commit configuration
             self.captureSession.commitConfiguration()
         }
     }
-    
-    private func setupInputs(){
+
+    private func setupInputs() {
         //get back camera
         guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
             return
         }
-        if(device.isFocusModeSupported(.continuousAutoFocus)) {
-            try! device.lockForConfiguration()
-            device.isSubjectAreaChangeMonitoringEnabled = true
-            device.focusMode = AVCaptureDevice.FocusMode.continuousAutoFocus
-            device.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
-            device.unlockForConfiguration()
+        if device.isFocusModeSupported(.continuousAutoFocus) {
+            do {
+                try? device.lockForConfiguration()
+                device.isSubjectAreaChangeMonitoringEnabled = true
+                device.focusMode = AVCaptureDevice.FocusMode.continuousAutoFocus
+                device.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+                device.unlockForConfiguration()
+            }
         }
         //now we need to create an input objects from our devices
         guard let bInput = try? AVCaptureDeviceInput(device: device) else {
             fatalError("could not create input device from back camera")
         }
-        
+
         if !captureSession.canAddInput(bInput) {
             fatalError("could not add back camera input to capture session")
         }
         //connect back camera input to session
         captureSession.addInput(bInput)
     }
-    
-    private func setupOutput(){
+
+    private func setupOutput() {
         photoOutput = AVCapturePhotoOutput()
-        
+
         if captureSession.canAddOutput(photoOutput) {
             captureSession.addOutput(photoOutput)
         } else {
             fatalError("could not add video output")
         }
-        
+
         photoOutput.connections.first?.videoOrientation = .portrait
     }
-    
+
     private func startSession() {
         cameraContainerView.isHidden = false
         sessionQueue.async {
@@ -221,7 +224,7 @@ extension CameraViewController {
             self.captureSession.startRunning()
         }
     }
-    
+
     private func stopSession() {
         cameraContainerView.isHidden = true
         sessionQueue.async {
@@ -231,61 +234,66 @@ extension CameraViewController {
             }
         }
     }
-    
-    private func setupPreviewLayer(){
+
+    private func setupPreviewLayer() {
 //        cameraContainerView.videoPreviewLayer.frame = cameraContainerView.layer.bounds
         cameraContainerView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspect
     }
-    
+
     private func configureObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(setDefaultFocusAndExposure),
                                                name: NSNotification.Name.AVCaptureDeviceSubjectAreaDidChange,
                                                object: nil)
     }
-    
+
     private func configureGalleryButton() {
         let imgManager = PHImageManager.default()
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: true)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         let fetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
         if let last = fetchResult.lastObject {
-            imgManager.requestImage(for: last, targetSize: galleryButton.frame.size, contentMode: PHImageContentMode.aspectFill, options: nil, resultHandler: { (image, _) in
+            imgManager.requestImage(for: last,
+                                    targetSize: galleryButton.frame.size,
+                                    contentMode: PHImageContentMode.aspectFill,
+                                    options: nil,
+                                    resultHandler: { (image, _) in
                 self.galleryButton.setImage(image, for: .normal)
             })
         }
     }
-    
+
     private func removeObservers() {
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     @objc func setDefaultFocusAndExposure() {
-        if let device = AVCaptureDevice.default(for:AVMediaType.video) {
+        if let device = AVCaptureDevice.default(for: AVMediaType.video) {
             do {
                 try device.lockForConfiguration()
                 device.isSubjectAreaChangeMonitoringEnabled = true
                 device.focusMode = AVCaptureDevice.FocusMode.continuousAutoFocus
                 device.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
                 device.unlockForConfiguration()
-                
+
             } catch {
                 // Handle errors here
                 print("There was an error focusing the device's camera")
             }
         }
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let bounds = UIScreen.main.bounds        
+        let bounds = UIScreen.main.bounds
         guard let touchPointOpt = touches.first, touchPointOpt.view == cameraContainerView else {
             return
         }
         let touchPoint = touchPointOpt as UITouch
         let screenSize = bounds.size
-        let focusPoint = CGPoint(x: touchPoint.location(in: cameraContainerView).y / screenSize.height, y: 1.0 - touchPoint.location(in: cameraContainerView).x / screenSize.width)
-        
-        if let device = AVCaptureDevice.default(for:AVMediaType.video) {
+        let focusPoint = CGPoint(x: touchPoint.location(in: cameraContainerView).y / screenSize.height,
+                                 y: 1.0 - touchPoint.location(in: cameraContainerView).x / screenSize.width)
+
+        if let device = AVCaptureDevice.default(for: AVMediaType.video) {
             do {
                 try device.lockForConfiguration()
                 if device.isFocusPointOfInterestSupported {
@@ -297,7 +305,7 @@ extension CameraViewController {
                     device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
                 }
                 device.unlockForConfiguration()
-                
+
             } catch {
                 // Handle errors here
                 print("There was an error focusing the device's camera")
@@ -306,25 +314,27 @@ extension CameraViewController {
     }
 }
 
-//MARK:- AVCapturePhotoCapture Delegate methods
+// MARK: - AVCapturePhotoCapture Delegate methods
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let dataImage = photo.fileDataRepresentation() {
             let dataProvider = CGDataProvider(data: dataImage as CFData)
-            let cgImageRef: CGImage! = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: .defaultIntent)
+            let cgImageRef: CGImage! = CGImage(jpegDataProviderSource: dataProvider!,
+                                               decode: nil,
+                                               shouldInterpolate: true,
+                                               intent: .defaultIntent)
             let image = UIImage(cgImage: cgImageRef, scale: 1.0, orientation: UIImage.Orientation.right)
-//            let resizedImage = UIUtilityMethods.resizeImage(image: image, newSize: CGFloat(Constants.serverExpectedSize))
             previewImageView.image = image
             updateUI(showCamera: false)
             stopSession()
         }
     }
-    
 }
 
-// MARK:- UIImagePickerController Delegate methods
-extension CameraViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// MARK: - UIImagePickerController Delegate methods
+extension CameraViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         var selectedImage: UIImage?
         if let editedImage = info[.editedImage] as? UIImage {
             selectedImage = editedImage
@@ -342,7 +352,7 @@ extension CameraViewController: UIImagePickerControllerDelegate,UINavigationCont
     }
 }
 
-//MARK:- LinkViewController Delegate methods
+// MARK: - LinkViewController Delegate methods
 extension CameraViewController: LinkViewControllerDelegate {
     func didAttachedLink(linkStr: String) {
         guard let url = URL(string: linkStr) else {

@@ -8,37 +8,36 @@
 
 import UIKit
 
-//MARK:- Properties
+// MARK: - Properties
 class GrantAccessViewController: UIViewController {
 }
 
-//MARK:- View lifecycle
+// MARK: - View lifecycle
 extension GrantAccessViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
 }
 
-//MARK:- IBActions
+// MARK: - IBActions
 extension GrantAccessViewController {
-    
+
     @IBAction func cancelButtonAction(_ sender: Any) {
         Assembler.configureOnAccessDenied()
     }
-    
+
     @IBAction func grantAccessButtonAction(_ sender: Any) {
         checkPermissions()
     }
 }
 
-//MARK:- Private methods
+// MARK: - Private methods
 extension GrantAccessViewController {
     private func checkPermissions() {
-        checkCameraPermission { (isSuccess) in
-            self.checkGalleryPermission { (isSucces) in
+        checkCameraPermission { (_) in
+            self.checkGalleryPermission { (_) in
                 Assembler.configureRoot()
             }
         }
-    }    
+    }
 }

@@ -8,49 +8,66 @@
 import Foundation
 
 public enum HTTPMethods: String {
-    case POST,PUT,DELETE,GET
+    case POST, PUT, DELETE, GET
 }
 
-//MARK:- Public methods
+// MARK: - Public methods
 internal struct MDNetworking {
     internal static func checkImageFromUrl(imageUrlLink: String,
-                                         completion: @escaping (Result<MDDetectMoneyResponse,MDNetworkError>) -> Void) {
+                                           completion:@escaping
+                                            (Result<MDDetectMoneyResponse, MDNetworkError>) -> Void) {
         let boundary = UUID().uuidString
         let httpBody = NSMutableData()
         httpBody.append(convertURL(url: imageUrlLink, using: boundary))
-        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: MDDetectMoneyResponse.self, completion: completion)
+        performTask(endpointAPI: MDMoneyDetectorAPI.image,
+                    httpMethod: .POST,
+                    contentType: "multipart/form-data; boundary=\(boundary)",
+                    httpBody: httpBody as Data,
+                    type: MDDetectMoneyResponse.self, completion: completion)
     }
-    
+
     internal static func checkImage(imageData: Data,
-                                  completion: @escaping (Result<MDDetectMoneyResponse,MDNetworkError>) -> Void) {
+                                    completion: @escaping (Result<MDDetectMoneyResponse, MDNetworkError>) -> Void) {
         let boundary = UUID().uuidString
         let httpBody = NSMutableData()
-        httpBody.append(convertFileData(fileData: imageData,using: boundary))
-        performTask(endpointAPI: MDMoneyDetectorAPI.image, httpMethod: .POST, contentType: "multipart/form-data; boundary=\(boundary)", httpBody: httpBody as Data, type: MDDetectMoneyResponse.self, completion: completion)
+        httpBody.append(convertFileData(fileData: imageData, using: boundary))
+        performTask(endpointAPI: MDMoneyDetectorAPI.image,
+                    httpMethod: .POST,
+                    contentType: "multipart/form-data; boundary=\(boundary)",
+                    httpBody: httpBody as Data,
+                    type: MDDetectMoneyResponse.self, completion: completion)
     }
-    
+
     internal static func sendFeedback(imageId: String,
-                                    isCorrect: Bool,
-                                    completion: @escaping (Result<MDMessageResponse,MDNetworkError>) -> Void) {
+                                      isCorrect: Bool,
+                                      completion: @escaping (Result<MDMessageResponse, MDNetworkError>) -> Void) {
         let feedbackAPI = MDMoneyDetectorAPI.feedback(imageId: imageId)
         let parameters = ["is_correct": isCorrect]
-        performTask(endpointAPI: feedbackAPI, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDMessageResponse.self, completion: completion)
+        performTask(endpointAPI: feedbackAPI,
+                    httpMethod: .POST,
+                    contentType: "application/x-www-form-urlencoded",
+                    httpBody: parameters.percentEncoded()!,
+                    type: MDMessageResponse.self, completion: completion)
     }
-    
+
     internal static func sendFeedback(imageId: String,
-                                    message: String,
-                                    completion: @escaping (Result<MDMessageResponse,MDNetworkError>) -> Void) {
+                                      message: String,
+                                      completion: @escaping (Result<MDMessageResponse, MDNetworkError>) -> Void) {
         let feedbackAPI = MDMoneyDetectorAPI.feedback(imageId: imageId)
         let parameters = ["message": message]
-        performTask(endpointAPI: feedbackAPI, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDMessageResponse.self, completion: completion)
+        performTask(endpointAPI: feedbackAPI, httpMethod: .POST,
+                    contentType: "application/x-www-form-urlencoded",
+                    httpBody: parameters.percentEncoded()!,
+                    type: MDMessageResponse.self,
+                    completion: completion)
     }
-    
+
     internal static func performTask<T: Decodable>(endpointAPI: MDEndpointType,
-                                   httpMethod: HTTPMethods,
-                                   contentType: String,
-                                   httpBody: Data,
-                                   type: T.Type,
-                                   completion: @escaping (Result<T,MDNetworkError>) -> Void) {
+                                                   httpMethod: HTTPMethods,
+                                                   contentType: String,
+                                                   httpBody: Data,
+                                                   type: T.Type,
+                                                   completion: @escaping (Result<T, MDNetworkError>) -> Void) {
         let urlString = (endpointAPI.baseURL + endpointAPI.path).removingPercentEncoding!
         guard let url = URL(string: urlString) else {
             completion(.failure(.domainError))
@@ -64,26 +81,27 @@ internal struct MDNetworking {
     }
 }
 
-//MARK:- Private methods
+// MARK: - Private methods
 extension MDNetworking {
     private static func performNetworkTask<T: Decodable>(type: T.Type,
                                                          urlRequest: URLRequest,
-                                                         completion: @escaping (Result<T,MDNetworkError>) -> Void) {
+                                                         completion: @escaping (Result<T, MDNetworkError>) -> Void) {
         let urlSession = URLSession.shared.dataTask(with: urlRequest) { (data, urlResponse, error) in
             guard let data = data,
                 let response = urlResponse as? HTTPURLResponse,
-                error == nil else {                                              // check for fundamental networking error
+                // check for fundamental networking error
+                error == nil else {
                     completion(.failure(.domainError))
                     return
             }
             guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
-                if let response = decodeData(type: MDMessageResponse.self, data: data),let errorText = response.error {
+                if let response = decodeData(type: MDMessageResponse.self, data: data), let errorText = response.error {
                     completion(.failure(.apiError(errorMessage: errorText)))
                 } else {
                     completion(.failure(.statusCodeError))
                 }
                 return
-            }            
+            }
             if let response = decodeData(type: T.self, data: data) {
                 completion(.success(response))
             } else {
@@ -94,7 +112,7 @@ extension MDNetworking {
         }
         urlSession.resume()
     }
-    
+
     private static func decodeData<T: Decodable>(type: T.Type, data: Data) -> T? {
         let jsonDecoder = JSONDecoder()
         do {
@@ -105,28 +123,27 @@ extension MDNetworking {
             return nil
         }
     }
-    
+
     private static func convertFileData(fileData: Data, using boundary: String) -> Data {
         let timestamp = String(Date().timeIntervalSince1970)
         let data = NSMutableData()
-        
+
         data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-        data.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(timestamp).png\"\r\n".data(using: .utf8)!)
+        let fileStr = "Content-Disposition: form-data; name=\"file\"; filename=\"\(timestamp).png\"\r\n"
+        data.append(fileStr.data(using: .utf8)!)
         data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
         data.append(fileData)
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-        
+
         return data as Data
     }
-    
+
     private static func convertURL(url: String, using boundary: String) -> Data {
         let data = NSMutableData()
-        
         data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
         data.append("Content-Disposition: form-data; name=\"url\"\r\n\r\n".data(using: .utf8)!)
         data.appendString(url)
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-        
         return data as Data
     }
 }

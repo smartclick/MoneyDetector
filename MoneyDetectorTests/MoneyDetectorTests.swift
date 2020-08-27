@@ -35,7 +35,6 @@ extension MoneyDetectorMock: MDEndpointType {
     }
 }
 
-
 class MoneyDetectorTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -57,8 +56,8 @@ class MoneyDetectorTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    func testDetectAraratWithLink() {
+
+    func testDetectImageWithLink() {
         let imageLink = "https://en.numista.com/catalogue/photos/armenie/643-original.jpg"
         let exp = expectation(description: "Checking if there is Money in this image Link")
         MoneyDetector.detectMoney(withImageLinkPath: imageLink) { (result) in
@@ -70,9 +69,7 @@ class MoneyDetectorTests: XCTestCase {
             }
             exp.fulfill()
         }
-        
-        
-        
+
         let brokenExp = expectation(description: "Checking brokenImageLink")
         MoneyDetector.detectMoney(withImageLinkPath: "") { (result) in
             switch result {
@@ -83,14 +80,13 @@ class MoneyDetectorTests: XCTestCase {
             }
             brokenExp.fulfill()
         }
-        
-        
+
         waitForExpectations(timeout: 10) { (error) in
             print(error?.localizedDescription ?? "error")
         }
-        
+
     }
-    
+
     func testDetectAraratWithImage() {
         let exp = expectation(description: "Checking if there are Money in this image")
         MoneyDetector.detectMoney(withImageData: Data()) { (result) in
@@ -102,17 +98,17 @@ class MoneyDetectorTests: XCTestCase {
             }
             exp.fulfill()
         }
-        
+
         waitForExpectations(timeout: 10) { (error) in
             print(error?.localizedDescription ?? "error")
         }
-        
+
     }
-    
+
     func testSendFeedback() {
         let correctexp = expectation(description: "Checking if works send feedback api")
-        let image_id = "5f33a07acfb43250f941f379"
-        MoneyDetector.sendFeedback(withImageID: image_id, isCorrect: true) { (result) in
+        let imageId = "5f33a07acfb43250f941f379"
+        MoneyDetector.sendFeedback(withImageID: imageId, isCorrect: true) { (result) in
             switch result {
             case .failure(let networkError):
                 XCTAssertNotNil(networkError)
@@ -121,7 +117,7 @@ class MoneyDetectorTests: XCTestCase {
             }
             correctexp.fulfill()
         }
-        
+
         let correctMessexp = expectation(description: "Checking if works send feedback api")
         MoneyDetector.sendFeedback(withImageID: image_id, message: "Great") { (result) in
             switch result {
@@ -132,10 +128,10 @@ class MoneyDetectorTests: XCTestCase {
             }
             correctMessexp.fulfill()
         }
-        
+
         let notCorrectexp = expectation(description: "Checking if works send feedback api")
-        let broken_image_id = ""
-        MoneyDetector.sendFeedback(withImageID: broken_image_id, isCorrect: false) { (result) in
+        let brokenImageId = ""
+        MoneyDetector.sendFeedback(withImageID: brokenImageId, isCorrect: false) { (result) in
             switch result {
             case .failure(let networkError):
                 XCTAssertNotNil(networkError)
@@ -144,17 +140,20 @@ class MoneyDetectorTests: XCTestCase {
             }
             notCorrectexp.fulfill()
         }
-        
+
         waitForExpectations(timeout: 10) { (error) in
             print(error?.localizedDescription ?? "error")
         }
-        
+
     }
-    
+
     func testPerformDataTask() {
         let notCorrectexp = expectation(description: "Failing perform network data task")
         let parameters = ["is_correct": true]
-        MDNetworking.performTask(endpointAPI: MDMoneyDetectorAPI.feedback(imageId: "5f33a07acfb43250f941f379"), httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDDetectedMoney.self) { (result) in
+        MDNetworking.performTask(endpointAPI: MDMoneyDetectorAPI.feedback(imageId: "5f33a07acfb43250f941f379"),
+                                 httpMethod: .POST, contentType: "application/x-www-form-urlencoded",
+                                 httpBody: parameters.percentEncoded()!,
+                                 type: MDDetectedMoney.self) { (result) in
             switch result {
             case .failure(let networkError):
                 XCTAssertNotNil(networkError)
@@ -167,11 +166,14 @@ class MoneyDetectorTests: XCTestCase {
             print(error?.localizedDescription ?? "error")
         }
     }
-    
+
     func testPerformDataTaskFailURL() {
         let firstExp = expectation(description: "Testing broken URL")
         let parameters = ["is_correct": true]
-        MDNetworking.performTask(endpointAPI: MoneyDetectorMock.testAPI, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDDetectedMoney.self) { (result) in
+        MDNetworking.performTask(endpointAPI: MoneyDetectorMock.testAPI,
+                                 httpMethod: .POST, contentType: "application/x-www-form-urlencoded",
+                                 httpBody: parameters.percentEncoded()!,
+                                 type: MDDetectedMoney.self) { (result) in
             switch result {
             case .failure(let networkError):
                 XCTAssertNotNil(networkError)
@@ -181,7 +183,11 @@ class MoneyDetectorTests: XCTestCase {
             firstExp.fulfill()
         }
         let secExp = expectation(description: "Testing wrong domain")
-        MDNetworking.performTask(endpointAPI: MoneyDetectorMock.testDomain, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDDetectedMoney.self) { (result) in
+        MDNetworking.performTask(endpointAPI: MoneyDetectorMock.testDomain,
+                                 httpMethod: .POST,
+                                 contentType: "application/x-www-form-urlencoded",
+                                 httpBody: parameters.percentEncoded()!,
+                                 type: MDDetectedMoney.self) { (result) in
             switch result {
             case .failure(let networkError):
                 XCTAssertNotNil(networkError)
@@ -191,7 +197,11 @@ class MoneyDetectorTests: XCTestCase {
             secExp.fulfill()
         }
         let thirdExp = expectation(description: "Testing wrong domain")
-        MDNetworking.performTask(endpointAPI: MoneyDetectorMock.brokenURL, httpMethod: .POST, contentType: "application/x-www-form-urlencoded", httpBody: parameters.percentEncoded()!, type: MDDetectedMoney.self) { (result) in
+        MDNetworking.performTask(endpointAPI: MoneyDetectorMock.brokenURL,
+                                 httpMethod: .POST,
+                                 contentType: "application/x-www-form-urlencoded",
+                                 httpBody: parameters.percentEncoded()!,
+                                 type: MDDetectedMoney.self) { (result) in
             switch result {
             case .failure(let networkError):
                 XCTAssertNotNil(networkError)

@@ -13,7 +13,7 @@ class DetectResult {
     let detectedMoney: MDDetectedMoney
     var isFeedbackProvided = false
     var isCorrect: Bool?
-    
+
     init(detectedMoney: MDDetectedMoney) {
         self.detectedMoney = detectedMoney
     }

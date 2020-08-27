@@ -11,6 +11,6 @@ import Foundation
 public enum MDNetworkError: Error {
     case domainError
     case statusCodeError
-    case decodingError    
+    case decodingError
     case apiError(errorMessage: String)
 }

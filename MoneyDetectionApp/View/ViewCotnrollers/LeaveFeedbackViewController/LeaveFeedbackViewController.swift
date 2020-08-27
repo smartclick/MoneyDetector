@@ -9,30 +9,30 @@
 import UIKit
 import MoneyDetector
 
-//MARK:- LeaveFeedbackViewController protocol defination
-protocol LeaveFeedbackViewControllerDelegate {
+// MARK: - LeaveFeedbackViewController protocol defination
+protocol LeaveFeedbackViewControllerDelegate: AnyObject {
     func feedbackLeftSuccesfully(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult)
 }
 
-//MARK:- Properties
+// MARK: - Properties
 class LeaveFeedbackViewController: UIViewController {
     @IBOutlet weak var feedbackTextView: UITextView!
     @IBOutlet weak var feedbackButton: UIButton!
     @IBOutlet weak var succesView: UIView!
     @IBOutlet weak var borderView: UIView!
-    
-    var delegate: LeaveFeedbackViewControllerDelegate?
+
+    weak var delegate: LeaveFeedbackViewControllerDelegate?
     private var detectResult: DetectResult!
-    
+
 }
 
-//MARK:- View Lifecycle
+// MARK: - View Lifecycle
 extension LeaveFeedbackViewController {
     convenience init(withDetectResult detectResult: DetectResult) {
         self.init()
         self.detectResult = detectResult
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addTapGesture()
@@ -42,7 +42,7 @@ extension LeaveFeedbackViewController {
     }
 }
 
-//MARK:- Private Methods
+// MARK: - Private Methods
 extension LeaveFeedbackViewController {
     private func addTapGesture() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
@@ -50,7 +50,7 @@ extension LeaveFeedbackViewController {
     }
 }
 
-//MARK:- Actions
+// MARK: - Actions
 extension LeaveFeedbackViewController {
     //Calls this function when the tap is recognized.
     @objc func dismissKeyboard() {
@@ -60,13 +60,13 @@ extension LeaveFeedbackViewController {
     @IBAction func leaveFeedbackButtonAction(_ sender: Any) {
         leaveFeddbackButtonTapped()
     }
-    
+
     @IBAction func cancelButtonAction(_ sender: Any) {
         dismiss(animated: true)
     }
 }
 
-//MARK:- UITextView Delegate methods
+// MARK: - UITextView Delegate methods
 extension LeaveFeedbackViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
@@ -74,22 +74,24 @@ extension LeaveFeedbackViewController: UITextViewDelegate {
             textView.textColor = UIColor.black
         }
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = Messages.feedbackPlaceholder
             textView.textColor = UIColor.lightGray
         }
     }
-    
+
     func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
         let isEnabled = textView.text != "" && textView.text != Messages.feedbackPlaceholder
         feedbackButton.isEnabled = isEnabled
-        feedbackButton.backgroundColor = isEnabled ? UIConstants.enabledFeedbackButtonColor : UIConstants.disabledFeedbackButtonColor
+        feedbackButton.backgroundColor = isEnabled ?
+            UIConstants.enabledFeedbackButtonColor :
+            UIConstants.disabledFeedbackButtonColor
     }
 }
 
-//MARK:- LeaveFeedbackViewController Delegate methods
+// MARK: - LeaveFeedbackViewController Delegate methods
 extension LeaveFeedbackViewController {
     func leaveFeddbackButtonTapped() {
         dismissKeyboard()
@@ -98,7 +100,8 @@ extension LeaveFeedbackViewController {
             return
         }
         UIApplication.showLoader()
-        MoneyDetector.sendFeedback(withImageID: detectResult.detectedMoney.id, message: feedbackTextView.text) { [weak self] (result) in
+        MoneyDetector.sendFeedback(withImageID: detectResult.detectedMoney.itemId,
+                                   message: feedbackTextView.text) { [weak self] (result) in
             guard let self = self else {
                 return
             }
@@ -108,11 +111,13 @@ extension LeaveFeedbackViewController {
                 print(response.message ?? "")
                 DispatchQueue.main.async {
                     self.succesView.alpha = 1.0
-                    self.delegate?.feedbackLeftSuccesfully(leaveFeedbackViewController: self, detectResult: self.detectResult)
+                    self.delegate?.feedbackLeftSuccesfully(leaveFeedbackViewController: self,
+                                                           detectResult: self.detectResult)
                 }
             case .failure(let errorResponse):
                 print(errorResponse.localizedDescription)
-                self.showErrorController(withTitle: Messages.somethingWrong, message: UtilityMethods.getMessage(error: errorResponse))
+                self.showErrorController(withTitle: Messages.somethingWrong,
+                                         message: UtilityMethods.getMessage(error: errorResponse))
             }
         }
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-//MARK:- View Lifecycle
+// MARK: - View Lifecycle
 class MainNavigationController: UINavigationController {
 
     override func viewDidLoad() {
@@ -17,15 +17,15 @@ class MainNavigationController: UINavigationController {
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.black
         ]
-        
+
         navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
         navigationBar.shadowImage = UIImage()
         navigationBar.isTranslucent = true
         view.backgroundColor = .clear
-        
+
         navigationBar.barTintColor = .clear
         navigationBar.tintColor = .white
-        
+
     }
 
 }

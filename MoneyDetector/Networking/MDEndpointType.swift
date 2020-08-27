@@ -9,8 +9,6 @@
 import Foundation
 
 public protocol MDEndpointType {
-
     var baseURL: String { get }
-
-    var path: String { get }    
+    var path: String { get }
 }

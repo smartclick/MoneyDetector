@@ -9,23 +9,29 @@
 import UIKit
 
 class PolygonView: UIView {
-    func addRectangleFromPoints(points: [CGPoint], fillColor: UIColor = .clear, strokeColor: UIColor = .clear, lineWidth: CGFloat = 2.4, smoothness: CGFloat = 0.0) {
+    func addRectangleFromPoints(points: [CGPoint],
+                                fillColor: UIColor = .clear,
+                                strokeColor: UIColor = .clear,
+                                lineWidth: CGFloat = 2.4,
+                                smoothness: CGFloat = 0.0) {
         let path = createCurve(from: points, withSmoothness: smoothness)
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.fillColor = fillColor.withAlphaComponent(0.7).cgColor
         shapeLayer.strokeColor = strokeColor.withAlphaComponent(0.7).cgColor
         shapeLayer.lineWidth = lineWidth
-        
+
         layer.addSublayer(shapeLayer)
     }
-    
+
     /// Create UIBezierPath
     ///
     /// - Parameters:
     ///   - points: the points
     ///   - smoothness: the smoothness: 0 - no smooth at all, 1 - maximum smoothness
-    private func createCurve(from points: [CGPoint], withSmoothness smoothness: CGFloat, addZeros: Bool = false) -> UIBezierPath {
+    private func createCurve(from points: [CGPoint],
+                             withSmoothness smoothness: CGFloat,
+                             addZeros: Bool = false) -> UIBezierPath {
 
         let path = UIBezierPath()
         guard points.count > 0 else { return path }
@@ -34,14 +40,13 @@ class PolygonView: UIView {
         if addZeros {
             path.move(to: CGPoint(x: interval.origin.x, y: interval.origin.y))
             path.addLine(to: points[0])
-        }
-        else {
+        } else {
             path.move(to: points[0])
         }
-        for i in 1..<points.count {
-            let cp = controlPoints(p1: prevPoint, p2: points[i], smoothness: smoothness)
-            path.addCurve(to: points[i], controlPoint1: cp.0, controlPoint2: cp.1)
-            prevPoint = points[i]
+        for index in 1..<points.count {
+            let cPoint = controlPoints(point1: prevPoint, point2: points[index], smoothness: smoothness)
+            path.addCurve(to: points[index], controlPoint1: cPoint.0, controlPoint2: cPoint.1)
+            prevPoint = points[index]
         }
         if addZeros {
             path.addLine(to: CGPoint(x: prevPoint.x, y: interval.origin.y))
@@ -56,27 +61,27 @@ class PolygonView: UIView {
     ///   - p2: the second point
     ///   - smoothness: the smoothness: 0 - no smooth at all, 1 - maximum smoothness
     /// - Returns: two control points
-    private func controlPoints(p1: CGPoint, p2: CGPoint, smoothness: CGFloat) -> (CGPoint, CGPoint) {
+    private func controlPoints(point1: CGPoint, point2: CGPoint, smoothness: CGFloat) -> (CGPoint, CGPoint) {
         let cp1: CGPoint!
         let cp2: CGPoint!
         let percent = min(1, max(0, smoothness))
         do {
-            var cp = p2
+            var cPoint = point2
             // Apply smoothness
-            let x0 = max(p1.x, p2.x)
-            let x1 = min(p1.x, p2.x)
-            let x = x0 + (x1 - x0) * percent
-            cp.x = x
-            cp2 = cp
+            let xPoint0 = max(point1.x, point2.x)
+            let xPoint1 = min(point1.x, point2.x)
+            let xPoint = xPoint0 + (xPoint1 - xPoint0) * percent
+            cPoint.x = xPoint
+            cp2 = cPoint
         }
         do {
-            var cp = p1
+            var cPoint = point1
             // Apply smoothness
-            let x0 = min(p1.x, p2.x)
-            let x1 = max(p1.x, p2.x)
-            let x = x0 + (x1 - x0) * percent
-            cp.x = x
-            cp1 = cp
+            let xPoint0 = min(point1.x, point2.x)
+            let xPoint1 = max(point1.x, point2.x)
+            let xPoint = xPoint0 + (xPoint1 - xPoint0) * percent
+            cPoint.x = xPoint
+            cp1 = cPoint
         }
         return (cp1, cp2)
     }

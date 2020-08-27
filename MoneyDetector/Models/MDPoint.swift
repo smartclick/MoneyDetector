@@ -9,6 +9,11 @@
 import Foundation
 
 public struct MDPoint: Decodable {
-    public var x: Double
-    public var y: Double
+    public var xPoint: Double
+    public var yPoint: Double
+
+    private enum CodingKeys: String, CodingKey {
+        case xPoint = "x"
+        case yPoint = "y"
+    }
 }

@@ -11,7 +11,7 @@ import Foundation
 public struct MDDetectMoneyResponse: Decodable {
     public var publicUrl: String?
     public var results: [MDDetectedMoney]?
-    
+
     private enum CodingKeys: String, CodingKey {
         case results = "result"
         case publicUrl = "public_url"

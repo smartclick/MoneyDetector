@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol DetectResultTableViewCellDelegate {
+protocol DetectResultTableViewCellDelegate: AnyObject {
     func didTapCorrectButton(cell: DetectResultTableViewCell, detectResult: DetectResult)
     func didTapIncorrectButton(cell: DetectResultTableViewCell, detectResult: DetectResult)
     func didTapLeaveFeedbackButton(cell: DetectResultTableViewCell, detectResult: DetectResult)
@@ -23,15 +23,15 @@ class DetectResultTableViewCell: UITableViewCell {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var feedbackView: UIView!
     @IBOutlet weak var resultView: DetectCellResultView!
-    
-    public var delegate: DetectResultTableViewCellDelegate?
+
+    public weak var delegate: DetectResultTableViewCellDelegate?
     private var detectResult: DetectResult!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     func update(withDetectResult detectResult: DetectResult) {
         self.detectResult = detectResult
         let imageName = detectResult.detectedMoney.type == .coin ? "icon_coin" : "icon_cash"
@@ -45,7 +45,7 @@ class DetectResultTableViewCell: UITableViewCell {
             incorrectButton.isHidden = isCorrect
             correctButton.isEnabled = false
             incorrectButton.isEnabled = false
-            if !isCorrect && !detectResult.isFeedbackProvided {                
+            if !isCorrect && !detectResult.isFeedbackProvided {
                 mainView.isHidden = true
                 feedbackView.isHidden = false
             }
@@ -55,29 +55,29 @@ class DetectResultTableViewCell: UITableViewCell {
             correctButton.isEnabled = true
             incorrectButton.isEnabled = true
         }
-        
+
     }
-    
+
     func updateView(detectResult: DetectResult) {
         mainView.isHidden = true
-        resultView.update(isCorrect:  detectResult.isCorrect!)
+        resultView.update(isCorrect: detectResult.isCorrect!)
         resultView.animateView {
             self.update(withDetectResult: detectResult)
         }
     }
-    
+
     @IBAction func incorrectButtonAction(_ sender: Any) {
         delegate?.didTapIncorrectButton(cell: self, detectResult: detectResult)
     }
-    
+
     @IBAction func correctButtonAction(_ sender: Any) {
         delegate?.didTapCorrectButton(cell: self, detectResult: detectResult)
     }
-    
+
     @IBAction func leaveFeedbackButtonAction(_ sender: Any) {
         delegate?.didTapLeaveFeedbackButton(cell: self, detectResult: detectResult)
     }
-    
+
     @IBAction func cancelFeedbackAction(_ sender: Any) {
         detectResult.isFeedbackProvided = true
         update(withDetectResult: detectResult)

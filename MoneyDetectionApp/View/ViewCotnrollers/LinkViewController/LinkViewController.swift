@@ -8,42 +8,42 @@
 
 import UIKit
 
-protocol LinkViewControllerDelegate {
+protocol LinkViewControllerDelegate: AnyObject {
     func didAttachedLink(linkStr: String)
 }
 
 class LinkViewController: UIViewController {
     @IBOutlet weak var imageLinkTextField: UITextField!
-    
-    var delegate: LinkViewControllerDelegate?
-    
+
+    weak var delegate: LinkViewControllerDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addTapGesture()
     }
-    
+
     private func addTapGesture() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
-    
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    
+
     @IBAction func cancelButtonAction(_ sender: Any) {
         dismiss(animated: true)
     }
-    
+
     @IBAction func attachButtonAction(_ sender: Any) {
         if UtilityMethods.verifyUrl(urlString: imageLinkTextField.text) {
             dismiss(animated: true)
             delegate?.didAttachedLink(linkStr: imageLinkTextField.text!)
         } else {
-            showErrorController(withTitle: Messages.somethingWrong, message: Messages.invalidUrl)            
+            showErrorController(withTitle: Messages.somethingWrong, message: Messages.invalidUrl)
         }
     }
-    
+
     @IBAction func pasteButtonAction(_ sender: Any) {
         let pasteBoard = UIPasteboard.general
         imageLinkTextField.text = pasteBoard.string

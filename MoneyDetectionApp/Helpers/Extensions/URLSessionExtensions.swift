@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK:- Utility method to cancel all curently running tasks
+// MARK: - Utility method to cancel all curently running tasks
 extension URLSession {
     static func cancelAllTasks() {
         shared.getAllTasks { tasks in

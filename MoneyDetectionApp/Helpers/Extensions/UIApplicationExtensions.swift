@@ -35,7 +35,7 @@ extension UIApplication {
             UIApplication.loaderView.startAnimating()
         }
     }
-    
+
     static func hideLoader() {
         DispatchQueue.main.async {
             if UIApplication.loaderView != nil {

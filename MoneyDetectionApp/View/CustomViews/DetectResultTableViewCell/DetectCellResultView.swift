@@ -11,15 +11,15 @@ import UIKit
 class DetectCellResultView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
-    
+
     func update(isCorrect: Bool) {
         backgroundColor = isCorrect ? UIConstants.resultCorrectColor : UIConstants.resultIncorrectColor
         titleLabel.text = isCorrect ? UIConstants.resultCorrectText : UIConstants.resultIncorrectText
         let image = isCorrect ? UIConstants.resultCorrectImage : UIConstants.resultIncorrectImage
         iconImageView.image = UIImage(named: image)
     }
-    
-    func animateView(completion:@escaping () -> ()) {
+
+    func animateView(completion:@escaping () -> Void) {
         alpha = 0
         UIView.animate(withDuration: 0.5) {
             self.alpha = 1
