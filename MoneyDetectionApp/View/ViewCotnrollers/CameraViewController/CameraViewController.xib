@@ -13,6 +13,7 @@
                 <outlet property="cameraButtonsContainerView" destination="69d-Bm-d92" id="ne7-mj-TqS"/>
                 <outlet property="cameraContainerView" destination="LMP-tC-Q9p" id="yL3-Vp-Rnq"/>
                 <outlet property="cancelButton" destination="Vet-4H-jyN" id="67b-6N-YRA"/>
+                <outlet property="detectButton" destination="dWO-bf-9c9" id="V8H-Bg-GJ3"/>
                 <outlet property="galleryButton" destination="6Wf-kg-XJU" id="T2y-cZ-0Ho"/>
                 <outlet property="imageButtonsContainerView" destination="NEj-OP-xYS" id="SqY-DI-hhp"/>
                 <outlet property="linkButton" destination="qfL-sd-uvh" id="vt4-92-2yn"/>
