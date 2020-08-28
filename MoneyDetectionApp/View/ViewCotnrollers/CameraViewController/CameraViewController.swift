@@ -37,9 +37,12 @@ class CameraViewController: BaseImagePickerViewController {
     @IBOutlet weak var cameraButtonsContainerView: UIView!
     @IBOutlet weak var cameraContainerView: PreviewView!
     @IBOutlet weak var previewImageView: UIImageView!
+    @IBOutlet weak var tapToFocusLabel: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var galleryButton: UIButton!
-    @IBOutlet weak var tapToFocusLabel: UILabel!
+    @IBOutlet weak var linkButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var detectButton: UIButton!
 
     override func imageSelected(image: UIImage) {
         self.previewImageView.image = image
@@ -57,8 +60,8 @@ extension CameraViewController {
             setupCaptureSession()
         }
         configureGalleryButton()
+        configureButtons()
         updateUI(showCamera: isCameraView)
-        galleryButton.imageView?.contentMode = .scaleAspectFill
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +92,7 @@ extension CameraViewController {
     }
 }
 
-// MARK: - IBActions
+// MARK: - Actions
 extension CameraViewController {
     @IBAction func cameraButtonAction(_ sender: Any) {
         photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
@@ -122,6 +125,51 @@ extension CameraViewController {
         presentLinkViewController()
     }
 
+    @objc func setDefaultFocusAndExposure() {
+        if let device = AVCaptureDevice.default(for: AVMediaType.video) {
+            do {
+                try device.lockForConfiguration()
+                device.isSubjectAreaChangeMonitoringEnabled = true
+                device.focusMode = AVCaptureDevice.FocusMode.continuousAutoFocus
+                device.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+                device.unlockForConfiguration()
+
+            } catch {
+                // Handle errors here
+                print("There was an error focusing the device's camera")
+            }
+        }
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let bounds = UIScreen.main.bounds
+        guard let touchPointOpt = touches.first, touchPointOpt.view == cameraContainerView else {
+            return
+        }
+        let touchPoint = touchPointOpt as UITouch
+        let screenSize = bounds.size
+        let focusPoint = CGPoint(x: touchPoint.location(in: cameraContainerView).y / screenSize.height,
+                                 y: 1.0 - touchPoint.location(in: cameraContainerView).x / screenSize.width)
+
+        if let device = AVCaptureDevice.default(for: AVMediaType.video) {
+            do {
+                try device.lockForConfiguration()
+                if device.isFocusPointOfInterestSupported {
+                    device.focusPointOfInterest = focusPoint
+                    device.focusMode = AVCaptureDevice.FocusMode.autoFocus
+                }
+                if device.isExposurePointOfInterestSupported {
+                    device.exposurePointOfInterest = focusPoint
+                    device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
+                }
+                device.unlockForConfiguration()
+
+            } catch {
+                // Handle errors here
+                print("There was an error focusing the device's camera")
+            }
+        }
+    }
 }
 
 // MARK: - Camera Related Private Methods
@@ -134,6 +182,16 @@ extension CameraViewController {
         if selectedImage != nil {
             previewImageView.image = selectedImage
         }
+    }
+
+    private func configureButtons() {
+        galleryButton.imageView?.contentMode = .scaleAspectFill
+        galleryButton.imageView?.layer.cornerRadius = galleryButton.layer.cornerRadius
+        cameraButton.addShadow()
+        linkButton.addShadow()
+        detectButton.addShadow()
+        galleryButton.addShadow()
+        cancelButton.addShadow()
     }
 
     private func presentLinkViewController() {
@@ -227,7 +285,6 @@ extension CameraViewController {
     }
 
     private func setupPreviewLayer() {
-//        cameraContainerView.videoPreviewLayer.frame = cameraContainerView.layer.bounds
         cameraContainerView.videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspect
     }
 
@@ -256,52 +313,6 @@ extension CameraViewController {
 
     private func removeObservers() {
         NotificationCenter.default.removeObserver(self)
-    }
-
-    @objc func setDefaultFocusAndExposure() {
-        if let device = AVCaptureDevice.default(for: AVMediaType.video) {
-            do {
-                try device.lockForConfiguration()
-                device.isSubjectAreaChangeMonitoringEnabled = true
-                device.focusMode = AVCaptureDevice.FocusMode.continuousAutoFocus
-                device.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
-                device.unlockForConfiguration()
-
-            } catch {
-                // Handle errors here
-                print("There was an error focusing the device's camera")
-            }
-        }
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let bounds = UIScreen.main.bounds
-        guard let touchPointOpt = touches.first, touchPointOpt.view == cameraContainerView else {
-            return
-        }
-        let touchPoint = touchPointOpt as UITouch
-        let screenSize = bounds.size
-        let focusPoint = CGPoint(x: touchPoint.location(in: cameraContainerView).y / screenSize.height,
-                                 y: 1.0 - touchPoint.location(in: cameraContainerView).x / screenSize.width)
-
-        if let device = AVCaptureDevice.default(for: AVMediaType.video) {
-            do {
-                try device.lockForConfiguration()
-                if device.isFocusPointOfInterestSupported {
-                    device.focusPointOfInterest = focusPoint
-                    device.focusMode = AVCaptureDevice.FocusMode.autoFocus
-                }
-                if device.isExposurePointOfInterestSupported {
-                    device.exposurePointOfInterest = focusPoint
-                    device.exposureMode = AVCaptureDevice.ExposureMode.autoExpose
-                }
-                device.unlockForConfiguration()
-
-            } catch {
-                // Handle errors here
-                print("There was an error focusing the device's camera")
-            }
-        }
     }
 }
 

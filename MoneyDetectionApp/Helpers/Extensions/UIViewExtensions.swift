@@ -61,6 +61,42 @@ extension UIView {
         }
     }
 
+    func dropShadow(offSet: CGSize, color: UIColor = .black, radius: CGFloat = 2, opacity: Float = 1.0) {
+        layer.masksToBounds = false
+        layer.shadowColor = color.cgColor
+        layer.shadowOpacity = opacity
+        layer.shadowOffset = offSet
+        layer.shadowRadius = radius
+    }
+
+    func dropCardShadow() {
+        dropShadow(offSet: CGSize(width: 5, height: 5), color: .gray, radius: 10, opacity: 0.45)
+    }
+
+    func addShadowView(offSet: CGSize, color: UIColor, radius: CGFloat = 2, opacity: Float = 1.0, viewTag: Int = 99) {
+        removeShadow(viewTag: viewTag)
+        layer.masksToBounds = false
+        let shadow = UIView(frame: bounds)
+        shadow.isUserInteractionEnabled = false
+        insertSubview(shadow, at: 0)
+        shadow.autopinToSuperviewEdges()
+        shadow.backgroundColor = backgroundColor
+        shadow.layer.cornerRadius = layer.cornerRadius
+        shadow.dropShadow(offSet: offSet, color: color, radius: radius, opacity: opacity)
+        shadow.tag = viewTag
+    }
+
+    func addShadowView() {
+        addShadowView(offSet: CGSize(width: 0, height: 2), color: .black, viewTag: 99)
+    }
+
+    func addShadow() {
+        dropShadow(offSet: CGSize(width: 0, height: 0), color: .black, radius: 3, opacity: 0.1)
+    }
+
+    func removeShadow(viewTag: Int = 99) {
+        viewWithTag(viewTag)?.removeFromSuperview()
+    }
 }
 
 extension UIImage {

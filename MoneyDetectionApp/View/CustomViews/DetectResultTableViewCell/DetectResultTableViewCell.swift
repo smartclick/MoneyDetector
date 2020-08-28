@@ -31,7 +31,7 @@ class DetectResultTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        coinCashImageView.addShadow()
     }
 
     func update(withDetectResult detectResult: DetectResult) {
