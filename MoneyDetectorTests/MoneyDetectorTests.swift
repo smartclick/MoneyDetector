@@ -119,7 +119,7 @@ class MoneyDetectorTests: XCTestCase {
         }
 
         let correctMessexp = expectation(description: "Checking if works send feedback api")
-        MoneyDetector.sendFeedback(withImageID: image_id, message: "Great") { (result) in
+        MoneyDetector.sendFeedback(withImageID: imageId, message: "Great") { (result) in
             switch result {
             case .failure(let networkError):
                 XCTAssertNotNil(networkError)
