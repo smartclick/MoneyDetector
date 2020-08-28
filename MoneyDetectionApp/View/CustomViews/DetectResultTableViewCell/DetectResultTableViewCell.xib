@@ -35,20 +35,20 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_coin" translatesAutoresizingMaskIntoConstraints="NO" id="xin-WW-K9y">
-                                <rect key="frame" x="28" y="13" width="44" height="44"/>
+                                <rect key="frame" x="21" y="13" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="35e-m0-r7s"/>
                                     <constraint firstAttribute="width" constant="44" id="C2C-ry-Zav"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRh-o0-Xzn">
-                                <rect key="frame" x="77" y="17" width="34.5" height="16.5"/>
+                                <rect key="frame" x="70" y="17" width="34.5" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <color key="highlightedColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tu3-V0-SLa">
-                                <rect key="frame" x="77" y="38.5" width="34.5" height="16.5"/>
+                                <rect key="frame" x="70" y="38.5" width="34.5" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" red="0.15686274509803921" green="0.15686274509803921" blue="0.15686274509803921" alpha="0.30454445422535209" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -83,7 +83,7 @@
                             <constraint firstAttribute="trailing" secondItem="DeT-i5-VJQ" secondAttribute="trailing" id="Gvg-5W-n1n"/>
                             <constraint firstAttribute="trailing" secondItem="JmF-ha-iNy" secondAttribute="trailing" multiplier="355:290" id="Il4-Y6-75d"/>
                             <constraint firstAttribute="bottom" secondItem="1Jc-gZ-YSc" secondAttribute="bottom" id="J1G-Co-WmR"/>
-                            <constraint firstItem="I0L-7r-mBp" firstAttribute="leading" secondItem="xin-WW-K9y" secondAttribute="trailing" multiplier="223:72" id="NAF-Ic-Iad"/>
+                            <constraint firstItem="I0L-7r-mBp" firstAttribute="leading" secondItem="xin-WW-K9y" secondAttribute="trailing" multiplier="223:65" id="NAF-Ic-Iad"/>
                             <constraint firstAttribute="bottom" secondItem="T7X-i5-P8d" secondAttribute="bottom" id="OmS-CO-WHY"/>
                             <constraint firstAttribute="trailing" secondItem="I0L-7r-mBp" secondAttribute="trailing" multiplier="355:224" id="PxG-je-cjn"/>
                             <constraint firstItem="I0L-7r-mBp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tu3-V0-SLa" secondAttribute="trailing" constant="5" id="Q9J-Nk-EZl"/>
@@ -129,20 +129,20 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_feedback" translatesAutoresizingMaskIntoConstraints="NO" id="m8G-Ku-Den">
-                                <rect key="frame" x="28" y="13" width="44" height="44"/>
+                                <rect key="frame" x="21" y="13" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="L9d-Za-4nm"/>
                                     <constraint firstAttribute="width" constant="44" id="QcP-Ow-zit"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leave Feedback?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtt-HC-G0b">
-                                <rect key="frame" x="77" y="17" width="117" height="16.5"/>
+                                <rect key="frame" x="70" y="17" width="117" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="highlightedColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0z-EZ-fat">
-                                <rect key="frame" x="77" y="38.5" width="34.5" height="16.5"/>
+                                <rect key="frame" x="70" y="38.5" width="34.5" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                 <color key="textColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="0.30454445419999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -196,7 +196,7 @@
                             <constraint firstAttribute="trailing" secondItem="BgZ-Sh-KhN" secondAttribute="trailing" id="sD1-IH-5ek"/>
                             <constraint firstItem="Mtt-HC-G0b" firstAttribute="top" secondItem="MMl-41-1Z1" secondAttribute="top" constant="17" id="sYy-Qd-eSR"/>
                             <constraint firstAttribute="trailing" secondItem="Lx2-WW-7qV" secondAttribute="trailing" id="vHl-Kb-dlN"/>
-                            <constraint firstItem="dcu-jB-g6t" firstAttribute="leading" secondItem="m8G-Ku-Den" secondAttribute="trailing" multiplier="223:72" id="vfQ-tb-XnN"/>
+                            <constraint firstItem="dcu-jB-g6t" firstAttribute="leading" secondItem="m8G-Ku-Den" secondAttribute="trailing" multiplier="223:65" id="vfQ-tb-XnN"/>
                         </constraints>
                     </view>
                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzo-ja-SEV" customClass="DetectCellResultView" customModule="MoneyDetectionApp" customModuleProvider="target">
@@ -253,7 +253,7 @@
                     <constraint firstItem="MMl-41-1Z1" firstAttribute="leading" secondItem="rfu-zn-tvM" secondAttribute="leading" id="vT8-BH-kGe"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="coinCashImageView" destination="xin-WW-K9y" id="Bzh-Ic-Y8v"/>

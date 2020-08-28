@@ -84,7 +84,7 @@ extension DetectResultsViewController {
         configureAspectRatioConstraint()
         hidePan = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         swipeView.addGestureRecognizer(hidePan)
-        blurView.addBlurEffect()
+        blurView.addBlurEffect(style: .light)
     }
 
     private func updateUIOnNewResults() {
@@ -179,12 +179,15 @@ extension DetectResultsViewController {
         }), index != results.count - 1 else {
             return
         }
+        resultsTableView.beginUpdates()
+        UIView.transition(with: resultsTableView,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: { self.resultsTableView.moveRow(at: IndexPath(row: index, section: 0),
+                                                                      to: IndexPath(row: self.results.count - 1, section: 0)) })
+        resultsTableView.endUpdates()
         results.remove(at: index)
         results.append(detectResult)
-        resultsTableView.beginUpdates()
-        resultsTableView.moveRow(at: IndexPath(row: index, section: 0),
-                                 to: IndexPath(row: results.count - 1, section: 0))
-        resultsTableView.endUpdates()
     }
 }
 

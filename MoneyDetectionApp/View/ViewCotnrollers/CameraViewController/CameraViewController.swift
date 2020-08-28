@@ -59,6 +59,8 @@ extension CameraViewController {
         if isCameraView {
             setupCaptureSession()
         }
+        cameraButtonsContainerView.addBlurEffect()
+        imageButtonsContainerView.addBlurEffect()
         configureGalleryButton()
         configureButtons()
         updateUI(showCamera: isCameraView)

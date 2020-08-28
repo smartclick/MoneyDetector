@@ -42,13 +42,13 @@ extension UIView {
                            multiplier: 1, constant: 0).isActive = true
     }
 
-    func addBlurEffect() {
+    func addBlurEffect(style: UIBlurEffect.Style = .dark) {
         removeBlurEffect()
         clipsToBounds = true
-        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffect = UIBlurEffect(style: style)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.bounds
-        blurEffectView.alpha = 0.9
+        blurEffectView.alpha = 1.0
         addSubview(blurEffectView)
         blurEffectView.autopinToSuperviewEdges()
         sendSubviewToBack(blurEffectView)

@@ -94,7 +94,6 @@ class DetectResultTableViewCell: UITableViewCell {
         if let isCorrect = detectResult.isCorrect, !isCorrect && !detectResult.isFeedbackProvided {
             showView = feedbackView
         }
-        print(hideStart)
         UIView.animateKeyframes(withDuration: UIConstants.resultViewAnimationDuration, delay: 0, options: [.calculationModeCubic], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: UIConstants.resultViewShowHideRelativeDuration, animations: {
                 self.resultView.alpha = 1.0
