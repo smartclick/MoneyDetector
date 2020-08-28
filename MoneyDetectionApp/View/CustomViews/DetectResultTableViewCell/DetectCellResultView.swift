@@ -18,17 +18,4 @@ class DetectCellResultView: UIView {
         let image = isCorrect ? UIConstants.resultCorrectImage : UIConstants.resultIncorrectImage
         iconImageView.image = UIImage(named: image)
     }
-
-    func animateView(completion:@escaping () -> Void) {
-        alpha = 0
-        UIView.animate(withDuration: 0.5) {
-            self.alpha = 1
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-            UIView.animate(withDuration: 0.5) {
-                self.alpha = 0
-                completion()
-            }
-        }
-    }
 }

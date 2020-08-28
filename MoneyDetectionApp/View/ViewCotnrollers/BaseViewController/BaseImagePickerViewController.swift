@@ -24,12 +24,12 @@ class BaseImagePickerViewController: UIViewController {
 // MARK: - Public methods
 extension BaseImagePickerViewController {
     public func presentImagePicker(sourceType: UIImagePickerController.SourceType = .photoLibrary) {
-        if UIImagePickerController.isSourceTypeAvailable(sourceType) {
-            imagePicker.sourceType = sourceType
+        if isGalleryAccessAccepted(), UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
             present(imagePicker, animated: true, completion: nil)
         } else {
-            showAlert(withMessage: Messages.galleryNotAvailable)
+            showAlertToEnablePermission(title: Messages.galleryAlertTitle)
         }
     }
 

@@ -16,8 +16,8 @@ protocol CameraViewControllerDelegate: AnyObject {
     func didCancel(cameraViewController: CameraViewController)
 }
 
-// MARK: - Properties
-class CameraViewController: UIViewController {
+// MARK: - Properties and Super class methods
+class CameraViewController: BaseImagePickerViewController {
 
     var captureSession = AVCaptureSession()
     var photoOutput: AVCapturePhotoOutput!
@@ -33,13 +33,6 @@ class CameraViewController: UIViewController {
         return selectedImage == nil
     }
 
-    var imagePicker: UIImagePickerController = {
-        let imagePicker = UIImagePickerController()
-        imagePicker.allowsEditing = false
-        imagePicker.modalPresentationStyle = .fullScreen
-        return imagePicker
-    }()
-
     @IBOutlet weak var imageButtonsContainerView: UIView!
     @IBOutlet weak var cameraButtonsContainerView: UIView!
     @IBOutlet weak var cameraContainerView: PreviewView!
@@ -47,6 +40,12 @@ class CameraViewController: UIViewController {
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var galleryButton: UIButton!
     @IBOutlet weak var tapToFocusLabel: UILabel!
+
+    override func imageSelected(image: UIImage) {
+        self.previewImageView.image = image
+        self.updateUI(showCamera: false)
+        self.stopSession()
+    }
 }
 
 // MARK: - View Lifecycle
@@ -57,8 +56,6 @@ extension CameraViewController {
         if isCameraView {
             setupCaptureSession()
         }
-        imageButtonsContainerView.addBlurEffect()
-        cameraButtonsContainerView.addBlurEffect()
         configureGalleryButton()
         updateUI(showCamera: isCameraView)
         galleryButton.imageView?.contentMode = .scaleAspectFill
@@ -109,13 +106,7 @@ extension CameraViewController {
     }
 
     @IBAction func galleryButtonAction(_ sender: Any) {
-        if isGalleryAccessAccepted(), UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.delegate = self
-            present(imagePicker, animated: true, completion: nil)
-        } else {
-            showAlertToEnablePermission(title: Messages.galleryAlertTitle)
-        }
+        presentImagePicker()
     }
 
     @IBAction func detectButtonAction(_ sender: Any) {
@@ -328,27 +319,6 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             updateUI(showCamera: false)
             stopSession()
         }
-    }
-}
-
-// MARK: - UIImagePickerController Delegate methods
-extension CameraViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        var selectedImage: UIImage?
-        if let editedImage = info[.editedImage] as? UIImage {
-            selectedImage = editedImage
-        } else if let originalImage = info[.originalImage] as? UIImage {
-            selectedImage = originalImage
-        }
-        picker.dismiss(animated: true, completion: {
-            guard selectedImage != nil else {
-                return
-            }
-            self.previewImageView.image = selectedImage
-            self.updateUI(showCamera: false)
-            self.stopSession()
-        })
     }
 }
 

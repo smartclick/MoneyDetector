@@ -19,6 +19,7 @@ class DetectResultTableViewCell: UITableViewCell {
     @IBOutlet weak var coinCashImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueAccuracyLabel: UILabel!
+    @IBOutlet weak var valueAccuracyFeedbackLabel: UILabel!
     @IBOutlet weak var correctButton: UIButton!
     @IBOutlet weak var incorrectButton: UIButton!
     @IBOutlet weak var mainView: UIView!
@@ -58,20 +59,25 @@ class DetectResultTableViewCell: UITableViewCell {
         let confidenceMutableStr = NSMutableAttributedString(string: confidence, attributes: confidenceAtributes)
         mutableString.append(confidenceMutableStr)
         valueAccuracyLabel.attributedText = mutableString
+        valueAccuracyFeedbackLabel.attributedText = mutableString
     }
 
     func configureViews() {
-        feedbackView.isHidden = true
-        mainView.isHidden = false
+        updateButtons()
+        feedbackView.alpha = 0
+        mainView.alpha = 1
+        if let isCorrect = detectResult.isCorrect, !isCorrect && !detectResult.isFeedbackProvided {
+            mainView.alpha = 0
+            feedbackView.alpha = 1
+        }
+    }
+
+    func updateButtons() {
         if let isCorrect = detectResult.isCorrect {
             correctButton.isHidden = !isCorrect
             incorrectButton.isHidden = isCorrect
             correctButton.isEnabled = false
             incorrectButton.isEnabled = false
-            if !isCorrect && !detectResult.isFeedbackProvided {
-                mainView.isHidden = true
-                feedbackView.isHidden = false
-            }
         } else {
             correctButton.isHidden = false
             incorrectButton.isHidden = false
@@ -80,13 +86,27 @@ class DetectResultTableViewCell: UITableViewCell {
         }
     }
 
-    func updateView(detectResult: DetectResult, completion: (() -> Void)? = nil) {
-        mainView.isHidden = true
+    func animateViews(detectResult: DetectResult, completion: (() -> Void)? = nil) {
         resultView.update(isCorrect: detectResult.isCorrect!)
-        resultView.animateView {
-            self.update(withDetectResult: detectResult)
-            completion?()
+        updateButtons()
+        let hideStart = 1 - UIConstants.resultViewShowHideRelativeDuration
+        var showView = mainView
+        if let isCorrect = detectResult.isCorrect, !isCorrect && !detectResult.isFeedbackProvided {
+            showView = feedbackView
         }
+        print(hideStart)
+        UIView.animateKeyframes(withDuration: UIConstants.resultViewAnimationDuration, delay: 0, options: [.calculationModeCubic], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: UIConstants.resultViewShowHideRelativeDuration, animations: {
+                self.resultView.alpha = 1.0
+                self.mainView.alpha = 0.0
+            })
+            UIView.addKeyframe(withRelativeStartTime: hideStart, relativeDuration: UIConstants.resultViewShowHideRelativeDuration, animations: {
+                self.resultView.alpha = 0.0
+                showView?.alpha = 1.0
+            })
+        }, completion: { (_) in
+            completion?()
+        })
     }
 
     @IBAction func incorrectButtonAction(_ sender: Any) {

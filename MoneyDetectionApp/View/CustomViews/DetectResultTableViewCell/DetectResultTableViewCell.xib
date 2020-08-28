@@ -105,7 +105,7 @@
                             <constraint firstAttribute="bottom" secondItem="I0L-7r-mBp" secondAttribute="bottom" constant="1" id="zPc-cL-YWU"/>
                         </constraints>
                     </view>
-                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MMl-41-1Z1">
+                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MMl-41-1Z1">
                         <rect key="frame" x="0.0" y="0.0" width="355" height="71"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lx2-WW-7qV">
@@ -135,10 +135,16 @@
                                     <constraint firstAttribute="width" constant="44" id="QcP-Ow-zit"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leave Feedback?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXE-6k-1LK">
-                                <rect key="frame" x="77" y="27" width="117" height="16.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Leave Feedback?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mtt-HC-G0b">
+                                <rect key="frame" x="77" y="17" width="117" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="highlightedColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0z-EZ-fat">
+                                <rect key="frame" x="77" y="38.5" width="34.5" height="16.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <color key="textColor" red="0.15686274510000001" green="0.15686274510000001" blue="0.15686274510000001" alpha="0.30454445419999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcu-jB-g6t">
@@ -165,15 +171,20 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Mtt-HC-G0b" firstAttribute="leading" secondItem="m8G-Ku-Den" secondAttribute="trailing" constant="5" id="0of-9H-6lf"/>
                             <constraint firstItem="a7P-YV-8T0" firstAttribute="leading" secondItem="dcu-jB-g6t" secondAttribute="trailing" id="9zN-x8-n3e"/>
+                            <constraint firstItem="dcu-jB-g6t" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Mtt-HC-G0b" secondAttribute="trailing" constant="5" id="AbV-tA-Mcp"/>
                             <constraint firstItem="Lx2-WW-7qV" firstAttribute="leading" secondItem="H3S-4t-Yyj" secondAttribute="trailing" id="FJc-un-f1W"/>
+                            <constraint firstItem="dcu-jB-g6t" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g0z-EZ-fat" secondAttribute="trailing" constant="5" id="FX0-hY-ZHa"/>
                             <constraint firstAttribute="trailing" secondItem="H3S-4t-Yyj" secondAttribute="trailing" multiplier="355:290" id="GAu-81-GgQ"/>
                             <constraint firstItem="H3S-4t-Yyj" firstAttribute="top" secondItem="MMl-41-1Z1" secondAttribute="top" id="Ge5-Jf-4iI"/>
                             <constraint firstAttribute="bottom" secondItem="a7P-YV-8T0" secondAttribute="bottom" id="Ixz-b9-VDd"/>
+                            <constraint firstItem="g0z-EZ-fat" firstAttribute="leading" secondItem="Mtt-HC-G0b" secondAttribute="leading" id="Kwd-2q-hnt"/>
+                            <constraint firstItem="BgZ-Sh-KhN" firstAttribute="top" relation="greaterThanOrEqual" secondItem="g0z-EZ-fat" secondAttribute="bottom" constant="10" id="MGk-Ms-4q7"/>
+                            <constraint firstItem="g0z-EZ-fat" firstAttribute="top" secondItem="Mtt-HC-G0b" secondAttribute="bottom" constant="5" id="QGz-MS-4cy"/>
                             <constraint firstItem="dcu-jB-g6t" firstAttribute="top" secondItem="MMl-41-1Z1" secondAttribute="top" id="XBR-Ja-Bo5"/>
                             <constraint firstItem="BgZ-Sh-KhN" firstAttribute="leading" secondItem="MMl-41-1Z1" secondAttribute="leading" id="Xk4-E7-trJ"/>
                             <constraint firstAttribute="bottom" secondItem="H3S-4t-Yyj" secondAttribute="bottom" id="b4g-k4-tLK"/>
-                            <constraint firstItem="dcu-jB-g6t" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fXE-6k-1LK" secondAttribute="trailing" constant="5" id="blL-DI-2MO"/>
                             <constraint firstAttribute="bottom" secondItem="BgZ-Sh-KhN" secondAttribute="bottom" id="d1h-zP-FVt"/>
                             <constraint firstItem="H3S-4t-Yyj" firstAttribute="leading" secondItem="a7P-YV-8T0" secondAttribute="trailing" id="fjc-cH-Ldd"/>
                             <constraint firstItem="a7P-YV-8T0" firstAttribute="top" secondItem="MMl-41-1Z1" secondAttribute="top" id="fkZ-d7-lBb"/>
@@ -182,11 +193,10 @@
                             <constraint firstItem="Lx2-WW-7qV" firstAttribute="top" secondItem="MMl-41-1Z1" secondAttribute="top" id="iuw-kC-S0V"/>
                             <constraint firstAttribute="bottom" secondItem="dcu-jB-g6t" secondAttribute="bottom" constant="1" id="my8-FY-AlM"/>
                             <constraint firstItem="m8G-Ku-Den" firstAttribute="top" secondItem="MMl-41-1Z1" secondAttribute="top" constant="13" id="oGc-uf-Mci"/>
-                            <constraint firstItem="fXE-6k-1LK" firstAttribute="leading" secondItem="m8G-Ku-Den" secondAttribute="trailing" constant="5" id="qW0-tD-T7z"/>
                             <constraint firstAttribute="trailing" secondItem="BgZ-Sh-KhN" secondAttribute="trailing" id="sD1-IH-5ek"/>
+                            <constraint firstItem="Mtt-HC-G0b" firstAttribute="top" secondItem="MMl-41-1Z1" secondAttribute="top" constant="17" id="sYy-Qd-eSR"/>
                             <constraint firstAttribute="trailing" secondItem="Lx2-WW-7qV" secondAttribute="trailing" id="vHl-Kb-dlN"/>
                             <constraint firstItem="dcu-jB-g6t" firstAttribute="leading" secondItem="m8G-Ku-Den" secondAttribute="trailing" multiplier="223:72" id="vfQ-tb-XnN"/>
-                            <constraint firstItem="fXE-6k-1LK" firstAttribute="centerY" secondItem="m8G-Ku-Den" secondAttribute="centerY" id="x9A-w5-wZp"/>
                         </constraints>
                     </view>
                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hzo-ja-SEV" customClass="DetectCellResultView" customModule="MoneyDetectionApp" customModuleProvider="target">
@@ -253,6 +263,7 @@
                 <outlet property="mainView" destination="rfu-zn-tvM" id="j5S-jC-LMp"/>
                 <outlet property="resultView" destination="hzo-ja-SEV" id="bhk-d2-cF2"/>
                 <outlet property="titleLabel" destination="KRh-o0-Xzn" id="fg2-Vz-btn"/>
+                <outlet property="valueAccuracyFeedbackLabel" destination="g0z-EZ-fat" id="ctw-t9-S12"/>
                 <outlet property="valueAccuracyLabel" destination="tu3-V0-SLa" id="BSR-T2-xcq"/>
             </connections>
             <point key="canvasLocation" x="138.40579710144928" y="153.01339285714286"/>

@@ -126,7 +126,10 @@ extension DetectResultsViewController {
                                                    multiplier: selectedImage.size.height / selectedImage.size.width,
                                                    constant: 0))
     }
+}
 
+// MARK: - Private methods realted to UITableView
+extension DetectResultsViewController {
     private func animateTableContainerView() {
         var newConstant: CGFloat = 0
         let minHeight = getTableContainerMinHeight()
@@ -183,8 +186,10 @@ extension DetectResultsViewController {
                                  to: IndexPath(row: results.count - 1, section: 0))
         resultsTableView.endUpdates()
     }
+}
 
-    //Methods Related to polygons
+// MARK: - Private methods realted to Polygons
+extension DetectResultsViewController {
     private func configurePointsViews() {
         guard results.count > 0 else {
             return
@@ -329,7 +334,7 @@ extension DetectResultsViewController: DetectResultTableViewCellDelegate {
         sendFeedback(detectedMoney: detectResult.detectedMoney, isCorrect: true) {
             detectResult.isCorrect = true
             if self.resultsTableView.visibleCells.contains(cell) {
-                cell.updateView(detectResult: detectResult) {
+                cell.animateViews(detectResult: detectResult) {
                     self.sendCellToEnd(detectResult: detectResult)
                 }
             }
@@ -340,7 +345,7 @@ extension DetectResultsViewController: DetectResultTableViewCellDelegate {
         sendFeedback(detectedMoney: detectResult.detectedMoney, isCorrect: false) {
             detectResult.isCorrect = false
             if self.resultsTableView.visibleCells.contains(cell) {
-                cell.updateView(detectResult: detectResult)
+                cell.animateViews(detectResult: detectResult)
             }
         }
     }
@@ -355,6 +360,7 @@ extension DetectResultsViewController: DetectResultTableViewCellDelegate {
 
 }
 
+// MARK: - Table View Class for configuring self size
 class IntrinsicTableView: UITableView {
     override var contentSize: CGSize {
         didSet {

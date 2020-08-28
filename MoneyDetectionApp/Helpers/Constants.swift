@@ -54,6 +54,9 @@ struct UIConstants {
     static let enabledFeedbackButtonColor = UIColor.init(hex: "3963D5", alpha: 1.0)
     static let disabledFeedbackButtonColor = UIColor.init(hex: "3963D5", alpha: 0.2)
 
+    static let resultViewAnimationDuration = 2.5
+    static let resultViewShowHideRelativeDuration = 0.25
+
     static let resultCorrectText = "Thanks!"
     static let resultIncorrectText = "Oh no!"
 
@@ -71,6 +74,7 @@ struct UIConstants {
     static let coinIconName = "icon_coin"
     static let cashIconName = "icon_cash"
     static let shareIconName = "share_icon"
+    static let feedbackIconName = "icon_feedback"
 
     static let correctnessRedColor = UIColor(hex: "F44336")
     static let correctnessOrangeColor = UIColor(hex: "D48A00")

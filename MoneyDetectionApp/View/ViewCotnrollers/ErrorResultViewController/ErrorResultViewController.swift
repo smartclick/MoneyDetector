@@ -12,6 +12,7 @@ enum ErrorType {
     case error(String, String), noResult
 }
 
+// MARK: - Properties and initilization methods
 class ErrorResultViewController: UIViewController {
     @IBOutlet weak var iconImageVIew: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -20,19 +21,34 @@ class ErrorResultViewController: UIViewController {
 
     var errorType: ErrorType = .noResult
 
+    var onAction: (() -> Void)?
+}
+
+// MARK: - View Lifecycle
+extension ErrorResultViewController {
     convenience init(withType type: ErrorType) {
         self.init()
         self.errorType = type
     }
 
-    var onAction: (() -> Void)?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
     }
+}
 
-    func updateUI() {
+// MARK: - Actions
+extension ErrorResultViewController {
+    @IBAction func takeAnotherButtonAction(_ sender: Any) {
+        dismiss(animated: true, completion: {
+            self.onAction?()
+        })
+    }
+}
+
+// MARK: - Private methods
+extension ErrorResultViewController {
+    private func updateUI() {
         switch errorType {
         case .error(let title, let errorMessage):
             configureErrorView(title: title, message: errorMessage)
@@ -41,7 +57,7 @@ class ErrorResultViewController: UIViewController {
         }
     }
 
-    func configureErrorView(title: String, message: String) {
+    private func configureErrorView(title: String, message: String) {
         titleLabel.text = title
         if title != message {
             descriptionLabel.text = message
@@ -51,11 +67,5 @@ class ErrorResultViewController: UIViewController {
         iconImageVIew.image = UIImage(named: UIConstants.errorImage)
         mainButton.backgroundColor = UIConstants.errorButtonColor
         mainButton.setTitle(UIConstants.errorButtonTitle, for: .normal)
-    }
-
-    @IBAction func takeAnotherButtonAction(_ sender: Any) {
-        dismiss(animated: true, completion: {
-            self.onAction?()
-        })
     }
 }

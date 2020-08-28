@@ -8,6 +8,7 @@
 
 import UIKit
 
+// MARK: - Properties and Super class methods
 class CameraNotAuthorizedViewController: BaseImagePickerViewController {
 
     @IBOutlet weak var chooseFromGalleryButton: UIButton!
@@ -17,7 +18,10 @@ class CameraNotAuthorizedViewController: BaseImagePickerViewController {
         camVC.selectedImage = image
         self.navigationController?.pushViewController(camVC, animated: true)
     }
+}
 
+// MARK: - View Lifecycle
+extension CameraNotAuthorizedViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
@@ -37,7 +41,10 @@ class CameraNotAuthorizedViewController: BaseImagePickerViewController {
         NotificationCenter.default.removeObserver(self)
         navigationController?.navigationBar.isHidden = false
     }
+}
 
+// MARK: - Actions
+extension CameraNotAuthorizedViewController {
     @objc
     func appResignActive(notification: NSNotification) {
         updateUI()
@@ -66,7 +73,10 @@ class CameraNotAuthorizedViewController: BaseImagePickerViewController {
             }
         }
     }
+}
 
+// MARK: - Private methods
+extension CameraNotAuthorizedViewController {
     private func updateUI() {
         let title = isGalleryAccessAccepted() ?
             UIConstants.authorizedGalleryButtonTitle :

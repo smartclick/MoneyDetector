@@ -8,25 +8,28 @@
 
 import UIKit
 
+// MARK: - LinkViewControllerDelegate defination
 protocol LinkViewControllerDelegate: AnyObject {
     func didAttachedLink(linkStr: String)
 }
 
+// MARK: - Properties
 class LinkViewController: UIViewController {
     @IBOutlet weak var imageLinkTextField: UITextField!
 
     weak var delegate: LinkViewControllerDelegate?
+}
 
+// MARK: - View lifecycle
+extension LinkViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addTapGesture()
     }
+}
 
-    private func addTapGesture() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-    }
-
+// MARK: - Actions
+extension LinkViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -47,5 +50,13 @@ class LinkViewController: UIViewController {
     @IBAction func pasteButtonAction(_ sender: Any) {
         let pasteBoard = UIPasteboard.general
         imageLinkTextField.text = pasteBoard.string
+    }
+}
+
+// MARK: - Private methods
+extension LinkViewController {
+    private func addTapGesture() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
 }

@@ -35,6 +35,9 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WaA-7P-Xzy">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blur" translatesAutoresizingMaskIntoConstraints="NO" id="5pu-ky-Cvw">
+                    <rect key="frame" x="59" y="577" width="257" height="70"/>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="69d-Bm-d92">
                     <rect key="frame" x="59" y="577" width="257" height="70"/>
                     <subviews>
@@ -78,7 +81,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="qfL-sd-uvh" secondAttribute="trailing" constant="20.32" id="DBZ-jS-Oad"/>
                         <constraint firstItem="6Wf-kg-XJU" firstAttribute="leading" secondItem="69d-Bm-d92" secondAttribute="leading" constant="20.32" id="Lfy-9Q-AeB"/>
@@ -128,7 +131,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Vet-4H-jyN" firstAttribute="leading" secondItem="NEj-OP-xYS" secondAttribute="leading" constant="20.32" id="16O-OF-y7M"/>
                         <constraint firstAttribute="trailing" secondItem="dWO-bf-9c9" secondAttribute="trailing" constant="20.32" id="1s9-Xi-W7h"/>
@@ -165,10 +168,14 @@
                 <constraint firstItem="NEj-OP-xYS" firstAttribute="leading" secondItem="69d-Bm-d92" secondAttribute="leading" id="cLK-ts-0ah"/>
                 <constraint firstItem="WaA-7P-Xzy" firstAttribute="top" secondItem="LMP-tC-Q9p" secondAttribute="top" id="cOP-br-ygv"/>
                 <constraint firstItem="69d-Bm-d92" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.685333" priority="999" id="g4v-B9-KdH"/>
+                <constraint firstItem="5pu-ky-Cvw" firstAttribute="trailing" secondItem="69d-Bm-d92" secondAttribute="trailing" id="gNR-Wp-KwK"/>
+                <constraint firstItem="5pu-ky-Cvw" firstAttribute="leading" secondItem="69d-Bm-d92" secondAttribute="leading" id="gxB-TS-bZO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="69d-Bm-d92" secondAttribute="bottom" constant="20" id="sTc-CU-0fI"/>
+                <constraint firstItem="5pu-ky-Cvw" firstAttribute="top" secondItem="69d-Bm-d92" secondAttribute="top" id="sYY-bM-R6a"/>
                 <constraint firstItem="WaA-7P-Xzy" firstAttribute="trailing" secondItem="LMP-tC-Q9p" secondAttribute="trailing" id="udC-4K-6Rv"/>
                 <constraint firstItem="MAv-CY-Lnz" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="24" id="wFn-TK-jUi"/>
                 <constraint firstItem="NEj-OP-xYS" firstAttribute="trailing" secondItem="69d-Bm-d92" secondAttribute="trailing" id="xoq-XK-qaa"/>
+                <constraint firstItem="5pu-ky-Cvw" firstAttribute="bottom" secondItem="69d-Bm-d92" secondAttribute="bottom" id="yo7-Jh-dky"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="139" y="102"/>
@@ -176,6 +183,7 @@
         <tapGestureRecognizer id="lkh-wZ-QAO"/>
     </objects>
     <resources>
+        <image name="blur" width="257" height="70"/>
         <image name="camera_shutter" width="58" height="58"/>
         <image name="gallery_icon" width="44" height="44"/>
         <image name="icon_delete" width="44" height="44"/>

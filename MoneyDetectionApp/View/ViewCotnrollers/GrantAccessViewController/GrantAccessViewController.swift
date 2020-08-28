@@ -21,7 +21,6 @@ extension GrantAccessViewController {
 
 // MARK: - IBActions
 extension GrantAccessViewController {
-
     @IBAction func cancelButtonAction(_ sender: Any) {
         Assembler.configureOnAccessDenied()
     }
