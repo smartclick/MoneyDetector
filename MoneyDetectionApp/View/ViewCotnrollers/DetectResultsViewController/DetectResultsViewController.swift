@@ -270,8 +270,7 @@ extension DetectResultsViewController {
             }
             UIApplication.hideLoader()
             switch result {
-            case .success(let response):
-                print(response.message ?? "")
+            case .success:                
                 DispatchQueue.main.async {
                     completion?()
                 }
@@ -287,7 +286,9 @@ extension DetectResultsViewController {
 // MARK: - LeaveFeedbackViewController Delegate methods
 extension DetectResultsViewController: LeaveFeedbackViewControllerDelegate {
     func feedbackDidCancel(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult) {
-        sendCellToEnd(detectResult: detectResult)
+        leaveFeedbackViewController.dismiss(animated: true) {
+            self.sendCellToEnd(detectResult: detectResult)
+        }
     }
 
     func feedbackLeftSuccesfully(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult) {
@@ -302,8 +303,7 @@ extension DetectResultsViewController: LeaveFeedbackViewControllerDelegate {
             return
         }
         if resultsTableView.visibleCells.contains(cell) {
-            cell.update(withDetectResult: detectResult)
-            self.sendCellToEnd(detectResult: detectResult)
+            cell.update(withDetectResult: detectResult)            
         }
     }
 }

@@ -59,9 +59,7 @@ extension CameraViewController {
         if isCameraView {
             setupCaptureSession()
         }
-        cameraButtonsContainerView.addBlurEffect()
-        imageButtonsContainerView.addBlurEffect()
-        configureGalleryButton()
+        configureBlurEffect()
         configureButtons()
         updateUI(showCamera: isCameraView)
     }
@@ -187,6 +185,7 @@ extension CameraViewController {
     }
 
     private func configureButtons() {
+        configureGalleryButton()
         galleryButton.imageView?.contentMode = .scaleAspectFill
         galleryButton.imageView?.layer.cornerRadius = galleryButton.layer.cornerRadius
         cameraButton.addShadow()
@@ -194,6 +193,11 @@ extension CameraViewController {
         detectButton.addShadow()
         galleryButton.addShadow()
         cancelButton.addShadow()
+    }
+    
+    private func configureBlurEffect() {
+        cameraButtonsContainerView.addBlurEffect()
+        imageButtonsContainerView.addBlurEffect()
     }
 
     private func presentLinkViewController() {

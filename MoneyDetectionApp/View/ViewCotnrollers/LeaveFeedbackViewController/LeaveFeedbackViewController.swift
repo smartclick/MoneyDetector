@@ -63,9 +63,8 @@ extension LeaveFeedbackViewController {
     }
 
     @IBAction func cancelButtonAction(_ sender: Any) {
-        self.delegate?.feedbackLeftSuccesfully(leaveFeedbackViewController: self,
-                                               detectResult: self.detectResult)
-        dismiss(animated: true)
+        self.delegate?.feedbackDidCancel(leaveFeedbackViewController: self,
+                                         detectResult: self.detectResult)        
     }
 }
 
@@ -110,8 +109,7 @@ extension LeaveFeedbackViewController {
             }
             UIApplication.hideLoader()
             switch result {
-            case .success(let response):
-                print(response.message ?? "")
+            case .success:
                 DispatchQueue.main.async {
                     self.succesView.alpha = 1.0
                     self.delegate?.feedbackLeftSuccesfully(leaveFeedbackViewController: self,
