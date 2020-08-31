@@ -14,7 +14,7 @@ class DetectCellResultView: UIView {
 
     func update(isCorrect: Bool) {
         backgroundColor = isCorrect ? UIConstants.resultCorrectColor : UIConstants.resultIncorrectColor
-        titleLabel.text = isCorrect ? UIConstants.resultCorrectText : UIConstants.resultIncorrectText
+        titleLabel.text = isCorrect ? Messages.resultCorrectText : Messages.resultIncorrectText
         let image = isCorrect ? UIConstants.resultCorrectImage : UIConstants.resultIncorrectImage
         iconImageView.image = UIImage(named: image)
     }

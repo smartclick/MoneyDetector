@@ -54,7 +54,10 @@ extension CameraNotAuthorizedViewController {
     }
 
     @IBAction func allowAccessButtonAction(_ sender: Any) {
-        checkCameraPermission { (isSuccess) in
+        checkCameraPermission { [weak self] (isSuccess) in
+            guard let self = self else {
+                return
+            }
             if isSuccess {
                 Assembler.configureRoot()
             } else {
@@ -64,7 +67,10 @@ extension CameraNotAuthorizedViewController {
     }
 
     @IBAction func chooseFromGalleryButtonAction(_ sender: Any) {
-        checkGalleryPermission { (isSuccess) in
+        checkGalleryPermission { [weak self] (isSuccess) in
+            guard let self = self else {
+                return
+            }
             if isSuccess {
                 self.updateUI()
                 self.presentImagePicker()
@@ -79,8 +85,8 @@ extension CameraNotAuthorizedViewController {
 extension CameraNotAuthorizedViewController {
     private func updateUI() {
         let title = isGalleryAccessAccepted() ?
-            UIConstants.authorizedGalleryButtonTitle :
-            UIConstants.unauthorizedGalleryButtonTitle
+            Messages.authorizedGalleryButtonTitle :
+            Messages.unauthorizedGalleryButtonTitle
         chooseFromGalleryButton.setTitle(title, for: .normal)
     }
 }

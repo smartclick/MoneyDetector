@@ -33,7 +33,10 @@ extension GrantAccessViewController {
 // MARK: - Private methods
 extension GrantAccessViewController {
     private func checkPermissions() {
-        checkCameraPermission { (_) in
+        checkCameraPermission { [weak self] (_) in
+            guard let self = self else {
+                return
+            }
             self.checkGalleryPermission { (_) in
                 Assembler.configureRoot()
             }

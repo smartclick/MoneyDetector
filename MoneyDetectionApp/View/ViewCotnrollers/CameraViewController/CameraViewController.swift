@@ -311,8 +311,11 @@ extension CameraViewController {
                                     targetSize: galleryButton.frame.size,
                                     contentMode: PHImageContentMode.aspectFill,
                                     options: nil,
-                                    resultHandler: { (image, _) in
-                self.galleryButton.setImage(image, for: .normal)
+                                    resultHandler: { [weak self] (image, _) in
+                                        guard let self = self else {
+                                            return
+                                        }
+                                        self.galleryButton.setImage(image, for: .normal)
             })
         }
     }
@@ -348,11 +351,16 @@ extension CameraViewController: LinkViewControllerDelegate {
         self.updateUI(showCamera: false)
         self.stopSession()
         UIApplication.showLoader()
-        previewImageView.load(url: url) { (isSuccess) in
+        previewImageView.load(url: url) { [weak self] (isSuccess) in
             UIApplication.hideLoader()
+            guard let self = self else {
+                return
+            }
             if !isSuccess {
-                self.updateUI(showCamera: true)
-                self.startSession()
+                self.showErrorController(withTitle: Messages.somethingWrong, message: Messages.invalidUrl) {
+                    self.updateUI(showCamera: true)
+                    self.startSession()
+                }
             }
         }
     }

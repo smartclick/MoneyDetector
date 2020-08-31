@@ -36,11 +36,15 @@ struct Messages {
     static let invalidUrl = "Invalid url"
     static let checkInternetConnection = "Please check your internet connection."
     static let shareText = "Money detected from ai"
+    
+    static let resultCorrectText = "Thanks!"
+    static let resultIncorrectText = "Oh no!"
+    
+    static let authorizedGalleryButtonTitle = "Choose from Gallery"
+    static let unauthorizedGalleryButtonTitle = "Allow Acces to Gallery"
 }
 
 struct UIConstants {
-    static let authorizedGalleryButtonTitle = "Choose from Gallery"
-    static let unauthorizedGalleryButtonTitle = "Allow Acces to Gallery"
 
     static let safeAreaHeight = (UtilityMethods.getKeyWindow()?.safeAreaLayoutGuide.layoutFrame.height) ?? 0
 
@@ -56,9 +60,6 @@ struct UIConstants {
 
     static let resultViewAnimationDuration = 2.5
     static let resultViewShowHideRelativeDuration = 0.25
-
-    static let resultCorrectText = "Thanks!"
-    static let resultIncorrectText = "Oh no!"
 
     static let resultCorrectImage = "icon_check_white"
     static let resultIncorrectImage = "icon_cancel_white"
