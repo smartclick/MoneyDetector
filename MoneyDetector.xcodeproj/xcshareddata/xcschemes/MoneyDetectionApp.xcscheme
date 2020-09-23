@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6635F17424DD36330030C0CE"
-               BuildableName = "MoneyDetector.framework"
-               BlueprintName = "MoneyDetector"
+               BlueprintIdentifier = "66975E9624DD6A3D0024C3FF"
+               BuildableName = "MoneyDetectionApp.app"
+               BlueprintName = "MoneyDetectionApp"
                ReferencedContainer = "container:MoneyDetector.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,19 +26,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6635F17D24DD36330030C0CE"
-               BuildableName = "MoneyDetectorTests.xctest"
-               BlueprintName = "MoneyDetectorTests"
-               ReferencedContainer = "container:MoneyDetector.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -51,6 +40,28 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "66975E9624DD6A3D0024C3FF"
+            BuildableName = "MoneyDetectionApp.app"
+            BlueprintName = "MoneyDetectionApp"
+            ReferencedContainer = "container:MoneyDetector.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <AdditionalOptions>
+         <AdditionalOption
+            key = "MallocStackLogging"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "PrefersMallocStackLoggingLite"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -58,15 +69,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6635F17424DD36330030C0CE"
-            BuildableName = "MoneyDetector.framework"
-            BlueprintName = "MoneyDetector"
+            BlueprintIdentifier = "66975E9624DD6A3D0024C3FF"
+            BuildableName = "MoneyDetectionApp.app"
+            BlueprintName = "MoneyDetectionApp"
             ReferencedContainer = "container:MoneyDetector.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

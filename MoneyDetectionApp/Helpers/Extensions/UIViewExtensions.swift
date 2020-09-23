@@ -69,11 +69,7 @@ extension UIView {
         layer.shadowRadius = radius
     }
 
-    func dropCardShadow() {
-        dropShadow(offSet: CGSize(width: 5, height: 5), color: .gray, radius: 10, opacity: 0.45)
-    }
-
-    func addShadowView(offSet: CGSize, color: UIColor, radius: CGFloat = 2, opacity: Float = 1.0, viewTag: Int = 99) {
+    func addShadowView(offSet: CGSize = CGSize.zero, color: UIColor = .black, radius: CGFloat = 2, opacity: Float = 1.0, viewTag: Int = 99) {
         removeShadow(viewTag: viewTag)
         layer.masksToBounds = false
         let shadow = UIView(frame: bounds)

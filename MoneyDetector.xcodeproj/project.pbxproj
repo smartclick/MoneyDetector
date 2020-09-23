@@ -52,7 +52,7 @@
 		66BE42FA24E2BE9200E43E8D /* LeaveFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BE42F824E2BE9200E43E8D /* LeaveFeedbackViewController.swift */; };
 		66BE42FB24E2BE9200E43E8D /* LeaveFeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BE42F924E2BE9200E43E8D /* LeaveFeedbackViewController.xib */; };
 		66E4907024E13073004258FD /* MoneyDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6635F17524DD36330030C0CE /* MoneyDetector.framework */; };
-		66E4907124E13073004258FD /* MoneyDetector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6635F17524DD36330030C0CE /* MoneyDetector.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		66E4907124E13073004258FD /* MoneyDetector.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6635F17524DD36330030C0CE /* MoneyDetector.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		66F800F424E138A200D25672 /* DetectResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F800F224E138A200D25672 /* DetectResultsViewController.swift */; };
 		66F800F524E138A200D25672 /* DetectResultsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66F800F324E138A200D25672 /* DetectResultsViewController.xib */; };
 		66F800F824E13DF700D25672 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F800F724E13DF700D25672 /* MainNavigationController.swift */; };
@@ -505,7 +505,7 @@
 				66975E9424DD6A3D0024C3FF /* Frameworks */,
 				66975E9524DD6A3D0024C3FF /* Resources */,
 				66E4907224E13073004258FD /* Embed Frameworks */,
-				663A4A6F24F7DFD0002221E6 /* Run Script */,
+				663A4A6F24F7DFD0002221E6 /* Run Script(swiftLint) */,
 			);
 			buildRules = (
 			);
@@ -523,7 +523,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Sevak Soghoyan";
 				TargetAttributes = {
 					6635F17424DD36330030C0CE = {
@@ -592,7 +592,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		663A4A6F24F7DFD0002221E6 /* Run Script */ = {
+		663A4A6F24F7DFD0002221E6 /* Run Script(swiftLint) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -601,7 +601,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = "Run Script(swiftLint)";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -720,6 +720,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -783,6 +784,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -825,7 +827,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MoneyDetector/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -850,7 +852,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MoneyDetector/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
