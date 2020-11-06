@@ -55,8 +55,8 @@ struct UIConstants {
     static let resultCorrectColor = UIColor.init(hex: "73B452", alpha: 0.7)
     static let resultIncorrectColor = UIColor.init(hex: "F44336", alpha: 0.7)
 
-    static let enabledFeedbackButtonColor = UIColor.init(hex: "3963D5", alpha: 1.0)
-    static let disabledFeedbackButtonColor = UIColor.init(hex: "3963D5", alpha: 0.2)
+    static let enabledFeedbackButtonColor = UIColor(named: "md_blue")!.withAlphaComponent(1.0)
+    static let disabledFeedbackButtonColor = UIColor(named: "md_blue")!.withAlphaComponent(0.2)
 
     static let resultViewAnimationDuration = 2.5
     static let resultViewShowHideRelativeDuration = 0.25

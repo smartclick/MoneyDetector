@@ -191,13 +191,16 @@ extension CameraViewController {
         cameraButton.addShadow()
         linkButton.addShadow()
         detectButton.addShadow()
-        galleryButton.addShadow()
+        galleryButton.dropShadow(offSet: CGSize(width: 0, height: 0),
+                                 color: .black, radius: 3,
+                                 opacity: 0.1,
+                                 cornerRadius: galleryButton.layer.cornerRadius)
         cancelButton.addShadow()
     }
     
     private func configureBlurEffect() {
-        cameraButtonsContainerView.addBlurEffect()
-        imageButtonsContainerView.addBlurEffect()
+        cameraButtonsContainerView.dropShadow(offSet: .zero, color: UIColor.black.withAlphaComponent(0.2), radius: 12, cornerRadius: 35)
+        imageButtonsContainerView.dropShadow(offSet: .zero, color: UIColor.black.withAlphaComponent(0.2), radius: 12, cornerRadius: 35)
     }
 
     private func presentLinkViewController() {

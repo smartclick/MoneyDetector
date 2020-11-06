@@ -156,9 +156,14 @@ extension DetectResultsViewController {
         }
         isTableViewShown = newHeight != getTableContainerMinHeight()
         tableContainerHeightConstant.constant = newHeight
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
+        if !isTableViewShown {
+            resultsTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { (_) in
+            self.resultsTableView.isScrollEnabled = self.isTableViewShown
+        })
     }
 
     private func getTableContainerMaxHeight() -> CGFloat {

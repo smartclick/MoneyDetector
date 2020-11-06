@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -61,9 +62,9 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zGc-Mq-ZXV">
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zGc-Mq-ZXV">
                     <rect key="frame" x="135" y="351" width="105" height="35"/>
-                    <color key="backgroundColor" red="0.22352941176470589" green="0.38823529411764707" blue="0.83529411764705885" alpha="0.20007152288732394" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.42352941176470588" green="0.18431372549019609" blue="0.56862745098039214" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="105" id="O6k-H8-V7Q"/>
                         <constraint firstAttribute="height" constant="35" id="lyI-uV-4Zc"/>
@@ -84,7 +85,7 @@
                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kdw-z0-Bdd">
                     <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdK-3t-AAA">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdK-3t-AAA">
                             <rect key="frame" x="114" y="556" width="147" height="35"/>
                             <color key="backgroundColor" name="md_blue"/>
                             <constraints>
@@ -125,6 +126,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="kdw-z0-Bdd" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="1ao-oI-avh"/>
@@ -146,7 +148,6 @@
                 <constraint firstItem="zGc-Mq-ZXV" firstAttribute="centerX" secondItem="Icr-kw-A5k" secondAttribute="centerX" id="xYg-T3-Uv2"/>
                 <constraint firstItem="kdw-z0-Bdd" firstAttribute="top" secondItem="elM-G1-WEw" secondAttribute="bottom" id="yI6-GL-Dy0"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="136.80000000000001" y="152.47376311844079"/>
         </view>
     </objects>
@@ -154,7 +155,7 @@
         <image name="icon_close" width="13" height="13"/>
         <image name="icon_done" width="111" height="111"/>
         <namedColor name="md_blue">
-            <color red="0.22352941176470589" green="0.38823529411764707" blue="0.83529411764705885" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.42352941176470588" green="0.18431372549019609" blue="0.56862745098039214" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
