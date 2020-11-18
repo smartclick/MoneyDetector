@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "66975E9624DD6A3D0024C3FF"
-               BuildableName = "MoneyDetectionApp.app"
-               BlueprintName = "MoneyDetectionApp"
-               ReferencedContainer = "container:MoneyDetector.xcodeproj">
+               BuildableName = "Viision.app"
+               BlueprintName = "Viision"
+               ReferencedContainer = "container:Viision.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "66975E9624DD6A3D0024C3FF"
-            BuildableName = "MoneyDetectionApp.app"
-            BlueprintName = "MoneyDetectionApp"
-            ReferencedContainer = "container:MoneyDetector.xcodeproj">
+            BuildableName = "Viision.app"
+            BlueprintName = "Viision"
+            ReferencedContainer = "container:Viision.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -74,9 +74,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "66975E9624DD6A3D0024C3FF"
-            BuildableName = "MoneyDetectionApp.app"
-            BlueprintName = "MoneyDetectionApp"
-            ReferencedContainer = "container:MoneyDetector.xcodeproj">
+            BuildableName = "Viision.app"
+            BlueprintName = "Viision"
+            ReferencedContainer = "container:Viision.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

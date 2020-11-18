@@ -103,7 +103,7 @@
 		6635F17524DD36330030C0CE /* MoneyDetector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoneyDetector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6635F17824DD36330030C0CE /* MoneyDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoneyDetector.h; sourceTree = "<group>"; };
 		6635F17924DD36330030C0CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6635F17E24DD36330030C0CE /* MoneyDetectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoneyDetectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6635F17E24DD36330030C0CE /* ViisionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViisionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6635F18324DD36340030C0CE /* MoneyDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyDetectorTests.swift; sourceTree = "<group>"; };
 		6635F18524DD36340030C0CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6635F19124DD3A100030C0CE /* MDNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDNetworking.swift; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 		667A2BF824F5455000608F24 /* ErrorResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResultViewController.swift; sourceTree = "<group>"; };
 		667A2BF924F5455000608F24 /* ErrorResultViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorResultViewController.xib; sourceTree = "<group>"; };
 		6688D00A24E1203D00391CF4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		66975E9724DD6A3D0024C3FF /* MoneyDetectionApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyDetectionApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		66975E9724DD6A3D0024C3FF /* Viision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viision.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66975EAE24DD6A770024C3FF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66975EAF24DD6A770024C3FF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66975EB024DD6A770024C3FF /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 			children = (
 				6635F17724DD36330030C0CE /* MoneyDetector */,
 				6635F18224DD36330030C0CE /* MoneyDetectorTests */,
-				66975E9824DD6A3D0024C3FF /* MoneyDetectionApp */,
+				66975E9824DD6A3D0024C3FF /* Viision */,
 				6635F17624DD36330030C0CE /* Products */,
 				66975EAB24DD6A4B0024C3FF /* Frameworks */,
 			);
@@ -222,8 +222,8 @@
 			isa = PBXGroup;
 			children = (
 				6635F17524DD36330030C0CE /* MoneyDetector.framework */,
-				6635F17E24DD36330030C0CE /* MoneyDetectorTests.xctest */,
-				66975E9724DD6A3D0024C3FF /* MoneyDetectionApp.app */,
+				6635F17E24DD36330030C0CE /* ViisionTests.xctest */,
+				66975E9724DD6A3D0024C3FF /* Viision.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,7 +317,7 @@
 			path = ErrorResultViewController;
 			sourceTree = "<group>";
 		};
-		66975E9824DD6A3D0024C3FF /* MoneyDetectionApp */ = {
+		66975E9824DD6A3D0024C3FF /* Viision */ = {
 			isa = PBXGroup;
 			children = (
 				663063A124F3F68700A86168 /* Models */,
@@ -326,7 +326,7 @@
 				66975EB124DD6A770024C3FF /* Resources */,
 				66975EB724DD6A770024C3FF /* View */,
 			);
-			path = MoneyDetectionApp;
+			path = Viision;
 			sourceTree = "<group>";
 		};
 		66975EAB24DD6A4B0024C3FF /* Frameworks */ = {
@@ -479,9 +479,9 @@
 			productReference = 6635F17524DD36330030C0CE /* MoneyDetector.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6635F17D24DD36330030C0CE /* MoneyDetectorTests */ = {
+		6635F17D24DD36330030C0CE /* ViisionTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6635F18C24DD36340030C0CE /* Build configuration list for PBXNativeTarget "MoneyDetectorTests" */;
+			buildConfigurationList = 6635F18C24DD36340030C0CE /* Build configuration list for PBXNativeTarget "ViisionTests" */;
 			buildPhases = (
 				6635F17A24DD36330030C0CE /* Sources */,
 				6635F17B24DD36330030C0CE /* Frameworks */,
@@ -492,14 +492,14 @@
 			dependencies = (
 				6635F18124DD36330030C0CE /* PBXTargetDependency */,
 			);
-			name = MoneyDetectorTests;
+			name = ViisionTests;
 			productName = MoneyDetectorTests;
-			productReference = 6635F17E24DD36330030C0CE /* MoneyDetectorTests.xctest */;
+			productReference = 6635F17E24DD36330030C0CE /* ViisionTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		66975E9624DD6A3D0024C3FF /* MoneyDetectionApp */ = {
+		66975E9624DD6A3D0024C3FF /* Viision */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 66975EAA24DD6A3E0024C3FF /* Build configuration list for PBXNativeTarget "MoneyDetectionApp" */;
+			buildConfigurationList = 66975EAA24DD6A3E0024C3FF /* Build configuration list for PBXNativeTarget "Viision" */;
 			buildPhases = (
 				66975E9324DD6A3D0024C3FF /* Sources */,
 				66975E9424DD6A3D0024C3FF /* Frameworks */,
@@ -511,9 +511,9 @@
 			);
 			dependencies = (
 			);
-			name = MoneyDetectionApp;
+			name = Viision;
 			productName = MoneyDetectionApp;
-			productReference = 66975E9724DD6A3D0024C3FF /* MoneyDetectionApp.app */;
+			productReference = 66975E9724DD6A3D0024C3FF /* Viision.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -537,7 +537,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6635F16F24DD36330030C0CE /* Build configuration list for PBXProject "MoneyDetector" */;
+			buildConfigurationList = 6635F16F24DD36330030C0CE /* Build configuration list for PBXProject "Viision" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -551,8 +551,8 @@
 			projectRoot = "";
 			targets = (
 				6635F17424DD36330030C0CE /* MoneyDetector */,
-				6635F17D24DD36330030C0CE /* MoneyDetectorTests */,
-				66975E9624DD6A3D0024C3FF /* MoneyDetectionApp */,
+				6635F17D24DD36330030C0CE /* ViisionTests */,
+				66975E9624DD6A3D0024C3FF /* Viision */,
 			);
 		};
 /* End PBXProject section */
@@ -911,7 +911,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5DRZXA3262;
-				INFOPLIST_FILE = MoneyDetectionApp/Application/Info.plist;
+				INFOPLIST_FILE = Viision/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -931,7 +931,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5DRZXA3262;
-				INFOPLIST_FILE = MoneyDetectionApp/Application/Info.plist;
+				INFOPLIST_FILE = Viision/Application/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -947,7 +947,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6635F16F24DD36330030C0CE /* Build configuration list for PBXProject "MoneyDetector" */ = {
+		6635F16F24DD36330030C0CE /* Build configuration list for PBXProject "Viision" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6635F18724DD36340030C0CE /* Debug */,
@@ -965,7 +965,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6635F18C24DD36340030C0CE /* Build configuration list for PBXNativeTarget "MoneyDetectorTests" */ = {
+		6635F18C24DD36340030C0CE /* Build configuration list for PBXNativeTarget "ViisionTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6635F18D24DD36340030C0CE /* Debug */,
@@ -974,7 +974,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		66975EAA24DD6A3E0024C3FF /* Build configuration list for PBXNativeTarget "MoneyDetectionApp" */ = {
+		66975EAA24DD6A3E0024C3FF /* Build configuration list for PBXNativeTarget "Viision" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				66975EA824DD6A3E0024C3FF /* Debug */,

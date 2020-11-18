@@ -17,7 +17,7 @@
                BlueprintIdentifier = "6635F17424DD36330030C0CE"
                BuildableName = "MoneyDetector.framework"
                BlueprintName = "MoneyDetector"
-               ReferencedContainer = "container:MoneyDetector.xcodeproj">
+               ReferencedContainer = "container:Viision.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6635F17D24DD36330030C0CE"
-               BuildableName = "MoneyDetectorTests.xctest"
-               BlueprintName = "MoneyDetectorTests"
-               ReferencedContainer = "container:MoneyDetector.xcodeproj">
+               BuildableName = "ViisionTests.xctest"
+               BlueprintName = "ViisionTests"
+               ReferencedContainer = "container:Viision.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "6635F17424DD36330030C0CE"
             BuildableName = "MoneyDetector.framework"
             BlueprintName = "MoneyDetector"
-            ReferencedContainer = "container:MoneyDetector.xcodeproj">
+            ReferencedContainer = "container:Viision.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
