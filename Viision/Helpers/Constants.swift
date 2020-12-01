@@ -58,7 +58,7 @@ struct UIConstants {
     static let enabledFeedbackButtonColor = UIColor(named: "md_blue")!.withAlphaComponent(1.0)
     static let disabledFeedbackButtonColor = UIColor(named: "md_blue")!.withAlphaComponent(0.2)
 
-    static let resultViewAnimationDuration = 2.5
+    static let resultViewAnimationDuration = 1.5
     static let resultViewShowHideRelativeDuration = 0.25
 
     static let resultCorrectImage = "icon_check_white"
