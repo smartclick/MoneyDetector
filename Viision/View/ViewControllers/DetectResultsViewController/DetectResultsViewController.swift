@@ -26,6 +26,7 @@ class DetectResultsViewController: UIViewController {
     private var isTableViewShown = false
 
     var results: [DetectResult] = []
+    var buttons: [String: UIButton] = [:]
 }
 
 // MARK: - View Lifecycle
@@ -73,6 +74,20 @@ extension DetectResultsViewController {
         }
         if gestureRecognizer.state == UIGestureRecognizer.State.ended {
             animateTableContainerView()
+        }
+    }
+    
+    @objc func buttonClicked(sender: UIButton) {
+        animateTableView(newHeight: getTableContainerMinHeight())
+        guard !sender.isSelected else {            
+            return
+        }
+        buttons.values.forEach {
+            $0.isSelected = false
+        }
+        sender.isSelected = true
+        if let key = buttons.key(for: sender) {
+            animateResult(detectMoneyId: key)
         }
     }
 }
@@ -126,6 +141,13 @@ extension DetectResultsViewController {
                                                    multiplier: selectedImage.size.height / selectedImage.size.width,
                                                    constant: 0))
     }
+    
+    private func animateResult(detectMoneyId: String) {
+        for result in results where result.detectedMoney.id == detectMoneyId {
+            sendCellToFront(detectResult: result)
+            return
+        }
+    }
 }
 
 // MARK: - Private methods realted to UITableView
@@ -177,11 +199,11 @@ extension DetectResultsViewController {
         let height = UIConstants.defaultSwipeViewHeight + cellRect.height
         return height
     }
-
-    private func sendCellToEnd(detectResult: DetectResult) {
+    
+    private func sendCellToFront(detectResult: DetectResult) {
         guard let index = results.firstIndex(where: {
             $0.detectedMoney.id == detectResult.detectedMoney.id
-        }), index != results.count - 1 else {
+        }), index != 0 else {
             return
         }
         resultsTableView.beginUpdates()
@@ -189,10 +211,10 @@ extension DetectResultsViewController {
                           duration: 0.5,
                           options: .transitionCrossDissolve,
                           animations: { self.resultsTableView.moveRow(at: IndexPath(row: index, section: 0),
-                                                                      to: IndexPath(row: self.results.count - 1, section: 0)) })
+                                                                      to: IndexPath(row: 0, section: 0)) })
         resultsTableView.endUpdates()
         results.remove(at: index)
-        results.append(detectResult)
+        results.insert(detectResult, at: 0)
     }
 }
 
@@ -205,25 +227,17 @@ extension DetectResultsViewController {
         configureRightBarButtonItem()
         let withDiff = imageView.frame.size.width / selectedImage.size.width
         let heightDiff = imageView.frame.size.height / selectedImage.size.height
-        var colorIndex = 0
         for detectMoney in results {
-            var polygonViews: [PolygonView] = []
-            for polygon in detectMoney.detectedMoney.polygon {
-                let points = polygon.compactMap({
-                    CGPoint(x: (CGFloat($0.x) * withDiff), y: (CGFloat($0.y) * heightDiff))
-                })
-                polygonViews.append(addPolygonView(points: points, color: Constants.colors[colorIndex]))
+            if let center = detectMoney.detectedMoney.getBoundingBoxCenter() {
+                let button = UIButton(frame: CGRect(x: 0, y: 0, width: 31, height: 31))
+                button.setImage(UIImage(named: "\(UIConstants.inactiveIconPlaceholder)\(detectMoney.colorIndex)"), for: .normal)
+                button.setImage(UIImage(named: "\(UIConstants.activeIconPlaceholder)\(detectMoney.colorIndex)"), for: .selected)
+                polygonViewsContainerView.addSubview(button)
+                button.center = CGPoint(x: center.x * withDiff, y: center.y * heightDiff)
+                buttons[detectMoney.detectedMoney.id] = button
+                button.addTarget(self, action: #selector(self.buttonClicked), for: .touchUpInside)
             }
-            colorIndex = colorIndex == Constants.colors.count - 1 ? 0 : colorIndex + 1
         }
-    }
-
-    private func addPolygonView(points: [CGPoint], color: UIColor) -> PolygonView {
-        let polygonView = PolygonView(frame: polygonViewsContainerView.bounds)
-        polygonViewsContainerView.addSubview(polygonView)
-        polygonView.autopinToSuperviewEdges()
-        polygonView.addRectangleFromPoints(points: points, fillColor: color, strokeColor: color)
-        return polygonView
     }
 }
 
@@ -259,7 +273,7 @@ extension DetectResultsViewController {
             if colorIndex == Constants.colors.count {
                 colorIndex = 0
             }
-            return DetectResult(detectedMoney: $0, color: Constants.colors[colorIndex])
+            return DetectResult(detectedMoney: $0, colorIndex: colorIndex)
         }
         DispatchQueue.main.async {
             self.updateUIOnNewResults()
@@ -291,9 +305,7 @@ extension DetectResultsViewController {
 // MARK: - LeaveFeedbackViewController Delegate methods
 extension DetectResultsViewController: LeaveFeedbackViewControllerDelegate {
     func feedbackDidCancel(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult) {
-        leaveFeedbackViewController.dismiss(animated: true) {
-            self.sendCellToEnd(detectResult: detectResult)
-        }
+        leaveFeedbackViewController.dismiss(animated: true)
     }
 
     func feedbackLeftSuccesfully(leaveFeedbackViewController: LeaveFeedbackViewController, detectResult: DetectResult) {
@@ -314,7 +326,7 @@ extension DetectResultsViewController: LeaveFeedbackViewControllerDelegate {
 }
 
 // MARK: - UITableView DataSource methods
-extension DetectResultsViewController: UITableViewDataSource {
+extension DetectResultsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return results.count
     }
@@ -330,21 +342,25 @@ extension DetectResultsViewController: UITableViewDataSource {
         cell.delegate = self
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detectResult = results[indexPath.row]
+        if let button = buttons[detectResult.detectedMoney.id] {
+            buttonClicked(sender: button)
+        }
+    }
 }
 
 // MARK: - DetectResultTableViewCell Delegate methods
 extension DetectResultsViewController: DetectResultTableViewCellDelegate {
     func didTapCancelFeedbackButton(cell: DetectResultTableViewCell, detectResult: DetectResult) {
-        sendCellToEnd(detectResult: detectResult)
     }
 
     func didTapCorrectButton(cell: DetectResultTableViewCell, detectResult: DetectResult) {
         sendFeedback(detectedMoney: detectResult.detectedMoney, isCorrect: true) {
             detectResult.isCorrect = true
             if self.resultsTableView.visibleCells.contains(cell) {
-                cell.animateViews(detectResult: detectResult) {
-                    self.sendCellToEnd(detectResult: detectResult)
-                }
+                cell.animateViews(detectResult: detectResult)
             }
         }
     }
@@ -381,4 +397,19 @@ class IntrinsicTableView: UITableView {
         return CGSize(width: UIView.noIntrinsicMetric, height: contentSize.height)
     }
 
+}
+
+extension MDDetectedMoney {
+    func getBoundingBoxCenter() -> CGPoint? {
+        guard boundingBox.count > 1 else {
+            return nil
+        }
+        return CGPoint(x: (boundingBox[0].x + boundingBox[1].x) / 2, y: (boundingBox[0].y + boundingBox[1].y) / 2)
+    }
+}
+
+extension Dictionary where Key == String, Value: Equatable {
+    func key(for value: Value) -> Key? {
+        return compactMap { value == $1 ? $0 : nil }.first
+    }
 }

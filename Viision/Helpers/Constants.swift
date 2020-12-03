@@ -9,12 +9,16 @@
 import UIKit
 
 struct Constants {
-    static let colors: [UIColor] = [UIColor(hex: "2821B6"),
-                                    UIColor(hex: "B6219E"),
-                                    UIColor(hex: "A1B621"),
-                                    UIColor(hex: "ED1B1B"),
-                                    UIColor(hex: "219EB6"),
-                                    UIColor(hex: "B64421")]
+    static let colors: [UIColor] = [UIColor(hex: "9143AA"),
+                                    UIColor(hex: "2827A1"),
+                                    UIColor(hex: "577590"),
+                                    UIColor(hex: "90BE6D"),
+                                    UIColor(hex: "4D908E"),
+                                    UIColor(hex: "FF6060"),
+                                    UIColor(hex: "F8961E"),
+                                    UIColor(hex: "F3722C"),
+                                    UIColor(hex: "F9C74F"),
+                                    UIColor(hex: "F94144")]
 
     static let sessionQueueName = "ai.smartclick.MoneyDetectionApp.captureSession"
 
@@ -76,6 +80,9 @@ struct UIConstants {
     static let cashIconName = "icon_cash"
     static let shareIconName = "share_icon"
     static let feedbackIconName = "icon_feedback"
+    
+    static let activeIconPlaceholder = "money_icon_active_"
+    static let inactiveIconPlaceholder = "money_icon_inactive_"
 
     static let correctnessRedColor = UIColor(hex: "F44336")
     static let correctnessOrangeColor = UIColor(hex: "D48A00")

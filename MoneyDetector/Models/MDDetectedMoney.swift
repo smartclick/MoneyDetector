@@ -20,5 +20,5 @@ public struct MDDetectedMoney: Decodable {
     private enum CodingKeys: String, CodingKey {
         case boundingBox = "bbox"
         case polygon, type, currency, value, confidence, id
-    }
+    }        
 }

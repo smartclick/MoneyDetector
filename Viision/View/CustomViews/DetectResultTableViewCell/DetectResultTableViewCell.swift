@@ -48,7 +48,7 @@ class DetectResultTableViewCell: UITableViewCell {
         let value = "\(detectResult.detectedMoney.value)\(detectResult.detectedMoney.currency) "
         let valueAtributes: [NSAttributedString.Key: Any] =
             [NSAttributedString.Key.font: UIConstants.helveticaFont,
-             NSAttributedString.Key.foregroundColor: detectResult.color]
+             NSAttributedString.Key.foregroundColor: Constants.colors[detectResult.colorIndex]]
         let valueMutableStr = NSMutableAttributedString(string: value, attributes: valueAtributes)
         mutableString.append(valueMutableStr)
         let color = UtilityMethods.getColor(confidence: detectResult.detectedMoney.confidence)

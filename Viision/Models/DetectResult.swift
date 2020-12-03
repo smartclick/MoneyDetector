@@ -13,10 +13,10 @@ class DetectResult {
     let detectedMoney: MDDetectedMoney
     var isFeedbackProvided = false
     var isCorrect: Bool?
-    var color: UIColor
+    var colorIndex: Int
 
-    init(detectedMoney: MDDetectedMoney, color: UIColor) {
+    init(detectedMoney: MDDetectedMoney, colorIndex: Int) {
         self.detectedMoney = detectedMoney
-        self.color = color
+        self.colorIndex = colorIndex
     }
 }
