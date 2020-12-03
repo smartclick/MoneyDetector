@@ -227,9 +227,12 @@ extension DetectResultsViewController {
         configureRightBarButtonItem()
         let withDiff = imageView.frame.size.width / selectedImage.size.width
         let heightDiff = imageView.frame.size.height / selectedImage.size.height
+        let buttonWidth = 31 * withDiff
+        let buttonHeight = 31 * heightDiff
+        let buttonSize = buttonWidth > buttonHeight ? buttonWidth : buttonHeight
         for detectMoney in results {
             if let center = detectMoney.detectedMoney.getBoundingBoxCenter() {
-                let button = UIButton(frame: CGRect(x: 0, y: 0, width: 31, height: 31))
+                let button = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
                 button.setImage(UIImage(named: "\(UIConstants.inactiveIconPlaceholder)\(detectMoney.colorIndex)"), for: .normal)
                 button.setImage(UIImage(named: "\(UIConstants.activeIconPlaceholder)\(detectMoney.colorIndex)"), for: .selected)
                 polygonViewsContainerView.addSubview(button)
