@@ -34,6 +34,19 @@ struct UIUtilityMethods {
 
         return newImage
     }
+    
+    static func resizeImage(image: UIImage, width: CGFloat) -> UIImage? {        
+        if image.size.width <= width {
+            return image
+        }
+        let scale = width / image.size.width
+        let height = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: width, height: height))
+        image.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()        
+        return newImage
+    }
 }
 
 struct UtilityMethods {

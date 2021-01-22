@@ -115,10 +115,20 @@ extension CameraViewController {
     @IBAction func detectButtonAction(_ sender: Any) {
         guard let image = previewImageView.image,
             let resizedImage = UIUtilityMethods.resizeImage(image: image,
-                                                            newSize: CGFloat(Constants.serverExpectedSize)) else {
+                                                            width: CGFloat(Constants.serverExpectedWidth)) else {
             return
         }
+//        UIImageWriteToSavedPhotosAlbum(resizedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         pushDetectResultsViewController(withImage: resizedImage)
+            
+    }    
+
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            print(error.localizedDescription)
+        } else {
+            print("Success")
+        }
     }
 
     @IBAction func linkButtonAction(_ sender: Any) {

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetectResultsViewController" customModule="Viision" customModuleProvider="target">
             <connections>
-                <outlet property="aspectRatioConstraint" destination="TeK-bJ-zFt" id="K4O-WV-UDH"/>
                 <outlet property="blurView" destination="O4m-3e-CZp" id="DXn-m6-44g"/>
                 <outlet property="imageView" destination="PuW-GG-TY1" id="nHG-bi-x5h"/>
                 <outlet property="polygonViewsContainerView" destination="V6W-q1-DWb" id="GkN-ea-W72"/>
                 <outlet property="resultsTableView" destination="nTs-Gv-tPx" id="CNL-eh-bD9"/>
+                <outlet property="safeAreaBlurView" destination="4Ox-fx-eSO" id="dRQ-J1-POz"/>
                 <outlet property="swipeView" destination="DZd-QS-cL1" id="toZ-kr-ndS"/>
                 <outlet property="tableContainerHeightConstant" destination="7sS-Cb-mRh" id="ymx-fc-u5u"/>
                 <outlet property="tableViewContainerView" destination="bfT-CZ-yED" id="DNv-kh-OVE"/>
@@ -43,7 +43,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="PuW-GG-TY1" secondAttribute="trailing" id="Gj0-zh-EpT"/>
                         <constraint firstAttribute="bottom" secondItem="PuW-GG-TY1" secondAttribute="bottom" id="HS7-Zi-eVk"/>
-                        <constraint firstAttribute="width" secondItem="V6W-q1-DWb" secondAttribute="height" multiplier="413:550" id="TeK-bJ-zFt"/>
+                        <constraint firstAttribute="width" secondItem="V6W-q1-DWb" secondAttribute="height" multiplier="413:550" placeholder="YES" id="TeK-bJ-zFt"/>
                         <constraint firstItem="PuW-GG-TY1" firstAttribute="top" secondItem="V6W-q1-DWb" secondAttribute="top" id="WRV-eq-Lih"/>
                         <constraint firstItem="PuW-GG-TY1" firstAttribute="leading" secondItem="V6W-q1-DWb" secondAttribute="leading" id="tBW-7R-0BB"/>
                     </constraints>
@@ -76,11 +76,11 @@
                             </constraints>
                         </view>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O4m-3e-CZp">
-                            <rect key="frame" x="10" y="23" width="355" height="0.0"/>
+                            <rect key="frame" x="0.0" y="23" width="375" height="0.0"/>
                             <subviews>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nTs-Gv-tPx" customClass="IntrinsicTableView" customModule="Viision" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="355" height="100"/>
-                                    <color key="backgroundColor" white="1" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="Huf-bl-Wdw"/>
                                     </constraints>
@@ -90,42 +90,45 @@
                                     </connections>
                                 </tableView>
                             </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="nTs-Gv-tPx" firstAttribute="top" secondItem="O4m-3e-CZp" secondAttribute="top" id="7JP-Ht-idl"/>
                                 <constraint firstAttribute="trailing" secondItem="nTs-Gv-tPx" secondAttribute="trailing" id="9Ip-9j-KHC"/>
                                 <constraint firstItem="nTs-Gv-tPx" firstAttribute="leading" secondItem="O4m-3e-CZp" secondAttribute="leading" id="CSq-JY-h0l"/>
                             </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="35"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
                     <viewLayoutGuide key="safeArea" id="vgh-De-7h3"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="vgh-De-7h3" firstAttribute="trailing" secondItem="O4m-3e-CZp" secondAttribute="trailing" constant="10" id="7U4-nY-n7X"/>
+                        <constraint firstItem="vgh-De-7h3" firstAttribute="trailing" secondItem="O4m-3e-CZp" secondAttribute="trailing" id="7U4-nY-n7X"/>
                         <constraint firstAttribute="height" constant="23" id="7sS-Cb-mRh"/>
                         <constraint firstItem="vgh-De-7h3" firstAttribute="bottom" secondItem="O4m-3e-CZp" secondAttribute="bottom" id="AER-NK-7O8"/>
                         <constraint firstItem="DZd-QS-cL1" firstAttribute="leading" secondItem="vgh-De-7h3" secondAttribute="leading" id="P6C-ow-BZE"/>
                         <constraint firstItem="vgh-De-7h3" firstAttribute="trailing" secondItem="DZd-QS-cL1" secondAttribute="trailing" id="ZbU-k4-ycl"/>
-                        <constraint firstItem="O4m-3e-CZp" firstAttribute="leading" secondItem="vgh-De-7h3" secondAttribute="leading" constant="10" id="hJK-h3-QcI"/>
+                        <constraint firstItem="O4m-3e-CZp" firstAttribute="leading" secondItem="vgh-De-7h3" secondAttribute="leading" id="hJK-h3-QcI"/>
                         <constraint firstItem="O4m-3e-CZp" firstAttribute="top" secondItem="DZd-QS-cL1" secondAttribute="bottom" id="xOl-FJ-Kjk"/>
                         <constraint firstItem="DZd-QS-cL1" firstAttribute="top" secondItem="bfT-CZ-yED" secondAttribute="top" id="zbs-Yz-ps4"/>
                     </constraints>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ox-fx-eSO">
+                    <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="bfT-CZ-yED" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="8vI-q4-wCG"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4Ox-fx-eSO" secondAttribute="trailing" id="FOg-jj-lCb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="V6W-q1-DWb" secondAttribute="trailing" id="PRP-Ce-Wcn"/>
                 <constraint firstItem="bfT-CZ-yED" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="QmZ-X4-CpS"/>
                 <constraint firstItem="V6W-q1-DWb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VRj-GA-7sF"/>
                 <constraint firstItem="bfT-CZ-yED" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Yin-Tm-9Tp"/>
                 <constraint firstItem="V6W-q1-DWb" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ZWd-uW-LcQ"/>
+                <constraint firstAttribute="bottom" secondItem="4Ox-fx-eSO" secondAttribute="bottom" id="b5D-K8-bQH"/>
+                <constraint firstItem="4Ox-fx-eSO" firstAttribute="top" secondItem="bfT-CZ-yED" secondAttribute="bottom" id="qcT-3t-613"/>
+                <constraint firstItem="4Ox-fx-eSO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="usf-Ig-BTO"/>
             </constraints>
             <point key="canvasLocation" x="136.80000000000001" y="101.19940029985008"/>
         </view>

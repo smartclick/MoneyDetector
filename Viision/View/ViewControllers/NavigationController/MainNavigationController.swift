@@ -12,7 +12,13 @@ import UIKit
 class MainNavigationController: UINavigationController {
 
     open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return appPreferedStatusBarStyle
+    }
+    
+    var appPreferedStatusBarStyle: UIStatusBarStyle = .lightContent {
+        didSet {
+            setNeedsStatusBarAppearanceUpdate()
+        }
     }
 
     override func viewDidLoad() {
@@ -22,6 +28,19 @@ class MainNavigationController: UINavigationController {
             NSAttributedString.Key.foregroundColor: UIColor.black
         ]
 
+        changeNavColorToOpacity()
+
+    }
+    
+    func changeNavColorToWhite() {
+        navigationBar.isTranslucent = false
+        view.backgroundColor = .clear
+
+        navigationBar.barTintColor = .white
+        navigationBar.tintColor = .black
+    }
+    
+    func changeNavColorToOpacity() {
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.shadowImage = UIImage()
         navigationBar.isTranslucent = true
@@ -29,7 +48,6 @@ class MainNavigationController: UINavigationController {
 
         navigationBar.barTintColor = .clear
         navigationBar.tintColor = .white
-
     }
-
+    
 }

@@ -17,7 +17,7 @@ extension UIView {
     }
 
     func autopinToSuperviewEdges() {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: self,
                            attribute: NSLayoutConstraint.Attribute.top,
                            relatedBy: NSLayoutConstraint.Relation.equal,
@@ -82,7 +82,12 @@ extension UIView {
         }
     }
 
-    func addShadowView(offSet: CGSize = CGSize.zero, color: UIColor = .black, radius: CGFloat = 2, opacity: Float = 1.0, viewTag: Int = 99) {
+    func addShadowView(offSet: CGSize = CGSize.zero,
+                       color: UIColor = .black,
+                       radius: CGFloat = 2,
+                       opacity: Float = 1.0,
+                       spread: CGFloat = 0,
+                       viewTag: Int = 99) {
         removeShadow(viewTag: viewTag)
         layer.masksToBounds = false
         let shadow = UIView(frame: bounds)
@@ -91,7 +96,7 @@ extension UIView {
         shadow.autopinToSuperviewEdges()
         shadow.backgroundColor = backgroundColor
         shadow.layer.cornerRadius = layer.cornerRadius
-        shadow.dropShadow(offSet: offSet, color: color, radius: radius, opacity: opacity)
+        shadow.dropShadow(offSet: offSet, color: color, radius: radius, opacity: opacity, spread: spread)
         shadow.tag = viewTag
     }
 
@@ -125,17 +130,23 @@ extension UIImage {
         draw(in: CGRect(origin: .zero, size: newSize))
         return UIGraphicsGetImageFromCurrentImageContext()
     }
+    
     class func imageWithView(_ view: UIView) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0)
         defer { UIGraphicsEndImageContext() }
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         return UIGraphicsGetImageFromCurrentImageContext()
     }
-}
-
-extension UIButton {
-    func disableButton() {
-        backgroundColor = .clear
-        isEnabled = false
+    
+    func resize(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+    func resize(width: CGFloat) -> UIImage {
+        return resize(to: CGSize(width: width, height: width / (size.width / size.height)))
+    }
+    func resize(height: CGFloat) -> UIImage {
+        return resize(to: CGSize(width: height * (size.width / size.height), height: height))
     }
 }

@@ -11,7 +11,6 @@ import MoneyDetector
 
 // MARK: - Properties
 class DetectResultsViewController: UIViewController {
-    @IBOutlet weak var aspectRatioConstraint: NSLayoutConstraint!
     private var selectedImage: UIImage!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var resultsTableView: IntrinsicTableView!
@@ -21,12 +20,13 @@ class DetectResultsViewController: UIViewController {
     @IBOutlet weak var tableContainerHeightConstant: NSLayoutConstraint!
     @IBOutlet weak var swipeView: UIView!
     @IBOutlet weak var blurView: UIView!
-
+    @IBOutlet weak var safeAreaBlurView: UIView!
     private var hidePan: UIPanGestureRecognizer!
-    private var isTableViewShown = false
+    private var isTableViewShown = false    
 
     var results: [DetectResult] = []
     var buttons: [String: UIButton] = [:]
+    var polygonViews: [DetectResult: [PolygonView]] = [:]
 }
 
 // MARK: - View Lifecycle
@@ -44,20 +44,31 @@ extension DetectResultsViewController {
         updateUI()
         detectMoneyInImage()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if results.count > 0 {
+            configureSettings()
+        }
+    }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        tableViewHeigtConstant.constant = getTableContainerMaxHeight()
+        if tableViewHeigtConstant.constant != getTableContainerMaxHeight() {
+            tableViewHeigtConstant.constant = getTableContainerMaxHeight()
+        }
     }
 }
 
 // MARK: - IBActions
 extension DetectResultsViewController {
     @objc func shareButtonAction() {
-        guard let image = UIImage.imageWithView(polygonViewsContainerView) else {
-            return
-        }
-        shareImageAndText(image: image, text: Messages.shareText)
+        let shareVC = ShareViewController(selectedImage: selectedImage, results: results)
+        navigationController?.pushViewController(shareVC, animated: true)                
+    }
+    
+    @objc func gearButtonAction() {
+        navigationController?.pushViewController(SettingsViewController(), animated: true)
     }
 
     @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
@@ -99,12 +110,20 @@ extension DetectResultsViewController {
         configureAspectRatioConstraint()
         hidePan = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         swipeView.addGestureRecognizer(hidePan)
-        blurView.addBlurEffect(style: .light)
+        configureBlurView()
+    }
+
+    private func configureBlurView() {
+//        blurView.addBlurEffect(style: .light)
+//        safeAreaBlurView.addBlurEffect(style: .light)
+        blurView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        blurView.layer.cornerRadius = 35.0
     }
 
     private func updateUIOnNewResults() {
         resultsTableView.reloadData()
         tableViewContainerView.isHidden = results.count == 0
+        safeAreaBlurView.isHidden = results.count == 0
         swipeView.isHidden = results.count < 2
         if results.count > 0 {
             configurePointsViews()
@@ -122,17 +141,24 @@ extension DetectResultsViewController {
     }
 
     private func configureRightBarButtonItem() {
-        let button =  UIButton(type: .custom)
-        button.setBackgroundImage(UIImage(named: UIConstants.shareIconName), for: .normal)
-        button.addTarget(self, action: #selector(self.shareButtonAction), for: .touchUpInside)
-        button.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 21.0).isActive = true
-        let barButton = UIBarButtonItem(customView: button)
-        navigationItem.rightBarButtonItem = barButton
+        let shareButton =  UIButton(type: .custom)
+        shareButton.setBackgroundImage(UIImage(named: UIConstants.shareIconName), for: .normal)
+        shareButton.addTarget(self, action: #selector(self.shareButtonAction), for: .touchUpInside)
+        shareButton.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        shareButton.heightAnchor.constraint(equalToConstant: 21.0).isActive = true
+        let shareBarButton = UIBarButtonItem(customView: shareButton)
+        
+        let gearButton =  UIButton(type: .custom)
+        gearButton.setBackgroundImage(UIImage(named: UIConstants.gearIconName), for: .normal)
+        gearButton.addTarget(self, action: #selector(self.gearButtonAction), for: .touchUpInside)
+        gearButton.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        gearButton.heightAnchor.constraint(equalToConstant: 21.0).isActive = true
+        let gearBarButton = UIBarButtonItem(customView: gearButton)
+        
+        navigationItem.rightBarButtonItems = [shareBarButton, gearBarButton]
     }
 
-    private func configureAspectRatioConstraint() {
-        aspectRatioConstraint.isActive = false
+    private func configureAspectRatioConstraint() {        
         imageView.addConstraint(NSLayoutConstraint(item: imageView!,
                                                    attribute: NSLayoutConstraint.Attribute.height,
                                                    relatedBy: NSLayoutConstraint.Relation.equal,
@@ -216,6 +242,18 @@ extension DetectResultsViewController {
         results.remove(at: index)
         results.insert(detectResult, at: 0)
     }
+    
+    private func configureSettings() {
+        let isFeelEnabled = UserDefaults.standard.bool(forKey: Constants.fillKey)
+        let isOutlineEnabled = UserDefaults.standard.bool(forKey: Constants.outlineKey)
+        polygonViews.keys.forEach {
+            let feelColor = Constants.colors[$0.colorIndex]
+            polygonViews[$0]!.forEach {
+                $0.shapeLayer.fillColor = isFeelEnabled ? feelColor.withAlphaComponent(0.7).cgColor : UIColor.clear.cgColor
+                $0.shapeLayer.strokeColor = isOutlineEnabled ? feelColor.cgColor : UIColor.clear.cgColor
+            }
+        }
+    }
 }
 
 // MARK: - Private methods realted to Polygons
@@ -227,11 +265,9 @@ extension DetectResultsViewController {
         configureRightBarButtonItem()
         let withDiff = imageView.frame.size.width / selectedImage.size.width
         let heightDiff = imageView.frame.size.height / selectedImage.size.height
-        let buttonWidth = 31 * withDiff
-        let buttonHeight = 31 * heightDiff
-        let buttonSize = buttonWidth > buttonHeight ? buttonWidth : buttonHeight
         for detectMoney in results {
             if let center = detectMoney.detectedMoney.getBoundingBoxCenter() {
+                let buttonSize = detectMoney.detectedMoney.getButtonSize(multiplier: withDiff)
                 let button = UIButton(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
                 button.setImage(UIImage(named: "\(UIConstants.inactiveIconPlaceholder)\(detectMoney.colorIndex)"), for: .normal)
                 button.setImage(UIImage(named: "\(UIConstants.activeIconPlaceholder)\(detectMoney.colorIndex)"), for: .selected)
@@ -239,8 +275,30 @@ extension DetectResultsViewController {
                 button.center = CGPoint(x: center.x * withDiff, y: center.y * heightDiff)
                 buttons[detectMoney.detectedMoney.id] = button
                 button.addTarget(self, action: #selector(self.buttonClicked), for: .touchUpInside)
+                for polygon in detectMoney.detectedMoney.polygon {
+                    let points = polygon.compactMap({
+                        CGPoint(x: (CGFloat($0.x) * withDiff), y: (CGFloat($0.y) * heightDiff))
+                    })
+                    if polygonViews[detectMoney] == nil {
+                        polygonViews[detectMoney] = [addPolygonView(points: points, color: Constants.colors[detectMoney.colorIndex])]
+                    } else {
+                        polygonViews[detectMoney]?.append(addPolygonView(points: points, color: Constants.colors[detectMoney.colorIndex]))
+                    }
+                }
             }
         }
+        buttons.values.forEach {
+            polygonViewsContainerView.bringSubviewToFront($0)
+        }
+        configureSettings()
+    }
+    
+    private func addPolygonView(points: [CGPoint], color: UIColor) -> PolygonView {
+        let polygonView = PolygonView(frame: polygonViewsContainerView.bounds)
+        polygonViewsContainerView.addSubview(polygonView)
+        polygonView.autopinToSuperviewEdges()
+        polygonView.addRectangleFromPoints(points: points, fillColor: color, strokeColor: color)
+        return polygonView
     }
 }
 
@@ -408,6 +466,17 @@ extension MDDetectedMoney {
             return nil
         }
         return CGPoint(x: (boundingBox[0].x + boundingBox[1].x) / 2, y: (boundingBox[0].y + boundingBox[1].y) / 2)
+    }
+    
+    func getButtonSize(multiplier: CGFloat) -> CGFloat {
+        let fixedSize: CGFloat = 25
+        guard boundingBox.count > 1 else {
+            return fixedSize
+        }
+        let width = boundingBox[1].x - boundingBox[0].x
+        let height = boundingBox[1].y - boundingBox[0].y
+        let newSize = multiplier * 0.7 * (width > height ? CGFloat(height) : CGFloat(width))
+        return newSize < fixedSize ? newSize : fixedSize
     }
 }
 

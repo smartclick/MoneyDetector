@@ -9,7 +9,15 @@
 import UIKit
 import MoneyDetector
 
-class DetectResult {
+class DetectResult: Hashable {
+    static func == (lhs: DetectResult, rhs: DetectResult) -> Bool {
+        return lhs.detectedMoney.id == rhs.detectedMoney.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(detectedMoney.id)
+    }
+    
     let detectedMoney: MDDetectedMoney
     var isFeedbackProvided = false
     var isCorrect: Bool?

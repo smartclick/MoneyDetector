@@ -20,9 +20,13 @@ struct Constants {
                                     UIColor(hex: "F9C74F"),
                                     UIColor(hex: "F94144")]
 
-    static let sessionQueueName = "ai.smartclick.MoneyDetectionApp.captureSession"
+    static let sessionQueueName = "ai.smartclick.viision.captureSession"
 
     static let serverExpectedSize = 550.0
+    static let serverExpectedWidth = 1024.0
+    
+    static let outlineKey = "outline"
+    static let fillKey = "fill"
 }
 
 struct Messages {
@@ -40,6 +44,8 @@ struct Messages {
     static let invalidUrl = "Invalid url"
     static let checkInternetConnection = "Please check your internet connection."
     static let shareText = "Money detected from ai"
+    static let noCurrencyTitle = "We couldn’t detect any currency"
+    static let noCurrencyMessage = "Please try again"
     
     static let resultCorrectText = "Thanks!"
     static let resultIncorrectText = "Oh no!"
@@ -67,18 +73,21 @@ struct UIConstants {
 
     static let resultCorrectImage = "icon_check_white"
     static let resultIncorrectImage = "icon_cancel_white"
-
+ 
     static let errorImage = "error_icon"
     static let noResultImage = "no_photo_icon"
     static let errorButtonColor = UIColor.init(hex: "F44336")
 
     static let errorButtonTitle = "Got it"
+    static let settingsVCTitle = "Settings"
+    static let shareVCTitle = "Share Preview"
     static let helveticaFont = UIFont(name: "Helvetica", size: 14)!
     static let valueLabelColor =  UIColor(hex: "282828", alpha: 0.3)
 
     static let coinIconName = "icon_coin"
     static let cashIconName = "icon_cash"
     static let shareIconName = "share_icon"
+    static let gearIconName = "gear_icon"
     static let feedbackIconName = "icon_feedback"
     
     static let activeIconPlaceholder = "money_icon_active_"

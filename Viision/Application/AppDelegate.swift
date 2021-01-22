@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13.0, *) {} else {
             window = UIUtilityMethods.initializeWindow(withRootViewController: Assembler.getRootController())
         }
+        if UserDefaults.standard.object(forKey: Constants.outlineKey) == nil {
+            UserDefaults.standard.setValue(true, forKey: Constants.outlineKey)
+        }
         return true
     }
 }
