@@ -28,7 +28,7 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This app would like to access your camera to take photos of banknotes and coins.</string>
+	<string>This app would like to access your photo library to upload photos of banknotes and coins.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app would like to access your photo library to upload photos of banknotes and coins.</string>
 	<key>UIApplicationSceneManifest</key>
